@@ -1,0 +1,16 @@
+bootJar{ enabled = false }
+jar{ enabled = true }
+
+dependencies {
+    implementation 'org.springframework.kafka:spring-kafka'
+
+    // Use Micrometer & Zipkin
+    implementation 'io.micrometer:micrometer-tracing'
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-metrics-micrometer'
+
+    //Jackson
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+}
