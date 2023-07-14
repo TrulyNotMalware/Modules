@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    group:
+      "prod": "base"
+      "dev": "base"
+      "local": "base"
+    active: local
+---

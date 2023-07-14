@@ -1,0 +1,26 @@
+ext {
+    eventuateBomVersion = '2023.0.RELEASE'
+}
+
+dependencies {
+    //Spring MVC
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
+
+    //Eventuate-tram Saga orchestrator
+    implementation 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter'
+
+    //CDC - Using Kafka
+//    implementation 'io.eventuate.tram.core:eventuate-tram-jdbc-kafka'
+    implementation 'io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc'
+    implementation 'io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka'
+
+    //Orchestrator Only
+    testCompileOnly 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-testing-support'
+
+    //Protobuf vulnerabilities fix.
+    implementation 'com.google.protobuf:protobuf-java:3.21.9' // 3.11.4
+    //Mysql-connector vulnerabilities
+    implementation 'mysql:mysql-connector-java:8.0.33'
+}

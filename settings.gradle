@@ -3,4 +3,7 @@ include 'core'
 include 'kafka'
 include 'reactorCore'
 include 'reactorKafka'
+include 'mvcExample'
+include 'saga'
+include 'sagaOrchestrator'
 

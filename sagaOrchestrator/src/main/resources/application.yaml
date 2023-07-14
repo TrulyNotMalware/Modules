@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    group:
+      "prod": "base"
+      "dev": "base"
+      "local": "base"
+    active: local
+---
+
+eventuate:
+  cdc:
+    type: EventuateTram # This is Default.

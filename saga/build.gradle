@@ -1,0 +1,17 @@
+bootJar{ enabled = false }
+jar { enabled = true }
+
+ext{
+//    eventuateBomVersion = '0.21.0.RELEASE'
+    eventuateBomVersion = '2023.0.RELEASE'
+}
+
+dependencies {
+    implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
+    //Saga Participants
+    implementation 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant'
+    //Protobuf vulnerabilities fix.
+    implementation 'com.google.protobuf:protobuf-java:3.21.9' // 3.11.4
+    //Mysql-connector vulnerabilities
+    implementation 'mysql:mysql-connector-java:8.0.33'
+}
