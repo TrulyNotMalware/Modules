@@ -6,4 +6,5 @@ include 'reactorKafka'
 include 'mvcExample'
 include 'saga'
 include 'sagaOrchestrator'
+include 'auth'
 
