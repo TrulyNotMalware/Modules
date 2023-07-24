@@ -1,8 +1,118 @@
 spring:
   profiles:
     group:
-      "prod": "base"
-      "dev": "base"
-      "local": "base"
+      "prod": "base, base-config"
+      "dev": "base, base-local-config"
+      "local": "base, base-local-config"
     active: local
+---
+#Tomcat Ports
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 5000
+
+spring:
+  #Dev tools Endpoints
+  devtools:
+    restart:
+      exclude: static/**, public/**, resources/**
+  #Common Profiles
+  config:
+    activate:
+      on-profile: base-local-config
+  #Swagger configurations
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  #Database Naming rule
+  jpa:
+    hibernate:
+      naming: # camelCase -> under_score_case, '.' -> '_', UPPER_CASE is not allowed. changed to lower_case
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false #About Lazy fetch
+
+#Actuator
+management:
+  endpoint:
+    #    logfile:
+    #      external-file: ~/logback.log
+    health:
+      show-details: always
+  #  trace:
+  #    http:
+  #      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,metrics,mappings,threaddump,conditions,info,heapdump
+      base-path: /api/actuator
+      path-mapping:
+        loggers: logs
+        httptrace: trace
+info:
+  spring:
+    framework:
+      version: ${spring-framework.version}
+  java:
+    version: ${java.version}
+  platform:
+    version: 0.0.1-SNAPSHOT
+---
+#Tomcat Ports
+server:
+  port: ${KUBERNETES_SERVICE_PORT}
+  servlet:
+    session:
+      timeout: 5000
+
+spring:
+  #Dev tools Endpoints
+  devtools:
+    restart:
+      exclude: static/**, public/**, resources/**
+  #Common Profiles
+  config:
+    activate:
+      on-profile: base-config
+  #Swagger configurations
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  #Database Naming rule
+  jpa:
+    hibernate:
+      naming: # camelCase -> under_score_case, '.' -> '_', UPPER_CASE is not allowed. changed to lower_case
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false #About Lazy fetch
+
+#Actuator
+management:
+  endpoint:
+    #    logfile:
+    #      external-file: ~/logback.log
+    health:
+      show-details: when_authorized
+  #  trace:
+  #    http:
+  #      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,metrics,mappings,threaddump,conditions,info,heapdump
+      base-path: /api/actuator
+      path-mapping:
+        loggers: logs
+        httptrace: trace
+info:
+  spring:
+    framework:
+      version: ${spring-framework.version}
+  java:
+    version: ${java.version}
+  platform:
+    version: 0.0.1-SNAPSHOT
 ---
