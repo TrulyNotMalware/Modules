@@ -1,9 +1,9 @@
 spring:
   profiles:
     group:
-      "prod": "base, base-config"
-      "dev": "base, base-local-config"
-      "local": "base, base-local-config"
+      "prod": "base, base-config, hikari-default-config, prod-oracle-database"
+      "dev": "base, base-local-config, hikari-default-config"
+      "local": "base, base-local-config, hikari-default-config, local-h2-database"
     active: local
 ---
 #Tomcat Ports
@@ -22,10 +22,6 @@ spring:
   config:
     activate:
       on-profile: base-local-config
-  #Swagger configurations
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   #Database Naming rule
   jpa:
     hibernate:
@@ -77,10 +73,6 @@ spring:
   config:
     activate:
       on-profile: base-config
-  #Swagger configurations
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   #Database Naming rule
   jpa:
     hibernate:
@@ -116,3 +108,74 @@ info:
   platform:
     version: 0.0.1-SNAPSHOT
 ---
+spring:
+  config:
+    activate:
+      on-profile: hikari-default-config
+  datasource:
+    hikari: #DB Connection Pool - Careful Deadlock issue
+      transaction-isolation: TRANSACTION_REPEATABLE_READ # Not use SERIALIZABLE
+      maximum-pool-size: 10
+      minimum-idle: 10 # Hikari Powerfully recommended. Same value as maximum-pool-size
+      connection-timeout: 5000 #5s Timeout.
+      validation-timeout: 3000 #3s Timeout
+      connection-test-query: SELECT 1 #ORACLE Database Not works.
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      pool-name: platform_hikari_pool
+---
+spring:
+  config:
+    activate:
+      on-profile: prod-oracle-database
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@${TNS_NAME}?TNS_ADMIN=${ORACLE_WALLET_DIRECTORY}
+    username: ${ORACLE_USER_NAME}
+    password: ${ORACLE_DB_PASSWORD}
+
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL # Oracle Database Connection Query.
+      transaction-isolation: TRANSACTION_READ_COMMITTED # READ_COMMITTED and SERIALIZABLE are the only valid transaction levels ( Oracle )
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: true #Show Beautify sql2
+    database: ORACLE
+    database-platform: org.hibernate.dialect.OracleDialect
+  h2: # Disable Local h2 database.
+    console:
+      enabled: false
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+---
+spring:
+  config:
+    activate:
+      on-profile: local-h2-database
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MariaDB;DATABASE_TO_LOWER=TRUE
+    jdbcUrl: jdbc:h2:mem:test;MODE=MariaDB;DATABASE_TO_LOWER=TRUE
+    username: admin
+    password: admin
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: h2
+  sql:
+    init:
+      mode: embedded
