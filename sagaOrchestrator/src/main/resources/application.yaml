@@ -2,11 +2,32 @@ spring:
   profiles:
     group:
       "prod": "base"
-      "dev": "base"
+      "dev": "base, dev-mysql, dev-kafka"
       "local": "base"
     active: local
 ---
+spring:
+  config:
+    activate:
+      on-profile: dev-mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MY_SQL_SVC}:${DB_PORT}/${DB_NAME}?serverTimezone=Asia/Seoul
+    userName: ${DB_USER}
+    password: ${DB_PASSWORD}
 
 eventuate:
   cdc:
-    type: EventuateTram # This is Default.
+    type: EventuateTram # Default.
+---
+spring:
+  config:
+    activate:
+      on-profile: dev-kafka
+eventuatelocal:
+  kafka:
+    bootstrap:
+      servers: ${KAFKA_HOST}:${KAFKA_PORT}
+  zookeeper:
+    connection:
+      string: ${KAFKA_ZOOKEEPER_HOST}:${KAFKA_ZOOKEEPER_PORT}

@@ -18,6 +18,8 @@ dependencies {
 
     //Orchestrator Only
     testCompileOnly 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-testing-support'
+    //In-memory saga-orchestrator
+    testImplementation "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory"
 
     //Protobuf vulnerabilities fix.
     implementation 'com.google.protobuf:protobuf-java:3.21.9' // 3.11.4
