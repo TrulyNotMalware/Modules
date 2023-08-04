@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventuate-tram-cdc
+  namespace: dev-platform
+spec:
+  selector:
+    matchLabels:
+      app: eventuate-tram-cdc
+  template:
+    metadata:
+      labels:
+        app: eventuate-tram-cdc
+        namespace: dev-platform
+    spec:
+      containers:
+        - name: eventuate-tram-cdc
+          image: eventuateio/eventuate-cdc-service:0.15.0.RELEASE
+          ports:
+            - containerPort: 8099
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: eventuate-tram-environment-cm

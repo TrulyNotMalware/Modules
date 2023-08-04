@@ -2,9 +2,67 @@ spring:
   profiles:
     group:
       "prod": "base"
-      "dev": "base, dev-mysql, dev-kafka"
+      "dev": "base, hikari-default-config, dev-mysql, dev-kafka"
       "local": "base"
     active: local
+---
+#Tomcat Ports
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 1800
+spring:
+  config:
+    activate:
+      on-profile: base
+  devtools:
+    restart:
+      exclude: static/**, public/**, resources/**
+  jpa:
+    hibernate:
+      naming: # camelCase -> under_score_case, '.' -> '_', UPPER_CASE is not allowed. changed to lower_case
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false #About Lazy fetch
+#Actuator
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,metrics,mappings,threaddump,conditions,info,heapdump
+      base-path: /api/actuator
+      path-mapping:
+        loggers: logs
+        httptrace: trace
+info:
+  spring:
+    framework:
+      version: ${spring-framework.version}
+  java:
+    version: ${java.version}
+logging:
+  level:
+    eventuate: DEBUG
+---
+spring:
+  config:
+    activate:
+      on-profile: hikari-default-config
+  datasource:
+    hikari:
+      transaction-isolation: TRANSACTION_REPEATABLE_READ
+      maximum-pool-size: 10
+      minimum-idle: 10
+      connection-timeout: 5000
+      validation-timeout: 3000
+      connection-test-query: SELECT 1
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      pool-name: default_hikari_pool
 ---
 spring:
   config:

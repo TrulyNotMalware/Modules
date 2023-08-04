@@ -4,6 +4,7 @@ ext {
 
 dependencies {
     //Spring MVC
+    implementation project(":core")
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))

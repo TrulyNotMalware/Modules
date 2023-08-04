@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eventuate-tram-cdc-svc
+  namespace: dev-platform
+spec:
+  ports:
+    - name: eventuate-tram-cdc-svc
+      port: 8080
+      targetPort: 8099
+  selector:
+    app: eventuate-tram-cdc
+  type: ClusterIP
