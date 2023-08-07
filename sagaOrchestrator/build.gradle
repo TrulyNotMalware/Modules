@@ -4,14 +4,15 @@ ext {
 
 dependencies {
     //Spring MVC
-    implementation project(":core")
+    api project(":core")
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
+    api(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
 
     //Eventuate-tram Saga orchestrator
-    implementation 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter'
-
+    api 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter'
+    //Lock
+    api "io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking"
     //CDC - Using Kafka
 //    implementation 'io.eventuate.tram.core:eventuate-tram-jdbc-kafka'
     implementation 'io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc'

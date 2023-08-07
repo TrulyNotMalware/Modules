@@ -65,9 +65,9 @@ subprojects {
     }
 }
 
-project(':mvcExample'){
-    dependencies {
-        implementation project(':core')
-        implementation project(':saga')
-    }
-}
+//project(':mvcExample'){
+//    dependencies {
+//        implementation project(':core')
+//        implementation project(':sagaOrchestrator')
+//    }
+//}
