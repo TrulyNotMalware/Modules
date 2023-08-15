@@ -11,7 +11,7 @@ import lombok.Setter;
 import java.time.Instant;
 
 @Entity
-@Table(name = "`client`")
+@Table(name = "client")
 @Getter
 @Setter
 public class Client {
