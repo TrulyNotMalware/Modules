@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+//Instead of explicitly @Import-ing configuration classes you can rely on the auto-configuration provided by eventuate-tram-sagas-spring-orchestration-simple-dsl-starter
 @Service
 @RequiredArgsConstructor
 public class OrderSagaService {
