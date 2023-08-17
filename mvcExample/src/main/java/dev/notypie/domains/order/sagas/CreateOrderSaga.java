@@ -10,8 +10,10 @@ import io.eventuate.tram.commands.consumer.CommandWithDestination;
 import io.eventuate.tram.sagas.orchestration.SagaDefinition;
 import io.eventuate.tram.sagas.simpledsl.SimpleSaga;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 
+@Component
 @RequiredArgsConstructor
 public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
 

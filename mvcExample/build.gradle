@@ -1,4 +1,9 @@
 dependencies {
     //Spring MVC
-    implementation project(":sagaOrchestrator")
+    api project(":sagaOrchestrator")
+
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+//    implementation "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration"
+//    implementation "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter"
+//    implementation "io.eventuate.tram.sagas:eventuate-tram-sagas-orchestration"
 }

@@ -5,8 +5,10 @@ import dev.notypie.domains.order.domain.OrderRepository;
 import dev.notypie.domains.order.messaging.common.OrderDetails;
 import io.eventuate.tram.sagas.orchestration.SagaInstanceFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 @RequiredArgsConstructor
 public class OrderSagaService {
     private final OrderRepository orderRepository;
