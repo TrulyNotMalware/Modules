@@ -12,6 +12,7 @@ dependencies {
     //Eventuate-tram Saga orchestrator
     api 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter'
     api "io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka"
+    api "io.eventuate.tram.core:eventuate-tram-spring-commands"
 
     //Lock
     api "io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking"

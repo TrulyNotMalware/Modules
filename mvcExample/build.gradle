@@ -3,30 +3,6 @@ ext {
 }
 dependencies {
     //Spring MVC
-    api project(":core")
+    api project(":sagaOrchestrator")
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    api(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
-
-    //Eventuate-tram Saga orchestrator
-    api 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter'
-
-    api "io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka"
-    api "io.eventuate.tram.core:eventuate-tram-spring-commands"
-    //Lock
-    api "io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking"
-    //CDC - Using Kafka
-//    implementation 'io.eventuate.tram.core:eventuate-tram-jdbc-kafka'
-    implementation 'io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc'
-    implementation 'io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka'
-
-    //Orchestrator Only
-    testCompileOnly 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-testing-support'
-    //In-memory saga-orchestrator
-    testImplementation "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory"
-
-    //Protobuf vulnerabilities fix.
-    implementation 'com.google.protobuf:protobuf-java:3.21.9' // 3.11.4
-    //Mysql-connector vulnerabilities
-    implementation 'mysql:mysql-connector-java:8.0.33'
 }
