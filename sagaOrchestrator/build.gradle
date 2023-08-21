@@ -5,8 +5,6 @@ ext {
 dependencies {
     //Spring MVC
     api project(":core")
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-
     api(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
 
     //Eventuate-tram Saga orchestrator
@@ -17,9 +15,7 @@ dependencies {
     //Lock
     api "io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking"
     //CDC - Using Kafka
-//    implementation 'io.eventuate.tram.core:eventuate-tram-jdbc-kafka'
-    implementation 'io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc'
-    implementation 'io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka'
+    implementation "io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka"
 
     //Orchestrator Only
     testCompileOnly 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-testing-support'

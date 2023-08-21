@@ -7,11 +7,31 @@ ext{
 }
 
 dependencies {
+    api project(":core")
+
     implementation(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     //Saga Participants
-    implementation 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant'
+    implementation 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-participant-starter'
+    implementation "io.eventuate.tram.core:eventuate-tram-spring-commands"
+    //Logging
+    implementation "io.eventuate.tram.core:eventuate-tram-spring-logging"
+
+    //CDC - Using Kafka
+//    implementation 'io.eventuate.tram.core:eventuate-tram-jdbc-kafka'
+//    implementation 'io.eventuate.tram.core:eventuate-tram-spring-producer-jdbc'
+//    implementation 'io.eventuate.tram.core:eventuate-tram-spring-consumer-kafka'
+    implementation "io.eventuate.tram.core:eventuate-tram-spring-jdbc-kafka"
+    implementation "io.eventuate.tram.core:eventuate-tram-spring-optimistic-locking"
+
     //Protobuf vulnerabilities fix.
     implementation 'com.google.protobuf:protobuf-java:3.21.9' // 3.11.4
     //Mysql-connector vulnerabilities
     implementation 'mysql:mysql-connector-java:8.0.33'
+
+
+    testImplementation "io.eventuate.tram.sagas:eventuate-tram-sagas-spring-in-memory"
+
+    testImplementation "io.eventuate.messaging.kafka:eventuate-messaging-kafka-spring-producer"
+    testImplementation "io.eventuate.tram.core:eventuate-tram-spring-logging"
 }

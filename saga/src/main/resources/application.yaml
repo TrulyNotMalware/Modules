@@ -1,0 +1,215 @@
+spring:
+  profiles:
+    group:
+      "prod": "base, base-config, hikari-default-config, prod-oracle-database"
+      "dev": "base, base-local-config, hikari-default-config, dev-kafka, dev-mysql"
+      "local": "base, base-local-config, hikari-default-config, local-h2-database"
+    active: local
+---
+#Tomcat Ports
+server:
+  port: 8088
+  servlet:
+    session:
+      timeout: 5000
+
+spring:
+  application:
+    name: customer-service
+  #Dev tools Endpoints
+  devtools:
+    restart:
+      exclude: static/**, public/**, resources/**
+  #Common Profiles
+  config:
+    activate:
+      on-profile: base-local-config
+  #Database Naming rule
+  jpa:
+    hibernate:
+      naming: # camelCase -> under_score_case, '.' -> '_', UPPER_CASE is not allowed. changed to lower_case
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false #About Lazy fetch
+
+#Actuator
+management:
+  endpoint:
+    #    logfile:
+    #      external-file: ~/logback.log
+    health:
+      show-details: always
+  #  trace:
+  #    http:
+  #      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,metrics,mappings,threaddump,conditions,info,heapdump
+      base-path: /api/actuator
+      path-mapping:
+        loggers: logs
+        httptrace: trace
+info:
+  spring:
+    framework:
+      version: ${spring-framework.version}
+  java:
+    version: ${java.version}
+  platform:
+    version: 0.0.1-SNAPSHOT
+---
+#Tomcat Ports
+server:
+  port: ${KUBERNETES_SERVICE_PORT}
+  servlet:
+    session:
+      timeout: 5000
+
+spring:
+  #Dev tools Endpoints
+  devtools:
+    restart:
+      exclude: static/**, public/**, resources/**
+  #Common Profiles
+  config:
+    activate:
+      on-profile: base-config
+  #Database Naming rule
+  jpa:
+    hibernate:
+      naming: # camelCase -> under_score_case, '.' -> '_', UPPER_CASE is not allowed. changed to lower_case
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false #About Lazy fetch
+
+#Actuator
+management:
+  endpoint:
+    #    logfile:
+    #      external-file: ~/logback.log
+    health:
+      show-details: when_authorized
+  #  trace:
+  #    http:
+  #      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,loggers,metrics,mappings,threaddump,conditions,info,heapdump
+      base-path: /api/actuator
+      path-mapping:
+        loggers: logs
+        httptrace: trace
+info:
+  spring:
+    framework:
+      version: ${spring-framework.version}
+  java:
+    version: ${java.version}
+  platform:
+    version: 0.0.1-SNAPSHOT
+---
+spring:
+  config:
+    activate:
+      on-profile: hikari-default-config
+  datasource:
+    hikari: #DB Connection Pool - Careful Deadlock issue
+      transaction-isolation: TRANSACTION_REPEATABLE_READ # Not use SERIALIZABLE
+      maximum-pool-size: 10
+      minimum-idle: 10 # Hikari Powerfully recommended. Same value as maximum-pool-size
+      connection-timeout: 5000 #5s Timeout.
+      validation-timeout: 3000 #3s Timeout
+      connection-test-query: SELECT 1 #ORACLE Database Not works.
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      pool-name: platform_hikari_pool
+---
+spring:
+  config:
+    activate:
+      on-profile: prod-oracle-database
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@${TNS_NAME}?TNS_ADMIN=${ORACLE_WALLET_DIRECTORY}
+    username: ${ORACLE_USER_NAME}
+    password: ${ORACLE_DB_PASSWORD}
+
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL # Oracle Database Connection Query.
+      transaction-isolation: TRANSACTION_READ_COMMITTED # READ_COMMITTED and SERIALIZABLE are the only valid transaction levels ( Oracle )
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: true #Show Beautify sql2
+    database: ORACLE
+    database-platform: org.hibernate.dialect.OracleDialect
+  h2: # Disable Local h2 database.
+    console:
+      enabled: false
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+---
+spring:
+  config:
+    activate:
+      on-profile: local-h2-database
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MariaDB;DATABASE_TO_LOWER=TRUE
+    jdbcUrl: jdbc:h2:mem:test;MODE=MariaDB;DATABASE_TO_LOWER=TRUE
+    username: admin
+    password: admin
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database: h2
+  sql:
+    init:
+      mode: embedded
+---
+spring:
+  config:
+    activate:
+      on-profile: dev-mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MY_SQL_SVC}:${DB_PORT}/${DB_NAME}?serverTimezone=Asia/Seoul
+    userName: ${DB_USER}
+    password: ${DB_PASSWORD}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+eventuate:
+  cdc:
+    type: EventuateTram # Default.
+---
+spring:
+  config:
+    activate:
+      on-profile: dev-kafka
+eventuatelocal:
+  kafka:
+    bootstrap:
+      servers: ${KAFKA_HOST}:${KAFKA_PORT}
+  zookeeper:
+    connection:
+      string: ${KAFKA_ZOOKEEPER_HOST}:${KAFKA_ZOOKEEPER_PORT}
