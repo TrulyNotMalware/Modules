@@ -2,7 +2,7 @@ package dev.notypie.domains.order.sagas;
 
 import dev.notypie.domains.order.domain.Order;
 import dev.notypie.domains.order.domain.OrderRepository;
-import dev.notypie.domains.order.messaging.common.OrderDetails;
+import dev.notypie.messaging.common.OrderDetails;
 import io.eventuate.tram.sagas.orchestration.SagaInstanceFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

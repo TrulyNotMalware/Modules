@@ -2,8 +2,8 @@ package dev.notypie.domains.order.application;
 
 import dev.notypie.domains.order.domain.Order;
 import dev.notypie.domains.order.domain.OrderRepository;
-import dev.notypie.domains.order.messaging.common.OrderDetails;
-import dev.notypie.domains.order.messaging.common.RejectionReason;
+import dev.notypie.messaging.common.OrderDetails;
+import dev.notypie.messaging.common.RejectionReason;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

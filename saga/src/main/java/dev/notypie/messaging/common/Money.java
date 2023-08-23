@@ -1,4 +1,4 @@
-package dev.notypie.domain.customer.messaging.common;
+package dev.notypie.messaging.common;
 
 import jakarta.persistence.Access;
 import jakarta.persistence.AccessType;

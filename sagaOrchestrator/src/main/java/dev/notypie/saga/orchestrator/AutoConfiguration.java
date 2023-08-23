@@ -6,10 +6,12 @@ import io.eventuate.tram.spring.consumer.jdbc.TramConsumerJdbcAutoConfiguration;
 import io.eventuate.tram.spring.consumer.kafka.EventuateTramKafkaMessageConsumerConfiguration;
 import io.eventuate.tram.spring.messaging.common.TramMessagingCommonAutoConfiguration;
 import io.eventuate.tram.spring.messaging.producer.jdbc.TramMessageProducerJdbcConfiguration;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
+@EnableAutoConfiguration
 @Import({SagaOrchestratorConfiguration.class,//SagaInstanceFactory
         TramMessagingCommonAutoConfiguration.class,//ChannelMapping
         TramMessageProducerJdbcConfiguration.class,//MessageProducerImplementation

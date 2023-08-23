@@ -1,4 +1,4 @@
-package dev.notypie.domain.customer.messaging.commands;
+package dev.notypie.messaging.commands;
 
 import io.eventuate.tram.commands.common.Command;
 

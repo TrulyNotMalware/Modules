@@ -1,8 +1,8 @@
 package dev.notypie.domains.order.domain;
 
-import dev.notypie.domains.order.messaging.common.OrderDetails;
-import dev.notypie.domains.order.messaging.common.OrderState;
-import dev.notypie.domains.order.messaging.common.RejectionReason;
+import dev.notypie.messaging.common.OrderDetails;
+import dev.notypie.messaging.common.OrderState;
+import dev.notypie.messaging.common.RejectionReason;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

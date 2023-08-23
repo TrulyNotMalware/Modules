@@ -2,17 +2,19 @@ package dev.notypie.domains.order.sagas;
 
 import dev.notypie.domains.order.application.OrderService;
 import dev.notypie.domains.order.domain.Order;
-import dev.notypie.domains.order.messaging.common.Money;
-import dev.notypie.domains.order.messaging.common.RejectionReason;
+import dev.notypie.messaging.common.Money;
+import dev.notypie.messaging.common.RejectionReason;
 import dev.notypie.domains.order.sagas.exceptions.CustomerCreditLimitExceeded;
 import dev.notypie.domains.order.sagas.exceptions.CustomerNotFound;
 import io.eventuate.tram.commands.consumer.CommandWithDestination;
 import io.eventuate.tram.sagas.orchestration.SagaDefinition;
 import io.eventuate.tram.sagas.simpledsl.SimpleSaga;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
@@ -54,10 +56,12 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
     }
 
     private void handleCustomerNotFound(CreateOrderSagaData data, CustomerNotFound reply) {
+        log.info("Customer Not Found");
         data.setRejectionReason(RejectionReason.UNKNOWN_CUSTOMER);
     }
 
     private void handleCustomerCreditLimitExceeded(CreateOrderSagaData data, CustomerCreditLimitExceeded reply) {
+        log.info("setRejectReason : INSUFFICIENT");
         data.setRejectionReason(RejectionReason.INSUFFICIENT_CREDIT);
     }
 

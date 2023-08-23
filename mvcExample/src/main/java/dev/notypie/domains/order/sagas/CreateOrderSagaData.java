@@ -1,7 +1,7 @@
 package dev.notypie.domains.order.sagas;
 
-import dev.notypie.domains.order.messaging.common.OrderDetails;
-import dev.notypie.domains.order.messaging.common.RejectionReason;
+import dev.notypie.messaging.common.OrderDetails;
+import dev.notypie.messaging.common.RejectionReason;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

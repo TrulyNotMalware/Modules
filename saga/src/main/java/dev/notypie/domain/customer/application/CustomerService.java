@@ -3,7 +3,7 @@ package dev.notypie.domain.customer.application;
 import dev.notypie.domain.customer.domain.Customer;
 import dev.notypie.domain.customer.domain.CustomerCreditLimitExceededException;
 import dev.notypie.domain.customer.domain.CustomerRepository;
-import dev.notypie.domain.customer.messaging.common.Money;
+import dev.notypie.messaging.common.Money;
 import dev.notypie.domain.customer.domain.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

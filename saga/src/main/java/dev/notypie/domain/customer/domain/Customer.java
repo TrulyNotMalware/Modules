@@ -1,6 +1,6 @@
 package dev.notypie.domain.customer.domain;
 
-import dev.notypie.domain.customer.messaging.common.Money;
+import dev.notypie.messaging.common.Money;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

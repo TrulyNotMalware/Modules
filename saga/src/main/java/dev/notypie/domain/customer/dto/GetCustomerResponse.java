@@ -1,6 +1,6 @@
 package dev.notypie.domain.customer.dto;
 
-import dev.notypie.domain.customer.messaging.common.Money;
+import dev.notypie.messaging.common.Money;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

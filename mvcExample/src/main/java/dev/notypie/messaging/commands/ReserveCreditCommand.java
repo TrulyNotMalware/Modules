@@ -1,6 +1,6 @@
-package dev.notypie.domain.customer.messaging.commands;
+package dev.notypie.messaging.commands;
 
-import dev.notypie.domain.customer.messaging.common.Money;
+import dev.notypie.messaging.common.Money;
 import io.eventuate.tram.commands.common.Command;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

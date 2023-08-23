@@ -1,7 +1,7 @@
 package dev.notypie.domains.order.dto;
 
-import dev.notypie.domains.order.messaging.common.OrderState;
-import dev.notypie.domains.order.messaging.common.RejectionReason;
+import dev.notypie.messaging.common.OrderState;
+import dev.notypie.messaging.common.RejectionReason;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

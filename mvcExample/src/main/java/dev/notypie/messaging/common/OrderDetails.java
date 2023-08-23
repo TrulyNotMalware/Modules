@@ -1,4 +1,4 @@
-package dev.notypie.domains.order.messaging.common;
+package dev.notypie.messaging.common;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;

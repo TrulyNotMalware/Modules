@@ -6,7 +6,7 @@ import dev.notypie.domains.order.dto.CreateOrderRequest;
 import dev.notypie.domains.order.dto.CreateOrderResponse;
 import dev.notypie.domains.order.dto.GetOrderResponse;
 import dev.notypie.domains.order.dto.GetOrdersResponse;
-import dev.notypie.domains.order.messaging.common.OrderDetails;
+import dev.notypie.messaging.common.OrderDetails;
 import dev.notypie.domains.order.sagas.OrderSagaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

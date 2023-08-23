@@ -1,4 +1,4 @@
-package dev.notypie.domain.customer.messaging.replies;
+package dev.notypie.messaging.replies;
 
 public class CustomerNotFound implements ReserveCreditResult{
 }
