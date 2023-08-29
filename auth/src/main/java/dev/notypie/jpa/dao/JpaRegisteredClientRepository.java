@@ -70,7 +70,7 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
                 client.getPostLogoutRedirectUris());
         Set<String> clientScopes = StringUtils.commaDelimitedListToSet(
                 client.getScopes());
-
+        //Configuration Setups for RegisteredClient.
         RegisteredClient.Builder builder = RegisteredClient.withId(client.getId())
                 .clientId(client.getClientId())
                 .clientIdIssuedAt(client.getClientIdIssuedAt())
