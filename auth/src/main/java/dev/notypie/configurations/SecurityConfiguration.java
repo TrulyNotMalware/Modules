@@ -46,7 +46,7 @@ public class SecurityConfiguration {
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings(){
-        return AuthorizationServerSettings.builder().tokenEndpoint("/v1/oauth2/token").build();
+        return AuthorizationServerSettings.builder().tokenEndpoint("/login/oauth2/token").build();
     }
     @Bean
     @Primary
@@ -66,6 +66,8 @@ public class SecurityConfiguration {
         );
         OAuth2AuthorizationServerConfigurer authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer();
         authorizationServerConfigurer
+//                .authorizationEndpoint(it -> {it.authorizationRequestConverter()
+//                it.authenticationProvider()})
                 .registeredClientRepository(registeredClientRepository)
                 .authorizationService(authorizationService)
                 .tokenGenerator(new JwtGenerator(jwtEncoder))
