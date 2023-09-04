@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    group:
+      "dev": "auth-oracle-database, auth-config"
+    active: local
+---
+spring:
+  config:
+    activate:
+      on-profile: auth-oracle-database
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@${ORACLE_TNS}?TNS_ADMIN=./src/main/resources/Wallet/
+    username: ${DEV_ORACLE_USER}
+    password: ${DEV_ORACLE_PASSWORD}
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL # Oracle Database Connection Query.
+      transaction-isolation: TRANSACTION_READ_COMMITTED # READ_COMMITTED and SERIALIZABLE are the only valid transaction levels ( Oracle )
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: true #Show Beautify sql2
+    database: ORACLE
+    database-platform: org.hibernate.dialect.OracleDialect
+  h2: # Disable Local h2 database.
+    console:
+      enabled: false
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+---

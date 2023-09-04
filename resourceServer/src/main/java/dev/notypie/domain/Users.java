@@ -6,6 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Slf4j
 @Getter
@@ -60,4 +66,10 @@ public class Users {
 
     @Column(insertable = false, updatable = false)
     protected String dtype;
+
+    public UserDetails createUserSecurity(){
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(this.dtype));
+        return new User(this.id.toString(), this.password, authorities);
+    }
 }

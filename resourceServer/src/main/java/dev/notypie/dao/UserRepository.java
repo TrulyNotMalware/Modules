@@ -1,4 +1,4 @@
-package dev.notypie.jpa.dao;
+package dev.notypie.dao;
 
 import dev.notypie.domain.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
