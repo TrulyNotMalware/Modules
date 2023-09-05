@@ -1,10 +1,7 @@
 dependencies {
     implementation project(':core')
-    //Spring Security
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    //Authorization-Server
-    implementation "org.springframework.boot:spring-boot-starter-oauth2-authorization-server"
-    //Social Login client.
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    testImplementation 'org.springframework.security:spring-security-test'
+    implementation project(':security')
+    //Oauth Clients
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }

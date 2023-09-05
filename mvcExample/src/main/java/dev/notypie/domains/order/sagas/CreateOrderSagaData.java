@@ -2,15 +2,12 @@ package dev.notypie.domains.order.sagas;
 
 import dev.notypie.messaging.common.OrderDetails;
 import dev.notypie.messaging.common.RejectionReason;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CreateOrderSagaData {
 
     private OrderDetails orderDetails;

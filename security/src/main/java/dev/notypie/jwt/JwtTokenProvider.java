@@ -1,11 +1,9 @@
 package dev.notypie.jwt;
-
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.security.interfaces.RSAPrivateKey;
@@ -14,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
+@Profile({"jwt","oauth"})
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
@@ -66,6 +65,50 @@ public class JwtTokenProvider {
                 .compact();
     }
 
+    public Claims getClaimsFromJwtToken(String token){
+        try{
+            return Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token).getBody();
+        }catch (ExpiredJwtException e){
+            log.error("Error in getClaims");
+            return e.getClaims();
+        }catch (Exception e) {
+            log.error("Error in refresh");
+            e.printStackTrace();
+            throw new RuntimeException("Claims Parse error.");
+        }
+    }
 
+    public boolean isExpiredToken(String token){
+        try{
+            Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token).getBody().getExpiration();
+            return false;
+        } catch(ExpiredJwtException e){
+            log.error("Expired JWT Tokens : {}", token);
+            return true;
+        }
+    }
 
+    public boolean validateJwtToken(String token){
+        try{
+            Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token);
+            return true;
+        } catch (MalformedJwtException e) {
+            log.error("Invalid JWT token: {}", e.getMessage());
+            return false;
+        } catch (ExpiredJwtException e) {
+            log.error("JWT token is expired: {}", e.getMessage());
+            return false;
+        } catch (UnsupportedJwtException e) {
+            log.error("JWT token is unsupported: {}", e.getMessage());
+            return false;
+        } catch (IllegalArgumentException e) {
+            log.error("JWT claims string is empty: {}", e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean equalRefreshTokenId(String refreshTokenId, String refreshToken) {
+        String compareToken = this.getClaimsFromJwtToken(refreshToken).get("value").toString();
+        return refreshTokenId.equals(compareToken);
+    }
 }

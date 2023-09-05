@@ -79,39 +79,4 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
         return httpSecurity.build();
     }
-
-    @Bean
-    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource){
-        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
-    }
-
-    @Bean
-    public JwtEncoder jwtEncoder(JWKSource<SecurityContext> jwkSource){
-        return new NimbusJwtEncoder(jwkSource);
-    }
-
-    /**
-     * RSA Key generate. In production, save in another key store.
-     * @return JWKSource
-     */
-    @Bean
-    public JWKSource<SecurityContext> jwkSource(){
-        KeyPair keyPair = generateRsaKey();
-        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        RSAKey key = new RSAKey.Builder(publicKey)
-                .privateKey(privateKey).keyID(UUID.randomUUID().toString())
-                .build();
-        return new ImmutableJWKSet<>(new JWKSet(key));
-    }
-
-    private KeyPair generateRsaKey(){
-        try{
-            KeyPairGenerator keys = KeyPairGenerator.getInstance("RSA");
-            keys.initialize(2048);
-            return keys.generateKeyPair();
-        }catch(Exception e){
-            throw new IllegalStateException(e);
-        }
-    }
 }

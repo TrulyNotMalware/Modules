@@ -4,13 +4,14 @@ import dev.notypie.messaging.common.OrderDetails;
 import dev.notypie.messaging.common.OrderState;
 import dev.notypie.messaging.common.RejectionReason;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Entity(name="orders")
 @Access(AccessType.FIELD)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -8,4 +8,6 @@ include 'saga'
 include 'sagaOrchestrator'
 include 'auth'
 include 'resourceServer'
+include 'security'
+include 'oauthServer'
 
