@@ -26,12 +26,12 @@ public class JwtTokenProvider {
 
     /**
      * Create JWT AccessToken Signed with RSA256
-     * @param userId user identifier
+     * @param id user identifier - Primary key
      * @param roles userRoles
      * @return JwtAccessToken
      */
-    public String createJwtAccessToken(String userId, List<String> roles){
-        Claims claims = Jwts.claims().setSubject(userId);
+    public String createJwtAccessToken(String id, List<String> roles){
+        Claims claims = Jwts.claims().setSubject(id);
         claims.put("roles", roles);
 
         Map<String, Object> headers = new ConcurrentHashMap<>();

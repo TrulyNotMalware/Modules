@@ -33,4 +33,11 @@ class RefreshToken {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @Column(name = "refresh_authenticated_at")
     private LocalDateTime refreshAuthenticatedAt;
+
+    void update(String refreshToken){
+        this.refreshToken = refreshToken;
+        this.refreshAuthenticatedAt = LocalDateTime.now();
+    }
+
+    String getRefreshToken(){ return this.refreshToken; }
 }

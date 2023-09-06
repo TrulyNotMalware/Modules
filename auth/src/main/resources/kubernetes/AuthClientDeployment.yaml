@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-service
+  namespace: dev-platform
+spec:
+  selector:
+    matchLabels:
+      app: authentication-service
+  template:
+    metadata:
+      labels:
+        app: authentication-service
+        namespace: dev-platform
+    spec:
+      containers:
+        - name: authentication-service
+          image: harbor.registry.notypie.dev/devgru/authentication-client:latest
+          ports:
+            - containerPort: 80
+          imagePullPolicy: IfNotPresent

@@ -16,6 +16,6 @@ dependencies {
     implementation 'com.oracle.database.security:oraclepki:19.8.0.0'
     implementation 'com.oracle.database.security:osdt_core'
     implementation 'com.oracle.database.security:osdt_cert'
-
-
+    //Include Hateoas
+    api 'org.springframework.hateoas:spring-hateoas'
 }
