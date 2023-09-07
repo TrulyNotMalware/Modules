@@ -218,4 +218,8 @@ jwt:
 token:
   jwt:
     keystore:
-      classpath:
+      classpath: YOUR_KEY_NAME.jks
+      password: YOUR_PASSWORD
+    key:
+      alias: YOUR_ALIAS
+      privateKeyPassPhrase: YOUR_PASS_PHRASE

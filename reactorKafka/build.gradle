@@ -2,6 +2,9 @@ bootJar { enabled = false }
 jar{ enabled = true }
 
 dependencies {
+    // Use Micrometer & Zipkin
+    implementation project(':reactorCore')
+
     //For ReactiveKafkaProducer
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'io.projectreactor.kafka:reactor-kafka'
@@ -9,13 +12,5 @@ dependencies {
     //Jackson
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     implementation 'com.fasterxml.jackson.core:jackson-databind'
-
-    // Use Micrometer & Zipkin
-    implementation 'io.micrometer:micrometer-tracing'
-    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
-    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
-    implementation 'io.zipkin.reporter2:zipkin-reporter-metrics-micrometer'
-
-    implementation 'io.projectreactor:reactor-core-micrometer'
 
 }

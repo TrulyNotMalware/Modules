@@ -4,7 +4,7 @@ jar{ enabled = true }
 dependencies {
     //AOP
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-    implementation 'io.projectreactor:reactor-core-micrometer'
+    api 'io.projectreactor:reactor-core-micrometer'
 
     // Use Micrometer & Zipkin
     implementation 'io.micrometer:micrometer-tracing'
