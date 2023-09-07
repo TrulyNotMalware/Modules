@@ -1,7 +1,7 @@
 # Spring modules
     Preconfigured modules and services for Java web applications based on Spring boot 3
 
-The primary objective of this project is to provide a simplified approach for creating Java web backend applications using the Spring framework.
+The primary objective of this project is to provide a simplified approach for creating Java web backend applications using the Spring framework.  
 To achieve this, it plans to include essential and well-known features like user authentication (Login) and messaging solutions, which are frequently required in web application development.
 
 ## Test environments
@@ -22,14 +22,14 @@ It's just a test environment, so you don't have to install all of these services
 |[MySQL](https://github.com/bitnami/charts/tree/main/bitnami/mysql)|8.0.33|[Helm chart](https://github.com/bitnami/charts/tree/main/bitnami/mysql)|SQL Database|2023.09.07|
 ## List
 An '**Application**' refers to a combination of modules and examples that are inherently runnable, whereas simply using the term '**Modules**' implies that there is no separate execution context.  
-If you want to execute the module, '**Module**' alone is not executable and requires additional configurations to run. The basic use case for each module is documented in the README file located within each module directory.
+If you want to execute the module, it requires additional configurations to run. The basic use case for each module is documented in the README file located within each module directory.
 ### Spring MVC
 *Basic*
-1. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : Database JPA Configurations & Utils
-2. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : Apache Kafka Producer & Consumer example & configuration.
+1. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : Database JPA Configurations & Utils module.
+2. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : Apache Kafka Producer & Consumer example & configuration module.
 
 *Security*
-1. [*Security*](https://github.com/TrulyNotMalware/Modules/blob/main/security/README.md) : Jwt authentication configuration & implements module
+1. [*Security*](https://github.com/TrulyNotMalware/Modules/blob/main/security/README.md) : Jwt authentication configuration & implements module.
 2. [*Auth*](https://github.com/TrulyNotMalware/Modules/blob/main/auth/README.md) : OAuth Client & Authentication application.
 3. [*OAuth*](https://github.com/TrulyNotMalware/Modules/blob/main/oauthServer/README.md) : OAuth [authorization server](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/index.html) application with JPA
 4. [*Resource Server*](https://github.com/TrulyNotMalware/Modules/blob/main/resourceServer/README.md) : OAuth Resource Server application.
@@ -40,7 +40,7 @@ If you want to execute the module, '**Module**' alone is not executable and requ
 
 ### Spring Webflux
 *Basic*
-1. [*Reactor Core*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorCore/README.md) : Tracing context configuration & Utils module
+1. [*Reactor Core*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorCore/README.md) : Tracing(Zipkin & Micrometer) context configuration & Utils module
 2. [*Reactor kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorKafka/README.md) : Reactive Kafka Consumer & Producer configuration module
 
 ### For More Information
