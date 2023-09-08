@@ -215,8 +215,6 @@ jwt:
   token:
     accessTokenExpiredTime: 200000
     refreshTokenExpiredTime: 2000000
-token:
-  jwt:
     keystore:
       classpath: YOUR_KEY_NAME.jks
       password: YOUR_PASSWORD

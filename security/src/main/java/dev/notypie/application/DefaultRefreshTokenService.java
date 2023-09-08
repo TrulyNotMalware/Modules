@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -31,8 +30,8 @@ public class DefaultRefreshTokenService implements RefreshTokenService{
     private final CookieProvider cookieProvider;
 
     @Override
-    public Users updateRefreshToken(Long id, String refreshToken) {
-        return this.repository.updateRefreshToken(id, refreshToken);
+    public void updateRefreshToken(Long id, String refreshToken) {
+        this.repository.updateRefreshToken(id, refreshToken);
     }
 
     @Override

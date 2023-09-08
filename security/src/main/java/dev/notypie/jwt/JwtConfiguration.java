@@ -21,16 +21,16 @@ import java.security.interfaces.RSAPublicKey;
 @Configuration
 public class JwtConfiguration {
 
-    @Value("${token.jwt.keystore.classpath}")
+    @Value("${jwt.token.keystore.classpath}")
     private String keyStorePath;
 
-    @Value("${token.jwt.keystore.password}")
+    @Value("${jwt.token.keystore.password}")
     private String keyStorePassword;
 
-    @Value("${token.jwt.key.alias}")
+    @Value("${jwt.token.key.alias}")
     private String keyAlias;
 
-    @Value("${token.jwt.key.privateKeyPassPhrase}")
+    @Value("${jwt.token.key.privateKeyPassPhrase}")
     private String privateKeyPassphrase;
 
     @Bean
