@@ -2,9 +2,9 @@ package dev.notypie.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.dto.LoginRequestDto;
-import dev.notypie.jwt.JwtTokenProvider;
 import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.CookieProvider;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
@@ -22,6 +23,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -37,6 +40,9 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     private final AuthenticationManager authenticationManager;
     private final RefreshTokenService refreshTokenService;
     private final ObjectMapper objectMapper;
+
+    @Value("${authentication.login.requestUrl}")
+    private String loginRequestUrl;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
@@ -71,6 +77,10 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
             throw new RuntimeException("Multiple Login detected.");
         }
         JwtDto newToken = this.refreshTokenService.generateNewTokens(id, roles);
+
+        //Save refreshToken
+        this.refreshTokenService.updateRefreshToken(id, newToken.getRefreshToken());
+
         ResponseCookie refreshTokenCookie = this.refreshTokenService.createRefreshToken(newToken.getRefreshToken());
         Cookie cookie = CookieProvider.of(refreshTokenCookie);
 
@@ -84,5 +94,13 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
                 "message", "login success"
         );
         this.objectMapper.writeValue(response.getOutputStream(), tokens);
+    }
+
+    @PostConstruct
+    public void configure(){
+        this.setAuthenticationManager(this.authenticationManager);
+        this.setFilterProcessesUrl(this.loginRequestUrl);
+        SecurityContextRepository contextRepository = new HttpSessionSecurityContextRepository();
+        this.setSecurityContextRepository(contextRepository);
     }
 }

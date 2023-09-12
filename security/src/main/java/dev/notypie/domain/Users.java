@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,7 +39,7 @@ public class Users {
 
     @NotBlank(message = "User id must required.")
     @Pattern(regexp = "[a-zA-Z0-9_-]*$")
-    @Column(name = "user_id")
+    @Column(name = "user_id", unique = true)
     private String userId;
 
     @NotBlank(message = "User name must required.")
@@ -55,7 +56,7 @@ public class Users {
     private String password;
 
     @Column(name = "phone_number")
-    @Pattern(regexp = "^\\\\d{2,3}-\\\\d{3,4}-\\\\d{4}$", message = "incorrect phone number format.")
+    @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "incorrect phone number format.")
     private String phoneNumber;
 
     @Embedded
@@ -72,7 +73,7 @@ public class Users {
                     String country, String streetAddress, String city, String region, String zipCode){
         this.userId = userId;
         this.userName = userName;
-        this.password = password;
+        this.password = new BCryptPasswordEncoder().encode(password);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = Address.builder()
@@ -99,11 +100,16 @@ public class Users {
     }
 
     public Users updateRefreshToken(String newRefreshToken){
+        if( this.refreshToken == null)
+            this.refreshToken = RefreshToken.builder().build();
         this.refreshToken.update(newRefreshToken);
         return this;
     }
 
     public String getRefreshToken(){
-        return this.refreshToken.getRefreshToken();
+        //9.12 if refreshToken not exists,
+        if(this.refreshToken != null)
+            return this.refreshToken.getRefreshToken();
+        else return null;
     }
 }

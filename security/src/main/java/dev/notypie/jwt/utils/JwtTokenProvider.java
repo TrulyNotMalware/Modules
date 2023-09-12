@@ -1,4 +1,4 @@
-package dev.notypie.jwt;
+package dev.notypie.jwt.utils;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

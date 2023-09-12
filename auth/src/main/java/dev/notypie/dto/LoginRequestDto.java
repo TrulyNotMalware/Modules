@@ -11,7 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode(of = {"userId"})
 public class LoginRequestDto {
 
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     @NotBlank
     private String userId;
 

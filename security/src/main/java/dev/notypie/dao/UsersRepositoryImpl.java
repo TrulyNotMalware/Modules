@@ -4,6 +4,7 @@ import dev.notypie.domain.Users;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -37,18 +38,19 @@ public class UsersRepositoryImpl implements UsersRepository{
 
     //FIXME UserNotFoundException.
     @Override
+    @Transactional
     public Users updateRefreshToken(Long id, String refreshToken){
-        return this.repository.findById(id)
-                .map(user -> user.updateRefreshToken(refreshToken))
-                .map(this.repository::save)
-                .orElseThrow(() -> new RuntimeException("userNotFound."));
+        Users users = this.findByIdWithException(id).updateRefreshToken(refreshToken);
+        log.info("users : {}",users);
+        return this.repository.save(users);
+//                .map(user -> user.updateRefreshToken(refreshToken))
+//                .map(this.repository::save)
+//                .orElseThrow(() -> new RuntimeException("userNotFound."));
     }
 
     @Override
     public String findRefreshTokenById(Long id) {
-        return this.repository.findById(id)
-                .map(Users::getRefreshToken)
-                .orElseThrow(() -> new RuntimeException("userNotFound."));
+        return this.findByIdWithException(id).getRefreshToken();
     }
 
 }

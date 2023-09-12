@@ -2,7 +2,7 @@ bootJar{ enabled = false }
 jar { enabled = true }
 
 dependencies {
-    implementation project(":core")
+    api project(":core")
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     //Jwt Token 분할됨. 이제 Api 와 구현체 둘을 import 해야 함. Default 로 Jackson 선택.

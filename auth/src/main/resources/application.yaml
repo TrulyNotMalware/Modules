@@ -221,3 +221,9 @@ jwt:
     key:
       alias: YOUR_ALIAS
       privateKeyPassPhrase: YOUR_PASS_PHRASE
+
+authentication:
+  login:
+    requestUrl: "/api/auth/login"
+  logout:
+    requestUrl: "/api/auth/user/logout"

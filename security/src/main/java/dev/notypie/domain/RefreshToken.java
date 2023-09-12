@@ -21,8 +21,8 @@ import java.time.LocalDateTime;
 @Embeddable
 class RefreshToken {
 
-    @JsonProperty("refresh_token")
-    @Column(name = "refresh_token")
+    @JsonProperty("refreshToken")
+    @Column(name = "refresh_token", length = 500)//490
     @Nullable
     private String refreshToken;
 

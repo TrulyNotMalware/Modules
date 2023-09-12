@@ -12,12 +12,12 @@ import lombok.*;
 @Builder
 public class UserRegisterDto {
 
-    @JsonProperty("user_id")
+    @JsonProperty("userId")
     @NotBlank(message = "User name must require validate value.")
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
     private String userId;
 
-    @JsonProperty("user_name")
+    @JsonProperty("userName")
     @NotBlank(message = "User name must require validate value.")
     @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
     private String userName;
@@ -31,7 +31,7 @@ public class UserRegisterDto {
     @Pattern(regexp = "^[a-zA-Z0-9_#@!-]*$")
     private String password;
 
-    @JsonProperty("phone_number")
+    @JsonProperty("phoneNumber")
     @NotBlank
     @Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "valid phone number must required.")
     private String phoneNumber;
@@ -40,7 +40,7 @@ public class UserRegisterDto {
     @JsonProperty("country")
     private String country;
 
-    @JsonProperty("street_address")
+    @JsonProperty("streetAddress")
     private String streetAddress;
 
     @JsonProperty("city")

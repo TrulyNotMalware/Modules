@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserCRUDService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
+        log.info("userId : {}",userId);
         return this.repository.findByUserIdWithException(userId).createUserSecurity();
     }
 
