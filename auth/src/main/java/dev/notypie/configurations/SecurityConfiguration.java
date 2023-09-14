@@ -4,11 +4,15 @@ import dev.notypie.application.LoginAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -52,6 +56,19 @@ public class SecurityConfiguration {
                 .invalidateHttpSession(true));
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
+        return httpSecurity.build();
+    }
+
+    @Bean
+    @Profile("oauth")
+    public SecurityFilterChain filterChain(
+            HttpSecurity httpSecurity,
+            OAuth2UserService<OAuth2UserRequest, OAuth2User> userService
+    ) throws Exception {
+        httpSecurity.oauth2Login(config ->
+                config.userInfoEndpoint(endPointConfig ->
+                        endPointConfig.userService(userService)));
+
         return httpSecurity.build();
     }
 }

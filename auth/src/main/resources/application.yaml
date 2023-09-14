@@ -5,6 +5,7 @@ spring:
       "dev": "default-base, hikari-default-config, dev-oracle-database"
       "local": "default-base, hikari-default-config, h2-local-database"
       "jwt": "jwt-configuration"
+      "oauth-client": "oauth-github"
     active: dev, jwt
 ---
 server:
@@ -227,3 +228,17 @@ authentication:
     requestUrl: "/api/auth/login"
   logout:
     requestUrl: "/api/auth/user/logout"
+---
+spring:
+  config:
+    activate:
+      on-profile: "oauth-github"
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: GITHUB_CLIENT_ID
+            client-secret: GITHUB_SECRET
+            scope: name, email, avatar_url

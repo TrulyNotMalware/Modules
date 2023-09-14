@@ -14,11 +14,11 @@ jwt:
     accessTokenExpiredTime: ACCESS_EXPIRED_TIME
     refreshTokenExpiredTime: REFRESH_EXPIRED_TIME
     keystore:
-      classpath: YOUR_KEY_NAME.jks
-      password: YOUR_PASSWORD
+      classpath: clientkeystore.jks
+      password: teststorepass
     key:
-      alias: YOUR_ALIAS
-      privateKeyPassPhrase: YOUR_PASS_PHRASE
+      alias: client
+      privateKeyPassPhrase: teststorepass
 ---
 spring:
   config:
