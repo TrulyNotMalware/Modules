@@ -43,7 +43,7 @@ public class Users {
     private String userId;
 
     @NotBlank(message = "User name must required.")
-    @Pattern(regexp = "^[a-zA-Z0-9_-]*$")
+    @Pattern(regexp = "^[a-zA-Z0-9 _-]*$")
     @Column(name = "user_name")
     private String userName;
 
@@ -73,7 +73,8 @@ public class Users {
                     String country, String streetAddress, String city, String region, String zipCode){
         this.userId = userId;
         this.userName = userName;
-        this.password = new BCryptPasswordEncoder().encode(password);
+        if(password == null) this.password = "OAuthUser";
+        else this.password = new BCryptPasswordEncoder().encode(password);
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.address = Address.builder()
@@ -83,6 +84,14 @@ public class Users {
                 .region(region)
                 .zipCode(zipCode)
                 .build();
+    }
+
+    public Users updateUsers(Users updateInfo){
+        if(!this.userName.equals(updateInfo.getUserName()) && updateInfo.getUserName() != null) this.userName = updateInfo.getUserName();
+        if(!this.email.equals(updateInfo.getEmail()) && updateInfo.getEmail() != null) this.email = updateInfo.getEmail();
+        if(this.address!= null)
+            if(!this.address.equals(updateInfo.getAddress())) this.address = updateInfo.getAddress();
+        return this;
     }
 
     public UserDetails createUserSecurity(){

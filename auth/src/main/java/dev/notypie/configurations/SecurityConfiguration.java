@@ -1,10 +1,13 @@
 package dev.notypie.configurations;
 
 import dev.notypie.application.LoginAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -17,7 +20,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.util.Arrays;
+
+@Slf4j
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration {
 
@@ -26,6 +33,7 @@ public class SecurityConfiguration {
 
     @Value("${authentication.logout.requestUrl}")
     private String logoutRequestUrl;
+    private final Environment environment;
 
     @Bean
     public WebSecurityCustomizer configure(){
@@ -37,9 +45,11 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    @Profile("jwt")
     public SecurityFilterChain filterChain(
             HttpSecurity httpSecurity,
-            LoginAuthenticationFilter filter
+            LoginAuthenticationFilter filter,
+            OAuth2UserService<OAuth2UserRequest, OAuth2User> userService
     ) throws Exception {
         //Jwt Stateless
         httpSecurity.sessionManagement(httpSecuritySessionManagementConfigurer -> {
@@ -56,19 +66,29 @@ public class SecurityConfiguration {
                 .invalidateHttpSession(true));
 
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        return httpSecurity.build();
-    }
 
-    @Bean
-    @Profile("oauth")
-    public SecurityFilterChain filterChain(
-            HttpSecurity httpSecurity,
-            OAuth2UserService<OAuth2UserRequest, OAuth2User> userService
-    ) throws Exception {
-        httpSecurity.oauth2Login(config ->
+        //FIXME is the best way?
+        //OAuth Client enabled.
+        if (Arrays.asList(this.environment.getActiveProfiles()).contains("oauth-client")){
+            log.info("Oauth client enabled.");
+            httpSecurity.oauth2Login(config ->
                 config.userInfoEndpoint(endPointConfig ->
                         endPointConfig.userService(userService)));
+        }
 
         return httpSecurity.build();
     }
+
+//    @Bean
+//    @Profile("oauth")
+//    public SecurityFilterChain filterChain(
+//            HttpSecurity httpSecurity,
+//            OAuth2UserService<OAuth2UserRequest, OAuth2User> userService
+//    ) throws Exception {
+//        httpSecurity.oauth2Login(config ->
+//                config.userInfoEndpoint(endPointConfig ->
+//                        endPointConfig.userService(userService)));
+//
+//        return httpSecurity.build();
+//    }
 }

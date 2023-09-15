@@ -11,5 +11,6 @@ public interface UsersRepository {
     Users save(Users users);
     Users updateRefreshToken(Long id, String refreshToken);
     String findRefreshTokenById(Long id);
+    Users saveOrUpdateByUserId(Users users);
 
 }

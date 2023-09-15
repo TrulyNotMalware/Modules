@@ -53,4 +53,13 @@ public class UsersRepositoryImpl implements UsersRepository{
         return this.findByIdWithException(id).getRefreshToken();
     }
 
+    @Override
+    public Users saveOrUpdateByUserId(Users users) {
+        log.info("Users : {}",users);
+        Users user = this.repository.findByUserId(users.getUserId())
+                .map(findUser -> findUser.updateUsers(users))
+                .orElse(users);
+        return this.repository.save(user);
+    }
+
 }

@@ -54,6 +54,12 @@ jwt:
     key:
       alias: YOUR_ALIAS
       privateKeyPassPhrase: YOUR_PASS_PHRASE
+
+authentication:
+   login:
+      requestUrl: "/api/auth/login"
+   logout:
+      requestUrl: "/api/auth/user/logout"
 ---
 spring:
   config:
@@ -67,6 +73,30 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${SETUP_DDL_AUTO}
+```
+For example,
+```bash
+#!/bin/bash
+# Example key file.
+keytool -genkeypair -keystore exampleKey.jks -alias myAlias -keyalg rsa -storepass mypassword
+```
+Include the generated example.jks key file into the resource directory, and then update the setup file as follows.
+```yaml
+spring:
+  config:
+    activate:
+      on-profile: "jwt-configuration"
+
+jwt:
+  token:
+    accessTokenExpiredTime: 200000
+    refreshTokenExpiredTime: 2000000
+    keystore:
+      classpath: example.jks
+      password: mypassword
+    key:
+      alias: myAlias
+      privateKeyPassPhrase: mypassword
 ```
 ### Usage
 When you build your application with this modules, basic User Entities and Repository are already provided, so the simple way to creating user authentication is implement the *UsernamePasswordAuthenticationFilter*.  
@@ -215,6 +245,12 @@ jwt:
     key:
       alias: YOUR_ALIAS
       privateKeyPassPhrase: YOUR_PASS_PHRASE
+
+authentication:
+   login:
+      requestUrl: "/api/auth/login"
+   logout:
+      requestUrl: "/api/auth/user/logout"
 ---
 spring:
   config:
@@ -228,6 +264,30 @@ spring:
   jpa:
     hibernate:
       ddl-auto: ${SETUP_DDL_AUTO}
+```
+예를 들어,
+```bash
+#!/bin/bash
+# 예제 키 생성
+keytool -genkeypair -keystore exampleKey.jks -alias myAlias -keyalg rsa -storepass mypassword
+```
+생성된 'example.jks' 파일을 resource 디렉터리 아래에 위치시키고, 설정 파일에 다음과 같이 작성합니다.
+```yaml
+spring:
+   config:
+      activate:
+         on-profile: "jwt-configuration"
+
+jwt:
+   token:
+      accessTokenExpiredTime: 200000
+      refreshTokenExpiredTime: 2000000
+      keystore:
+         classpath: example.jks
+         password: mypassword
+      key:
+         alias: myAlias
+         privateKeyPassPhrase: mypassword
 ```
 ### 기본 사용법
 기본 User Entities 및 Repository가 이미 제공되므로, 이 모듈로 Application을 구축할 때 사용자 인증을 만드는 간단한 방법은 *UsernamePasswordAuthenticationFilter*를 구현하는 것입니다.
