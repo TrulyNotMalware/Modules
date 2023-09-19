@@ -1,4 +1,4 @@
-package dev.notypie.jpa.entity;
+package dev.notypie.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

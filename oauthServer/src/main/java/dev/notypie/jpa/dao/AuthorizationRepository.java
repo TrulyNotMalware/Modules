@@ -1,6 +1,6 @@
 package dev.notypie.jpa.dao;
 
-import dev.notypie.jpa.entity.Authorization;
+import dev.notypie.domain.Authorization;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,6 +1,6 @@
 package dev.notypie.jpa.dao;
 
-import dev.notypie.jpa.entity.Client;
+import dev.notypie.domain.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
