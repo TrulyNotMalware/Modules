@@ -5,8 +5,8 @@ spring:
       "dev": "default-base, hikari-default-config, dev-oracle-database"
       "local": "default-base, hikari-default-config, h2-local-database"
       "jwt": "jwt-configuration"
-      "oauth-client": "oauth-github"
-    active: dev, jwt
+      "oauth-client": "oauth"
+    active: dev, jwt, oauth-client
 ---
 server:
   port: 8888
@@ -232,7 +232,7 @@ authentication:
 spring:
   config:
     activate:
-      on-profile: "oauth-github"
+      on-profile: "oauth"
 
   security:
     oauth2:
@@ -242,3 +242,18 @@ spring:
             client-id: GITHUB_CLIENT_ID
             client-secret: GITHUB_SECRET
             scope: name, email, avatar_url
+          myService:
+            client-id: 5a6ca597579411eeafe4f131af2de935
+#            client-id: d27ab71355f511ee80886bb95dd62253
+            client-secret: GnneoHK4edCcaD92LyTQVxFzrBSQ5b
+#            client-secret: myeVqwKolIlcUrrpSVDSYITlSh1Fwg
+            redirect-uri: http://localhost:8888/login/oauth2/code/myService
+#            redirect-uri: http://localhost:8888/login/oauth/code/myservice
+            authorization-grant-type: authorization_code
+            scope: message.read, message.write
+        provider:
+          myService:
+            authorization-uri: http://localhost:8080/oauth2/authorize
+            token-uri: http://localhost:8080/oauth2/token
+            user-info-uri: http://localhost:8080/v1/users/me
+            user-name-attribute: userId

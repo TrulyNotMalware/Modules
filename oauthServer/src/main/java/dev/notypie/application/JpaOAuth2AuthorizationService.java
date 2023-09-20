@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.jpa.dao.AuthorizationRepository;
 import dev.notypie.domain.Authorization;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.security.oauth2.core.*;
@@ -28,6 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Consumer;
 
+@Slf4j
 @Component
 public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService {
     private final AuthorizationRepository authorizationRepository;
@@ -49,6 +51,7 @@ public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService
     @Override
     public void save(OAuth2Authorization authorization) {
         Assert.notNull(authorization, "authorization cannot be null");
+        log.info(toEntity(authorization).toString());
         this.authorizationRepository.save(toEntity(authorization));
     }
 

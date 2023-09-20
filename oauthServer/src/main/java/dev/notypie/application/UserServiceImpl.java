@@ -20,5 +20,4 @@ public class UserServiceImpl implements UserCRUDService, UserDetailsService {
         return this.repository.findByUserIdWithException(userId).createUserSecurity();
     }
 
-    
 }

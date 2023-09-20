@@ -1,7 +1,7 @@
 package dev.notypie.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.notypie.dto.LoginRequestDto;
+import dev.notypie.jwt.dto.LoginRequestDto;
 import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.CookieProvider;
 import jakarta.annotation.PostConstruct;

@@ -6,10 +6,9 @@ import com.fasterxml.uuid.Generators;
 import dev.notypie.dto.RegisterOAuthClient;
 import dev.notypie.dto.ResponseRegisteredClient;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
@@ -17,13 +16,14 @@ import org.springframework.security.oauth2.server.authorization.settings.TokenSe
 import org.springframework.util.StringUtils;
 
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import java.util.UUID;
 
+@Slf4j
 @Entity
 @Table(name = "client")
 @Getter
@@ -62,6 +62,8 @@ public class Client {
     @Column(length = 2000)
     private String tokenSettings;
 
+    @Transient
+    private ObjectMapper objectMapper;
     @Builder
     protected Client(RegisterOAuthClient oauthClient){
         this.clientId = this.generateClientId();

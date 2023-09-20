@@ -12,7 +12,12 @@ public enum OAuthAttribute {
             .userId(String.valueOf(attributes.get("id")))
             .userName(String.valueOf(attributes.get("name")))
             .email(String.valueOf(attributes.get("email")))
-            .build());
+            .build()),
+    MYSERVICE("myservice", (attributes) ->
+            Users.builder()
+                    .userId(String.valueOf(attributes.get("userId")))
+                    .build())
+    ;
 
     private final String registrationId;
     private final Function<Map<String, Object>, Users> of;
