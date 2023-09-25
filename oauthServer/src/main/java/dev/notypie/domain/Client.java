@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
@@ -68,22 +69,22 @@ public class Client {
     protected Client(RegisterOAuthClient oauthClient){
         this.clientId = this.generateClientId();
         this.clientIdIssuedAt = Instant.now();
-        this.clientSecret = this.generatePassword();
+        this.clientSecret = new BCryptPasswordEncoder().encode(this.generatePassword());
         this.clientSecretExpiresAt = Instant.now().plus(24, ChronoUnit.HOURS);// 24Hours later.
         this.clientName = oauthClient.getClientName();
-        this.clientAuthenticationMethods = "client_secret_basic"; // Default.
-        this.authorizationGrantTypes = AuthorizationGrantType.AUTHORIZATION_CODE.getValue()+","+
-                                    AuthorizationGrantType.REFRESH_TOKEN.getValue();
+        this.clientAuthenticationMethods = ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue(); // Default.
+        this.authorizationGrantTypes = AuthorizationGrantType.AUTHORIZATION_CODE.getValue();
         this.redirectUris = oauthClient.getRedirectUris();
         this.postLogoutRedirectUris = oauthClient.getPostLogoutRedirectUris();
         this.scopes = StringUtils.collectionToCommaDelimitedString(oauthClient.getScopes());
         if (this.clientSettings == null) {
             ClientSettings.Builder builder = ClientSettings.builder();
-            if (isPublicClientType()) {
-                builder
-                        .requireProofKey(true)
-                        .requireAuthorizationConsent(true);
-            }
+            builder.requireAuthorizationConsent(true);
+//            if (isPublicClientType()) {
+//                builder
+//                        .requireProofKey(true)
+//                        .requireAuthorizationConsent(true);
+//            }
             this.clientSettings = writeMap(builder.build().getSettings());
         }
         if (this.tokenSettings == null) {
@@ -100,9 +101,9 @@ public class Client {
     }
     private boolean isPublicClientType() {
         Set<String> authenticationMethods = StringUtils.commaDelimitedListToSet(this.clientAuthenticationMethods);
-        return StringUtils.commaDelimitedListToSet(this.authorizationGrantTypes).contains(AuthorizationGrantType.AUTHORIZATION_CODE) &&
+        return StringUtils.commaDelimitedListToSet(this.authorizationGrantTypes).contains(AuthorizationGrantType.AUTHORIZATION_CODE.getValue()) &&
                 authenticationMethods.size() == 1 &&
-                authenticationMethods.contains(ClientAuthenticationMethod.NONE);
+                authenticationMethods.contains(ClientAuthenticationMethod.NONE.getValue());
     }
     public static Client createDefaultClient(RegisterOAuthClient blueprint){
         return Client.builder().oauthClient(blueprint).build();
