@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-gateway
+  namespace: api-service
+  labels:
+    app: api-gateway
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: 'letsencrypt-api-prod'
+spec:
+  tls:
+    - hosts:
+        - api.notypie.dev
+      secretName: api-notypie-dev-tls
+  rules:
+    - host: api.notypie.dev
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: api-gateway-svc
+                port:
+                  number: 80

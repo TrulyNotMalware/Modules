@@ -25,8 +25,9 @@ An '**Application**' refers to a combination of modules and examples that are in
 If you want to execute the module, it requires additional configurations to run. The basic use case for each module is documented in the README file located within each module directory.
 ### Spring MVC
 *Basic*
-1. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : Database JPA Configurations & Utils module.
-2. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : Apache Kafka Producer & Consumer example & configuration module.
+1. [*Common*](https://github.com/TrulyNotMalware/Modules/blob/main/common/README.md) : Mvc & Reactor Common Jwt and Util module.
+2. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : Database JPA Configurations & Utils module.
+3. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : Apache Kafka Producer & Consumer example & configuration module.
 
 *Security*
 1. [*Security*](https://github.com/TrulyNotMalware/Modules/blob/main/security/README.md) : Jwt authentication configuration & implements module.
@@ -42,6 +43,12 @@ If you want to execute the module, it requires additional configurations to run.
 *Basic*
 1. [*Reactor Core*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorCore/README.md) : Tracing(Zipkin & Micrometer) context configuration & Utils module
 2. [*Reactor kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorKafka/README.md) : Reactive Kafka Consumer & Producer configuration module
+
+*Security*
+1. [*Reactor Security*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorSecurity/README.md) : Reactor based Jwt authentication configuration & implements module.
+
+*Gateway*
+1. [*Gateway*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorSecurity/README.md) : Spring cloud gateway application include jwt validation
 
 ### For More Information
 For more information, see README for each module.
@@ -74,14 +81,16 @@ For more information, see README for each module.
 따라서 모듈을 실행시키고 싶다면 추가적인 구성이 필요합니다. 각 모듈의 기본 사용 사례는 각 모듈 디렉토리 내에 있는 README 파일에 기록되어 있습니다.  
 ### Spring MVC
 *Basic*
-1. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : JPA 설정 & 유틸리티 모듈.
-2. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : 아파치 카프카 Producer & Consumer example 와 설정 모듈.
+1. [*Common*](https://github.com/TrulyNotMalware/Modules/blob/main/common/README.md) : Mvc & Reactor 공통 Jwt와 Util 모듈.
+2. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : JPA 설정 & 유틸리티 모듈.
+3. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : 아파치 카프카 Producer & Consumer example 와 설정 모듈.
 
 *Security*
 1. [*Security*](https://github.com/TrulyNotMalware/Modules/blob/main/security/README.md) : Jwt 인증을 위한 설정과 그 구현체를 만든 모듈
 2. [*Auth*](https://github.com/TrulyNotMalware/Modules/blob/main/auth/README.md) : OAuth 클라이언트와 인증서비스를 포함하는 어플리케이션.
 3. [*OAuth*](https://github.com/TrulyNotMalware/Modules/blob/main/oauthServer/README.md) : JPA를 사용한 OAuth [인가 서버](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/index.html) 어플리케이션
 4. [*Resource Server*](https://github.com/TrulyNotMalware/Modules/blob/main/resourceServer/README.md) : OAuth 리소스 서버 어플리케이션.
+
 
 *Micro Service Architecture - Saga pattern*
 1. [*Saga*](https://github.com/TrulyNotMalware/Modules/blob/main/saga/README.md) : [Eventuate Tram](https://github.com/eventuate-tram/eventuate-tram-sagas) 프레임워크의  [사가 참여자 예제](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders)를 구현한 어플리케이션.
@@ -91,6 +100,12 @@ For more information, see README for each module.
 *Basic*
 1. [*Reactor Core*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorCore/README.md) : 트레이싱(Zipkin & Micrometer) 설정과 유틸리티 모듈.
 2. [*Reactor kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorKafka/README.md) : 아파치 카프카 Consumer & Producer 설정 모듈.
+
+*Security*
+1. [*Reactor Security*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorSecurity/README.md) : 리액터 기반의 Jwt 인증 & 설정 모듈.
+
+*Gateway*
+1. [*Gateway*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorSecurity/README.md) : Jwt 검증 로직을 포함한 Spring cloud gateway 어플리케이션.
 
 ### For More Information
 더 자세한 정보는 각 모듈 디렉터리의 README 를 참고해주세요.

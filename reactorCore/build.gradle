@@ -11,4 +11,17 @@ dependencies {
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
     implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
     implementation 'io.zipkin.reporter2:zipkin-reporter-metrics-micrometer'
+
+    //Reactive R2DBC Contains.
+    api 'org.springframework.boot:spring-boot-starter-data-r2dbc'
+
+    //Testing DB
+    implementation 'io.r2dbc:r2dbc-h2' //H2-Console setting required.
+    //MariaDB
+    runtimeOnly 'org.mariadb:r2dbc-mariadb'
+    //Oracle
+    runtimeOnly 'com.oracle.database.r2dbc:oracle-r2dbc'
+
+    //Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }

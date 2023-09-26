@@ -1,0 +1,132 @@
+spring:
+  profiles:
+    group:
+      "prod": "base, prod-gateway, prod-gateway-routes"
+      "jwt": "jwt-configuration"
+    active: prod, jwt
+---
+server:
+  port: 80
+
+spring:
+  config:
+    activate:
+      on-profile: base
+  #Dev tools Endpoints
+  devtools:
+    restart:
+      exclude: static/**, public/**, resources/**
+
+#Actuator
+management:
+  endpoint:
+    health:
+      show-details: when_authorized
+    gateway:
+      enabled: true
+
+  endpoints:
+    web:
+      exposure:
+        include: health,threaddump,conditions,info,heapdump,gateway,refresh
+      base-path: /gateway/actuator
+      path-mapping:
+        loggers: logs
+        httptrace: trace
+info:
+  spring:
+    framework:
+      version: ${spring-framework.version}
+---
+spring:
+  config:
+    activate:
+      on-profile: gateway
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Global Gateway Filters
+            preLogger: true
+            postLogger: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: [ '*' ]
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+              - PATCH
+      httpclient: #Http Client timeout
+        connect-timeout: 2000
+        response-timeout: 30s
+---
+spring:
+  config:
+    activate:
+      on-profile: prod-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - name: GlobalFilter
+          args:
+            baseMessage: Global Gateway Filters
+            preLogger: true
+            postLogger: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: ${PROD_ORIGIN_URLS}
+            allow-credentials: true
+            allowedHeaders: '*'
+            allowedMethods:
+              - PUT
+              - GET
+              - POST
+              - DELETE
+              - OPTIONS
+              - PATCH
+      httpclient: #Http Client timeout
+        connect-timeout: ${PROD_CONNECT_TIMEOUT}
+        response-timeout: ${PROD_RESPONSE_TIMEOUT}
+logging:
+  level:
+    root: info
+---
+spring:
+  config:
+    activate:
+      on-profile: prod-gateway-routes
+  cloud:
+    gateway:
+      routes:
+        - id: OAuth2-Authorization-Server
+          uri: ${KUBERNETES_OAUTH_SERVICE_URI}
+          predicates:
+            - Path=/oauth2/**
+            - Method=POST, GET, OPTIONS
+          filters:
+            - RewritePath=/oauth2/(?<segment>.*), /oauth2/$\{segment}
+---
+spring:
+  config:
+    activate:
+      on-profile: jwt-configuration
+
+jwt:
+  token:
+    accessTokenExpiredTime: ${ACCESS_EXPIRED_TIME}
+    refreshTokenExpiredTime: ${REFRESH_EXPIRED_TIME}
+    keystore:
+      classpath: ${KEY_NAME}
+      password: ${KEYSTORE_PASSWORD}
+    key:
+      alias: ${KEY_ALIAS}
+      privateKeyPassPhrase: ${PRIVATE_KEY_PASS_PHRASE}
+---

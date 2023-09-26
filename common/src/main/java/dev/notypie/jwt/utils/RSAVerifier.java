@@ -1,5 +1,6 @@
 package dev.notypie.jwt.utils;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -12,6 +13,10 @@ import javax.crypto.NoSuchPaddingException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Service
@@ -56,6 +61,7 @@ public class RSAVerifier implements JwtVerifier{
 //        }
     }
 
+    @Override
     public String decrypt(String encryptedMessage){
         try{
             Cipher decrypt = Cipher.getInstance("RSA/ECB/PKCS1Padding");
@@ -65,5 +71,14 @@ public class RSAVerifier implements JwtVerifier{
                  InvalidKeyException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Map<String, Object> userParser(Claims claims){
+        Map<String, Object> userParseInfo = new ConcurrentHashMap<>();
+        userParseInfo.put("userId", claims.getSubject());
+        userParseInfo.put("roles", claims.get("roles", List.class));
+        userParseInfo.put("isExpired", !claims.getExpiration().before(new Date()));
+        return userParseInfo;
     }
 }

@@ -3,12 +3,8 @@ jar { enabled = true }
 
 dependencies {
     api project(":core")
+    api project(":common")
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    //Jwt Token 분할됨. 이제 Api 와 구현체 둘을 import 해야 함. Default 로 Jackson 선택.
-    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     //Random UUID Generator
     api 'com.fasterxml.uuid:java-uuid-generator:4.3.0'

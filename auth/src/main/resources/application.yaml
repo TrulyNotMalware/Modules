@@ -45,6 +45,9 @@ info:
       version: ${spring-framework.version}
   java:
     version: ${java.version}
+logging:
+  level:
+    root: trace
 ---
 server:
   port: 80
@@ -217,11 +220,11 @@ jwt:
     accessTokenExpiredTime: 200000
     refreshTokenExpiredTime: 2000000
     keystore:
-      classpath: YOUR_KEY_NAME.jks
-      password: YOUR_PASSWORD
+      classpath: clientkeystore.jks
+      password: teststorepass
     key:
-      alias: YOUR_ALIAS
-      privateKeyPassPhrase: YOUR_PASS_PHRASE
+      alias: client
+      privateKeyPassPhrase: teststorepass
 
 authentication:
   login:
@@ -243,17 +246,17 @@ spring:
             client-secret: GITHUB_SECRET
             scope: name, email, avatar_url
           myService:
-            client-id: 5a6ca597579411eeafe4f131af2de935
+            client-id: 978494d75b6f11eeac5c65e928854c2d
 #            client-id: d27ab71355f511ee80886bb95dd62253
-            client-secret: GnneoHK4edCcaD92LyTQVxFzrBSQ5b
+            client-secret: "$2a$10$CYY6054.CJ3XA1JXlDvyv.n0mZa9yHV37nwauSFHZTZJ9nPEnzrMG"
 #            client-secret: myeVqwKolIlcUrrpSVDSYITlSh1Fwg
-            redirect-uri: http://localhost:8888/login/oauth2/code/myService
-#            redirect-uri: http://localhost:8888/login/oauth/code/myservice
+            redirect-uri: "{baseUrl}/{action}/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
             scope: message.read, message.write
+            client-authentication-method: client_secret_basic
         provider:
           myService:
-            authorization-uri: http://localhost:8080/oauth2/authorize
-            token-uri: http://localhost:8080/oauth2/token
-            user-info-uri: http://localhost:8080/v1/users/me
+            authorization-uri: https://api.notypie.dev/oauth2/authorize
+            token-uri: https://api.notypie.dev/oauth2/token
+            user-info-uri: https://api.notypie.dev/v1/users/me
             user-name-attribute: userId

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: api-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: harbor.registry.notypie.dev/apis/api-gateway:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef: # implementation project (":common")
+                name: api-common-secret
+            - configMapRef:
+                name: api-service-gateway-configmap
+          ports:
+            - name: http
+              containerPort: 80

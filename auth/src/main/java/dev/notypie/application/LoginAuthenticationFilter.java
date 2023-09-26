@@ -3,7 +3,7 @@ package dev.notypie.application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.jwt.dto.LoginRequestDto;
 import dev.notypie.jwt.dto.JwtDto;
-import dev.notypie.jwt.utils.CookieProvider;
+import dev.notypie.jwt.utils.CookieGenerator;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.Cookie;
@@ -82,7 +82,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         this.refreshTokenService.updateRefreshToken(id, newToken.getRefreshToken());
 
         ResponseCookie refreshTokenCookie = this.refreshTokenService.createRefreshToken(newToken.getRefreshToken());
-        Cookie cookie = CookieProvider.of(refreshTokenCookie);
+        //[9.26] Module Changed to common, implementation change.
+        Cookie cookie = CookieGenerator.of(refreshTokenCookie);
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.addCookie(cookie);

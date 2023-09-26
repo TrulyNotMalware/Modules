@@ -1,0 +1,52 @@
+spring:
+  config:
+    activate:
+      on-profile: "database-setup"
+  r2dbc:
+    url: ${YOUR_DATABASE_URL}
+    username: ${DATABASE_USER_NAME}
+    password: ${DATABASE_USER_PASSWORD}
+    pool:
+      enabled: true
+---
+spring:
+  config:
+    activate:
+      on-profile: zipkin-setup
+  application:
+    name: ${YOUR_APPLICATION_NAME}
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 0.1 # Sampling rate
+    propagation:
+      type: b3
+    baggage:
+      enabled: true
+  zipkin:
+    tracing:
+      endpoint: ${YOUR_ZIPKIN_ENDPOINT}
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+logging:
+  pattern:
+    level: '%d{yyyy-MM-dd HH:mm:ss.SSS,Asia/Seoul} %clr(%-5level) [%thread,%X{traceId:-},%X{spanId:-},%X{samplingFlags:-}] %clr(%logger{36}){cyan} [%file:%line] - %msg%n'
+---
+spring:
+  config:
+    activate:
+      on-profile: sql-local
+  r2dbc:
+    url: r2dbc:h2:mem:///test:test@test
+    username: test
+    password: test
+  sql:
+    init:
+      mode: embedded
+webclient:
+  h2-console-port: ${LOCAL_H2_CONSOLE_PORT}

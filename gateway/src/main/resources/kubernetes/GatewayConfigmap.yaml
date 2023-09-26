@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-service-gateway-configmap
+  namespace: api-service
+data:
+  PROD_ORIGIN_URLS: "*"
+  PROD_CONNECT_TIMEOUT: '2000'
+  PROD_RESPONSE_TIMEOUT: '5s'

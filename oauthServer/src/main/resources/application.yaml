@@ -5,10 +5,11 @@ spring:
       "dev": "default-base, hikari-default-config, dev-oracle-database"
       "local": "default-base, hikari-default-config, h2-local-database"
       "jwt": "jwt-configuration"
-    active: dev, jwt
+      "oauth-server": "auth-server"
+    active: dev, jwt, oauth-server
 ---
 server:
-  port: 8888
+  port: 8080
   servlet:
     session:
       timeout: 5000
@@ -44,6 +45,9 @@ info:
       version: ${spring-framework.version}
   java:
     version: ${java.version}
+logging:
+  level:
+    root: trace
 ---
 server:
   port: 80
@@ -121,10 +125,10 @@ spring:
     activate:
       on-profile: prod-oracle-database
   datasource:
-    driver-class-name: oracle.jdbc.OracleDriver
-    url: jdbc:oracle:thin:@${TNS_NAME}?TNS_ADMIN=${ORACLE_WALLET_DIRECTORY}
-    username: ${ORACLE_USER_NAME}
-    password: ${ORACLE_DB_PASSWORD}
+    driver-class-name: ${YOUR_DATABASE_DRIVER}
+    url: ${YOUR_DATABASE_URL}
+    username: ${YOUR_DATABASE_USER_NAME}
+    password: ${YOUR_DATABASE_PASSWORD}
 
     hikari:
       connection-test-query: SELECT 1 FROM DUAL # Oracle Database Connection Query.
@@ -132,7 +136,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: ${JPA_DDL_AUTO}
     show-sql: true
     generate-ddl: false
     properties:
@@ -209,15 +213,24 @@ spring:
 spring:
   config:
     activate:
-      on-profile: "jwt-configuration"
+      on-profile: jwt-configuration
 
 jwt:
   token:
-    accessTokenExpiredTime: 200000
-    refreshTokenExpiredTime: 2000000
+    accessTokenExpiredTime: ${ACCESS_EXPIRED_TIME}
+    refreshTokenExpiredTime: ${REFRESH_EXPIRED_TIME}
     keystore:
-      classpath: YOUR_KEY_NAME.jks
-      password: YOUR_PASSWORD
+      classpath: ${KEY_NAME}
+      password: ${KEYSTORE_PASSWORD}
     key:
-      alias: YOUR_ALIAS
-      privateKeyPassPhrase: YOUR_PASS_PHRASE
+      alias: ${KEY_ALIAS}
+      privateKeyPassPhrase: ${PRIVATE_KEY_PASS_PHRASE}
+---
+spring:
+  config:
+    activate:
+      on-profile: auth-server
+
+authentication:
+  login:
+    requestUrl: "/login"

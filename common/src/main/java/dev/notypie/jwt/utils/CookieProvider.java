@@ -1,6 +1,5 @@
 package dev.notypie.jwt.utils;
 
-import jakarta.servlet.http.Cookie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
@@ -30,12 +29,13 @@ public class CookieProvider {
                 .build();
     }
 
-    public static Cookie of(ResponseCookie responseCookie) {
-        Cookie cookie = new Cookie(responseCookie.getName(), responseCookie.getValue());
-        cookie.setPath(responseCookie.getPath());
-        cookie.setSecure(responseCookie.isSecure());
-        cookie.setHttpOnly(responseCookie.isHttpOnly());
-        cookie.setMaxAge((int) responseCookie.getMaxAge().getSeconds());
-        return cookie;
-    }
+    //Servlet is only for Spring MVC.
+//    public static Cookie of(ResponseCookie responseCookie) {
+//        Cookie cookie = new Cookie(responseCookie.getName(), responseCookie.getValue());
+//        cookie.setPath(responseCookie.getPath());
+//        cookie.setSecure(responseCookie.isSecure());
+//        cookie.setHttpOnly(responseCookie.isHttpOnly());
+//        cookie.setMaxAge((int) responseCookie.getMaxAge().getSeconds());
+//        return cookie;
+//    }
 }

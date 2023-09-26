@@ -1,5 +1,7 @@
 package dev.notypie.jwt.utils;
+
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +9,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.security.interfaces.RSAPrivateKey;
-import java.util.*;
+import java.security.interfaces.RSAPublicKey;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -23,6 +29,7 @@ public class JwtTokenProvider {
     private Long REFRESH_TOKEN_EXPIRED;
 
     private final RSAPrivateKey key;
+    private final RSAPublicKey publicKey;
 
     /**
      * Create JWT AccessToken Signed with RSA256
@@ -67,7 +74,7 @@ public class JwtTokenProvider {
 
     public Claims getClaimsFromJwtToken(String token){
         try{
-            return Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token).getBody();
+            return Jwts.parserBuilder().setSigningKey(this.publicKey).build().parseClaimsJws(token).getBody();
         }catch (ExpiredJwtException e){
             log.error("Error in getClaims");
             return e.getClaims();
@@ -89,9 +96,12 @@ public class JwtTokenProvider {
     }
 
     public boolean validateJwtToken(String token){
-        try{
-            Jwts.parserBuilder().setSigningKey(this.key).build().parseClaimsJws(token);
+        try {
+            Jwts.parserBuilder().setSigningKey(this.publicKey).build().parseClaimsJws(token);
             return true;
+        } catch (SignatureException e){
+            log.error("Invalid JWT signature: {}", e.getMessage());
+            return false;
         } catch (MalformedJwtException e) {
             log.error("Invalid JWT token: {}", e.getMessage());
             return false;
