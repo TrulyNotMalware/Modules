@@ -4,6 +4,7 @@ metadata:
   name: api-service-gateway-configmap
   namespace: api-service
 data:
-  PROD_ORIGIN_URLS: "*"
+  ALLOWED_ORIGIN_PATTERNS: "ALLOWED_ORIGIN_URLS"
   PROD_CONNECT_TIMEOUT: '2000'
   PROD_RESPONSE_TIMEOUT: '5s'
+  OAUTH_SERVICE_URI: 'YOUR_OAUTH_SERVICE_URI'

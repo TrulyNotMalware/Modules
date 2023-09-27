@@ -53,7 +53,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: [ '*' ]
+            allowedOrigins: [ 'http://localhost' ]
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
@@ -82,7 +82,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: ${PROD_ORIGIN_URLS}
+            allowedOriginPatterns: ${ALLOWED_ORIGIN_PATTERNS}
             allow-credentials: true
             allowedHeaders: '*'
             allowedMethods:
@@ -107,7 +107,7 @@ spring:
     gateway:
       routes:
         - id: OAuth2-Authorization-Server
-          uri: ${KUBERNETES_OAUTH_SERVICE_URI}
+          uri: ${OAUTH_SERVICE_URI}
           predicates:
             - Path=/oauth2/**
             - Method=POST, GET, OPTIONS

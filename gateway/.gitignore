@@ -40,3 +40,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+### Auth ###
+src/main/resources/Wallet/
+src/main/resources/*.jks
