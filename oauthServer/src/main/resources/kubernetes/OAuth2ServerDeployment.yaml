@@ -24,6 +24,14 @@ spec:
                 name: api-oracle-database-secret # Example: use Oracle database.
             - configMapRef:
                 name: api-oauth-server-configmap
+          volumeMounts:
+            - mountPath: "YOUR_VOLUME_MOUNT_PATH"
+              name: oracle-wallet
+              readOnly: true
           ports:
             - name: http
               containerPort: 80
+      volumes: # This is also example for Oracle.
+        - name: oracle-wallet
+          secret:
+            secretName: oracle-wallet-config
