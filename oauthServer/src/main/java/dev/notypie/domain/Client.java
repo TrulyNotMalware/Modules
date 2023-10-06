@@ -64,12 +64,13 @@ public class Client {
     private String tokenSettings;
 
     @Transient
-    private ObjectMapper objectMapper;
+    private String rawPassword;
     @Builder
     protected Client(RegisterOAuthClient oauthClient){
         this.clientId = this.generateClientId();
         this.clientIdIssuedAt = Instant.now();
-        this.clientSecret = new BCryptPasswordEncoder().encode(this.generatePassword());
+        this.rawPassword = this.generatePassword();// Require Raw Password for client.
+        this.clientSecret = new BCryptPasswordEncoder().encode(this.rawPassword);
         this.clientSecretExpiresAt = Instant.now().plus(24, ChronoUnit.HOURS);// 24Hours later.
         this.clientName = oauthClient.getClientName();
         this.clientAuthenticationMethods = ClientAuthenticationMethod.CLIENT_SECRET_BASIC.getValue(); // Default.
@@ -128,7 +129,7 @@ public class Client {
     public ResponseRegisteredClient toResponseDto(){
         return ResponseRegisteredClient.builder()
                 .clientId(this.clientId)
-                .clientSecret(this.clientSecret)
+                .clientSecret(this.rawPassword)// Client needs raw password.
                 .clientSecretExpiresAt(this.clientSecretExpiresAt)
                 .clientName(this.clientName)
                 .build();
