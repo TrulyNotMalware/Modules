@@ -30,7 +30,6 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 @Slf4j
-@Component
 public class JpaOAuth2AuthorizationService implements OAuth2AuthorizationService {
     private final AuthorizationRepository authorizationRepository;
     private final RegisteredClientRepository registeredClientRepository;

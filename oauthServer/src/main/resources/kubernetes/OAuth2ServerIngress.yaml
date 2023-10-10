@@ -11,10 +11,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - oauth.notypie.dev
+        - auth.notypie.dev
       secretName: oauth-notypie-dev-tls
   rules:
-    - host: oauth.notypie.dev
+    - host: auth.notypie.dev
       http:
         paths:
           - pathType: Prefix

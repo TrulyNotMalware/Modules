@@ -5,8 +5,8 @@ spring:
       "dev": "default-base, hikari-default-config, dev-oracle-database"
       "local": "default-base, hikari-default-config, h2-local-database"
       "jwt": "jwt-configuration"
-      "oauth-server": "auth-server"
-    active: dev, jwt, oauth-server
+      "jpa-oauth-server": "jpa-auth-server"
+    active: dev, jwt, jpa-oauth-server
 ---
 server:
   port: 8080
@@ -229,8 +229,4 @@ jwt:
 spring:
   config:
     activate:
-      on-profile: auth-server
-
-authentication:
-  login:
-    requestUrl: "/login"
+      on-profile: jpa-oauth-server

@@ -5,9 +5,11 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
+import dev.notypie.common.utils.CustomJwtGenerator;
 import dev.notypie.common.utils.CustomOAuthAuthorizationCodeGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -16,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
@@ -26,6 +29,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtGenerator;
+import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -41,7 +45,6 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer configure(){
         return (web) -> web.ignoring().requestMatchers(
                 "/swagger-ui/**",
-                "/api/oauth2/**", //This is for test. Erase this.
                 "/h2-console/**",
                 "/error"
         );
@@ -52,11 +55,11 @@ public class SecurityConfiguration {
         return AuthorizationServerSettings.builder().build();
     }
     @Bean
+    @Profile("jpa-oauth-server")
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity,
                                            RegisteredClientRepository registeredClientRepository,
                                            OAuth2AuthorizationService authorizationService,
                                            OAuth2AuthorizationConsentService oAuth2AuthorizationConsentService,
-//                                           UsernamePasswordAuthenticationFilter filter,
                                            JwtEncoder jwtEncoder,
                                            AuthorizationServerSettings settings) throws Exception {
 
@@ -67,7 +70,6 @@ public class SecurityConfiguration {
         RequestMatcher endpointsMatcher = authorizationServerConfigurer
                 .getEndpointsMatcher();
         httpSecurity
-//                .securityMatcher(endpointsMatcher)
                 .authorizeHttpRequests(authorize ->
                         authorize.anyRequest().authenticated()
                 )
@@ -86,13 +88,16 @@ public class SecurityConfiguration {
         httpSecurity.authenticationProvider(provider);
         httpSecurity.authenticationProvider(consentProvider);
 
+        //2023.10.5 JwtGenerator Deserialize issue
+        CustomJwtGenerator generator = new CustomJwtGenerator(jwtEncoder);
+
         httpSecurity.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults())
                 .registeredClientRepository(registeredClientRepository)
                 .clientAuthentication(clientConfigurer -> clientConfigurer.authenticationProvider(provider))
                 .authorizationService(authorizationService)
                 .authorizationConsentService(oAuth2AuthorizationConsentService)
-                .tokenGenerator(new JwtGenerator(jwtEncoder))
+                .tokenGenerator(generator)
                 .authorizationServerSettings(settings);
         httpSecurity.formLogin(Customizer.withDefaults());
 

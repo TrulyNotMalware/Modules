@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
@@ -41,13 +42,17 @@ public final class CustomJwtGenerator implements OAuth2TokenGenerator<Jwt> {
     @Nullable
     @Override
     public Jwt generate(OAuth2TokenContext context) {
+        //TokenSetting format cannot serialize issue.
+
+        TokenSettingsSerializer serializer = new TokenSettingsSerializer(context.getRegisteredClient().getTokenSettings());
         if (context.getTokenType() == null ||
                 (!OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType()) &&
                         !OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue()))) {
             return null;
         }
         if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType()) &&
-                !OAuth2TokenFormat.SELF_CONTAINED.equals(context.getRegisteredClient().getTokenSettings().getAccessTokenFormat())) {
+                //Fix getTokenSettings serialize issue.
+                !OAuth2TokenFormat.SELF_CONTAINED.equals(serializer.getTokenSettings().getAccessTokenFormat())) {
             return null;
         }
 
@@ -63,14 +68,13 @@ public final class CustomJwtGenerator implements OAuth2TokenGenerator<Jwt> {
         if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
             // TODO Allow configuration for ID Token time-to-live
             expiresAt = issuedAt.plus(30, ChronoUnit.MINUTES);
-            if (registeredClient.getTokenSettings().getIdTokenSignatureAlgorithm() != null) {
-                jwsAlgorithm = registeredClient.getTokenSettings().getIdTokenSignatureAlgorithm();
+            if (serializer.getTokenSettings().getIdTokenSignatureAlgorithm() != null) {
+                jwsAlgorithm = serializer.getTokenSettings().getIdTokenSignatureAlgorithm();
             }
         } else {
-            expiresAt = issuedAt.plus(registeredClient.getTokenSettings().getAccessTokenTimeToLive());
+            expiresAt = issuedAt.plus(serializer.getTokenSettings().getAccessTokenTimeToLive());
         }
 
-        // @formatter:off
         JwtClaimsSet.Builder claimsBuilder = JwtClaimsSet.builder();
         if (StringUtils.hasText(issuer)) {
             claimsBuilder.issuer(issuer);
@@ -105,12 +109,10 @@ public final class CustomJwtGenerator implements OAuth2TokenGenerator<Jwt> {
                 claimsBuilder.claim(IdTokenClaimNames.AUTH_TIME, currentIdToken.<Date>getClaim(IdTokenClaimNames.AUTH_TIME));
             }
         }
-        // @formatter:on
 
         JwsHeader.Builder jwsHeaderBuilder = JwsHeader.with(jwsAlgorithm);
 
         if (this.jwtCustomizer != null) {
-            // @formatter:off
             JwtEncodingContext.Builder jwtContextBuilder = JwtEncodingContext.with(jwsHeaderBuilder, claimsBuilder)
                     .registeredClient(context.getRegisteredClient())
                     .principal(context.getPrincipal())
@@ -130,7 +132,6 @@ public final class CustomJwtGenerator implements OAuth2TokenGenerator<Jwt> {
                     jwtContextBuilder.put(SessionInformation.class, sessionInformation);
                 }
             }
-            // @formatter:on
 
             JwtEncodingContext jwtContext = jwtContextBuilder.build();
             this.jwtCustomizer.customize(jwtContext);
@@ -144,13 +145,6 @@ public final class CustomJwtGenerator implements OAuth2TokenGenerator<Jwt> {
         return jwt;
     }
 
-    /**
-     * Sets the {@link OAuth2TokenCustomizer} that customizes the
-     * {@link JwtEncodingContext#getJwsHeader() JWS headers} and/or
-     * {@link JwtEncodingContext#getClaims() claims} for the generated {@link Jwt}.
-     *
-     * @param jwtCustomizer the {@link OAuth2TokenCustomizer} that customizes the headers and/or claims for the generated {@code Jwt}
-     */
     public void setJwtCustomizer(OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer) {
         Assert.notNull(jwtCustomizer, "jwtCustomizer cannot be null");
         this.jwtCustomizer = jwtCustomizer;

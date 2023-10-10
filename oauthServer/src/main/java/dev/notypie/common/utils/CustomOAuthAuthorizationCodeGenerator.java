@@ -32,12 +32,10 @@ public class CustomOAuthAuthorizationCodeGenerator implements OAuth2TokenGenerat
             Instant expiresAt = issuedAt.plus(context.getRegisteredClient().getTokenSettings().getAuthorizationCodeTimeToLive());
             return new OAuth2AuthorizationCode(this.authorizationCodeGenerator.generateKey(), issuedAt, expiresAt);
         } catch (ClassCastException e){
-            //Cannot type cast
-            Map<String, Object> settings = context.getRegisteredClient().getTokenSettings().getSettings();
-            // In my case (Oracle 19c) It's double value with seconds.
-            long authorizationCodeTimeToLive = Math.round((double) settings.get(ConfigurationSettingNames.Token.AUTHORIZATION_CODE_TIME_TO_LIVE));
-            Duration authorizationCodeDuration = Duration.ofSeconds(authorizationCodeTimeToLive);
-            Instant expiresAt = issuedAt.plus(authorizationCodeDuration);
+            // Cannot typecast issue, In my case (Oracle 19c) It's double value with seconds.
+            //refact with Token Serializer.
+            TokenSettingsSerializer serializer = new TokenSettingsSerializer(context.getRegisteredClient().getTokenSettings());
+            Instant expiresAt = issuedAt.plus(serializer.getTokenSettings().getAuthorizationCodeTimeToLive());
             return new OAuth2AuthorizationCode(this.authorizationCodeGenerator.generateKey(), issuedAt, expiresAt);
         }
     }
