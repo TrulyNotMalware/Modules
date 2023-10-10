@@ -3,6 +3,7 @@ package dev.notypie.jpa.dao;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.notypie.common.utils.TokenSettingsSerializer;
 import dev.notypie.domain.Client;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
@@ -86,8 +87,9 @@ public class JpaRegisteredClientRepository implements RegisteredClientRepository
         Map<String, Object> clientSettingsMap = parseMap(client.getClientSettings());
         builder.clientSettings(ClientSettings.withSettings(clientSettingsMap).build());
 
-        Map<String, Object> tokenSettingsMap = parseMap(client.getTokenSettings());
-        builder.tokenSettings(TokenSettings.withSettings(tokenSettingsMap).build());
+        //10.10 TokenSettings Class TypeCast issue fix.
+        TokenSettingsSerializer serializer = new TokenSettingsSerializer(parseMap(client.getTokenSettings()));
+        builder.tokenSettings(serializer.getTokenSettings());
 
         return builder.build();
     }
