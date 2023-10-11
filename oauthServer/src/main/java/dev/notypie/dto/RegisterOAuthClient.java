@@ -2,10 +2,7 @@ package dev.notypie.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Set;
 
@@ -30,4 +27,11 @@ public class RegisterOAuthClient {
     @NotBlank
     private Set<String> scopes;
 
+    @Builder
+    RegisterOAuthClient(String clientName, String redirectUris, String postLogoutRedirectUris, Set<String> scopes){
+        this.clientName = clientName;
+        this.redirectUris = redirectUris;
+        this.postLogoutRedirectUris = postLogoutRedirectUris;
+        this.scopes = scopes;
+    }
 }

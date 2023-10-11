@@ -16,6 +16,7 @@ import java.util.Base64;
 import java.util.Map;
 
 @Slf4j
+@Deprecated //no longer need to add the Generator this way.
 public class CustomOAuthAuthorizationCodeGenerator implements OAuth2TokenGenerator<OAuth2AuthorizationCode> {
     private final StringKeyGenerator authorizationCodeGenerator =
             new Base64StringKeyGenerator(Base64.getUrlEncoder().withoutPadding(), 96);

@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-
 public class JpaRegisteredClientRepository implements RegisteredClientRepository {
     private final ClientRepository clientRepository;
     private final ObjectMapper objectMapper = new ObjectMapper();

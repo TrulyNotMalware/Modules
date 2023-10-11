@@ -5,8 +5,6 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import dev.notypie.common.utils.CustomJwtGenerator;
-import dev.notypie.common.utils.CustomOAuthAuthorizationCodeGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -18,18 +16,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationConsentService;
 import org.springframework.security.oauth2.server.authorization.OAuth2AuthorizationService;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeRequestAuthenticationProvider;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationConsentAuthenticationProvider;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtGenerator;
-import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenGenerator;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -75,29 +69,31 @@ public class SecurityConfiguration {
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
                 .apply(authorizationServerConfigurer);
+
+        //2023.10.11 No longer need to add the Generator this way.
         //2023.09.20 JPA Duration Serialize & Deserialize issue.
         //Provider's
-        OAuth2AuthorizationCodeRequestAuthenticationProvider provider =
-                new OAuth2AuthorizationCodeRequestAuthenticationProvider(
-                        registeredClientRepository, authorizationService, oAuth2AuthorizationConsentService);
-        OAuth2AuthorizationConsentAuthenticationProvider consentProvider =
-                new OAuth2AuthorizationConsentAuthenticationProvider(
-                        registeredClientRepository, authorizationService, oAuth2AuthorizationConsentService);
-        provider.setAuthorizationCodeGenerator(new CustomOAuthAuthorizationCodeGenerator());
-        consentProvider.setAuthorizationCodeGenerator(new CustomOAuthAuthorizationCodeGenerator());
-        httpSecurity.authenticationProvider(provider);
-        httpSecurity.authenticationProvider(consentProvider);
+//        OAuth2AuthorizationCodeRequestAuthenticationProvider provider =
+//                new OAuth2AuthorizationCodeRequestAuthenticationProvider(
+//                        registeredClientRepository, authorizationService, oAuth2AuthorizationConsentService);
+//        OAuth2AuthorizationConsentAuthenticationProvider consentProvider =
+//                new OAuth2AuthorizationConsentAuthenticationProvider(
+//                        registeredClientRepository, authorizationService, oAuth2AuthorizationConsentService);
+//        provider.setAuthorizationCodeGenerator(new CustomOAuthAuthorizationCodeGenerator());
+//        consentProvider.setAuthorizationCodeGenerator(new CustomOAuthAuthorizationCodeGenerator());
+//        httpSecurity.authenticationProvider(provider);
+//        httpSecurity.authenticationProvider(consentProvider);
 
         //2023.10.5 JwtGenerator Deserialize issue
-        CustomJwtGenerator generator = new CustomJwtGenerator(jwtEncoder);
+//        CustomJwtGenerator generator = new CustomJwtGenerator(jwtEncoder);
 
         httpSecurity.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
                 .oidc(Customizer.withDefaults())
                 .registeredClientRepository(registeredClientRepository)
-                .clientAuthentication(clientConfigurer -> clientConfigurer.authenticationProvider(provider))
+//                .clientAuthentication(clientConfigurer -> clientConfigurer.authenticationProvider(provider))
                 .authorizationService(authorizationService)
                 .authorizationConsentService(oAuth2AuthorizationConsentService)
-                .tokenGenerator(generator)
+                .tokenGenerator(new JwtGenerator(jwtEncoder))
                 .authorizationServerSettings(settings);
         httpSecurity.formLogin(Customizer.withDefaults());
 

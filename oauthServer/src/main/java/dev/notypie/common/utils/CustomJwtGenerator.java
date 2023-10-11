@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
-import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenContext;
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
@@ -30,6 +29,7 @@ import java.util.Collections;
 import java.util.Date;
 
 @Slf4j
+@Deprecated //no longer need to add the Generator this way.
 public final class CustomJwtGenerator implements OAuth2TokenGenerator<Jwt> {
     private final JwtEncoder jwtEncoder;
     private OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer;
