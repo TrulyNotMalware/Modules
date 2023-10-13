@@ -11,9 +11,9 @@ import java.security.interfaces.RSAPublicKey;
 
 @Slf4j
 @Configuration
-public class JwtConfiguration {
+public class JwtDecoderConfiguration {
     @Bean
-    public JwtDecoder jwtDecoder(RSAPublicKey rsaPublicKey) {
-        return NimbusJwtDecoder.withPublicKey(rsaPublicKey).build();
+    public JwtDecoder jwtDecoder(RSAPublicKey publicKey){
+        return NimbusJwtDecoder.withPublicKey(publicKey).build();
     }
 }

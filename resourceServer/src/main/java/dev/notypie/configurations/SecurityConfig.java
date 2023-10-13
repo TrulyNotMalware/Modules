@@ -24,7 +24,7 @@ public class SecurityConfig {
         httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfigurer -> {
            oauth2ResourceServerConfigurer.jwt(jwtConfigurer -> {
                jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter);
-//               jwtConfigurer.decoder(jwtDecoder);
+               jwtConfigurer.decoder(jwtDecoder);
            });
            oauth2ResourceServerConfigurer.accessDeniedHandler(new AccessDeniedHandler());
            oauth2ResourceServerConfigurer.authenticationEntryPoint(new EntryPoint());
