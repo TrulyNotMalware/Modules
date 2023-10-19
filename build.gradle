@@ -21,6 +21,7 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java-library'
+    apply plugin: 'java-test-fixtures'
 
     sourceCompatibility = '17'
 
@@ -52,6 +53,8 @@ subprojects {
         //Lombok
         compileOnly 'org.projectlombok:lombok'
         annotationProcessor 'org.projectlombok:lombok'
+
+        testFixturesImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     }
     task initSourceFolders {

@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 @Component
-@Profile({"jwt","oauth"})
+@Profile("jwt")
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 

@@ -16,7 +16,7 @@ import java.security.interfaces.RSAPublicKey;
 
 //https://gist.github.com/IMS94/588e7bee646423308c23bfbff7681c94
 @Slf4j
-@Profile({"jwt","oauth"})
+@Profile("jwt")
 @Configuration
 public class JwtConfiguration {
 
@@ -70,7 +70,7 @@ public class JwtConfiguration {
                 return (RSAPublicKey) publicKey;
             }
         } catch (KeyStoreException e) {
-            log.error("Unable to load private key from keystore: {}", this.keyStorePath, e);
+            log.error("Unable to load public key from keystore: {}", this.keyStorePath, e);
         }
 
         throw new IllegalArgumentException("Unable to load RSA public key");

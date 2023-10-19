@@ -49,6 +49,6 @@ public class UserRegisterDto {
     @JsonProperty("region")
     private String region;
 
-    @JsonProperty("zip_code")
+    @JsonProperty("zipCode")
     private String zipCode;
 }

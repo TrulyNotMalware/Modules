@@ -7,7 +7,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Profile({"jwt","oauth"})
+@Profile("jwt")
 @Component
 public class CookieProvider {
 
@@ -23,7 +23,7 @@ public class CookieProvider {
     }
 
     public ResponseCookie removeRefreshTokenCookie() {
-        return ResponseCookie.from("refresh-token", null)
+        return ResponseCookie.from("refresh-token", "")
                 .maxAge(0)
                 .path("/")
                 .build();

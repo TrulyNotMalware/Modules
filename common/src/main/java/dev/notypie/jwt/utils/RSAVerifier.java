@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@Profile({"jwt","oauth"})
+@Profile("jwt")
 public class RSAVerifier implements JwtVerifier{
 
     private final PrivateKey privateKey;

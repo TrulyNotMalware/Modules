@@ -3,7 +3,9 @@ jar { enabled = true }
 
 dependencies {
     api project(":core")
+    testImplementation testFixtures(project(":core"))
     api project(":common")
+    testImplementation testFixtures(project(":common"))
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     //Random UUID Generator

@@ -1,9 +1,11 @@
 package dev.notypie.application;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 
+@Profile("oauth-client") // for check.
 public enum CustomOAuth2Provider {
     MYSERVICE {
         public ClientRegistration.Builder getBuilder(String registrationId){

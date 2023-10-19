@@ -1,9 +1,15 @@
 dependencies {
 //    implementation project(':core')
     implementation project(':security')
+    testImplementation project(':security')
     //Oauth Clients
     implementation 'org.springframework.security:spring-security-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    testImplementation project(':security')
+    //Test Source
+    testImplementation(testFixtures(project(":core")))
+    testImplementation(testFixtures(project(":security")))
+
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

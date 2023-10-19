@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static dev.notypie.constants.Constants.USER_ROLE_DEFAULT;
+
 @Slf4j
 @Getter
 @ToString
@@ -51,6 +53,10 @@ public class Users {
     @Email
     private String email;
 
+    //10.19 Add role
+    @Column(name = "role")
+    private String role;
+
     @Column(name = "password")
     @NotBlank
     private String password;
@@ -84,6 +90,8 @@ public class Users {
                 .region(region)
                 .zipCode(zipCode)
                 .build();
+
+        this.role = USER_ROLE_DEFAULT;
     }
 
     public Users updateUsers(Users updateInfo){
@@ -96,7 +104,7 @@ public class Users {
 
     public UserDetails createUserSecurity(){
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(this.dtype));
+        authorities.add(new SimpleGrantedAuthority(this.role));
         return new User(this.id.toString(), this.password, authorities);
     }
 
