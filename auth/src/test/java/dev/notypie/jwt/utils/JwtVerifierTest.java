@@ -3,6 +3,7 @@ package dev.notypie.jwt.utils;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,7 @@ import java.security.PublicKey;
 import java.util.Base64;
 
 
+@Tag("auth")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles({"jwt","dev"})
 public class JwtVerifierTest {
@@ -30,7 +32,7 @@ public class JwtVerifierTest {
     }
 
     @Test
-    @DisplayName("Success verify")
+    @DisplayName("[app.Auth] JwtVerifier work successfully")
     public void testSignature() throws Exception{
         String plainText = "THIS IS TEST PLAIN TEXT";
         String encrypt = this.verifier.sign(plainText);

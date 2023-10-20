@@ -10,6 +10,7 @@ import dev.notypie.dto.UserRegisterDto;
 import dev.notypie.exchanger.UserInfoExchanger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
+@Tag("auth")
 @WebMvcTest(controllers = AuthenticationController.class)
 @Import(SecurityConfiguration.class) //WebSecurityCustomizer import.
 public class AuthenticationControllerTest extends ControllerTest {

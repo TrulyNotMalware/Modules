@@ -3,6 +3,7 @@ package dev.notypie.common.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.notypie.base.JpaDaoTest;
 import dev.notypie.domain.Client;
 import dev.notypie.dto.RegisterOAuthClient;
 import dev.notypie.jpa.dao.ClientRepository;
@@ -21,11 +22,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-@DataJpaTest
-@ActiveProfiles({"test", "jpa-oauth-server"})
-@TestPropertySource(locations = "classpath:application-test.yaml")
+@ActiveProfiles("jpa-oauth-server")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //Use Test database for Real database.
-public class TokenSettingSerializerTest {
+public class TokenSettingSerializerTest extends JpaDaoTest {
 
     private final ClientRepository clientRepository;
     private RegisterOAuthClient blueprint;
