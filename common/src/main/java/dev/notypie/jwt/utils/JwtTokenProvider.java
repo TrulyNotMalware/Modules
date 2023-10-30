@@ -117,8 +117,9 @@ public class JwtTokenProvider {
         }
     }
 
-    public boolean equalRefreshTokenId(String refreshTokenId, String refreshToken) {
+    public boolean equalRefreshTokenId(String findRefreshToken, String refreshToken) {
+        String tokenId = this.getClaimsFromJwtToken(findRefreshToken).get("value").toString();
         String compareToken = this.getClaimsFromJwtToken(refreshToken).get("value").toString();
-        return refreshTokenId.equals(compareToken);
+        return tokenId.equals(compareToken);
     }
 }

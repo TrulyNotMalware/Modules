@@ -8,6 +8,7 @@ import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.JwtTokenProvider;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
@@ -37,18 +38,6 @@ public class RefreshTokenServiceTest extends SpringMockTest {
         this.roles = new ArrayList<>();
         roles.add("testRole");
     }
-
-    //FIXME How to check the token is expired?
-    @Test
-    @DisplayName("[mod.Security] Reissue accessToken works successfully")
-    void refreshJwtToken() {
-        //given
-        String expiredAccessToken = "";
-        //when
-        
-        //then
-    }
-
     @Test
     @DisplayName("[mod.Security] Token generate work successfully.")
     void generateNewTokens() {

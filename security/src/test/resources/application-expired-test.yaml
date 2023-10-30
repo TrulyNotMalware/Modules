@@ -2,7 +2,7 @@ spring:
   profiles:
     group:
       "test": "h2-local-database"
-      "jwt": "jwt-configuration"
+      "jwt": "expired-jwt"
 ---
 spring:
   config:
@@ -24,28 +24,7 @@ spring:
   sql:
     init:
       mode: embedded
----
-spring:
-  config:
-    activate:
-      on-profile: "jwt-configuration"
 
-jwt:
-  token:
-    accessTokenExpiredTime: 200000
-    refreshTokenExpiredTime: 2000000
-    keystore:
-      classpath: testkeystore.jks
-      password: teststorepass
-    key:
-      alias: client
-      privateKeyPassPhrase: teststorepass
-
-authentication:
-  login:
-    requestUrl: "/api/auth/login"
-  logout:
-    requestUrl: "/api/auth/user/logout"
 ---
 # immediately expire jwt access token.
 spring:
@@ -63,3 +42,8 @@ jwt:
     key:
       alias: client
       privateKeyPassPhrase: teststorepass
+authentication:
+  login:
+    requestUrl: "/api/auth/login"
+  logout:
+    requestUrl: "/api/auth/user/logout"

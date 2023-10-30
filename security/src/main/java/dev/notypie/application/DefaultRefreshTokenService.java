@@ -44,9 +44,9 @@ public class DefaultRefreshTokenService implements RefreshTokenService{
         Long id = Long.valueOf(this.tokenProvider.getClaimsFromJwtToken(accessToken).getSubject());
         Users user = this.repository.findByIdWithException(id);
         String findRefreshToken = user.getRefreshToken();
-        // 검증 로직 3가지, 1. AccessToken 이 Expired 됐는지,
+        // Checklist, 1. AccessToken is expired?,
         if(!this.tokenProvider.isExpiredToken(accessToken) ||
-            !this.tokenProvider.validateJwtToken(refreshToken) ||//2. RefreshToken is valid?
+            !this.tokenProvider.validateJwtToken(refreshToken) ||//2. Is valid refreshToken?
             !this.tokenProvider.equalRefreshTokenId(findRefreshToken, refreshToken)){ // 3. RefreshToken is not changed
             //flush token.
             this.repository.updateRefreshToken(id, null);
@@ -56,7 +56,7 @@ public class DefaultRefreshTokenService implements RefreshTokenService{
         List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         String newAccessToken = this.tokenProvider.createJwtAccessToken(String.valueOf(id), roles);
         Date expiredTime = this.tokenProvider. getClaimsFromJwtToken(newAccessToken).getExpiration();
-        return JwtDto.builder().refreshToken(refreshToken).accessToken(accessToken).accessTokenExpiredDate(expiredTime)
+        return JwtDto.builder().refreshToken(refreshToken).accessToken(newAccessToken).accessTokenExpiredDate(expiredTime)
                 .build();
     }
 

@@ -50,6 +50,21 @@ public final class MockUserBuilders {
                 .build();
     }
 
+    public static Users createDefaultUsers(String userId, String userName, String password){
+        return Users.builder()
+                .userId(userId)
+                .userName(userName)
+                .email(email)
+                .password(new BCryptPasswordEncoder().encode(password))
+                .phoneNumber(phoneNumber)
+                .country(country)
+                .streetAddress(streetAddress)
+                .city(city)
+                .region(region)
+                .zipCode(zipCode)
+                .build();
+    }
+
     public static UserDto createDefaultUserDto(){
         return UserDto.builder()
                 .id(id)

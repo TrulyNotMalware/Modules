@@ -1,7 +1,10 @@
 package dev.notypie.controllers;
 
+import dev.notypie.application.RefreshTokenService;
 import dev.notypie.application.UserCRUDService;
+import dev.notypie.dto.TokenResponseDto;
 import dev.notypie.dto.UserRegisterDto;
+import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.dto.UserDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +13,8 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Links;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -24,6 +25,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RestController
 public class AuthenticationController {
     private final UserCRUDService service;
+    private final RefreshTokenService refreshTokenService;
 
     @PostMapping(value = "/register", produces = MediaTypes.HAL_JSON_VALUE)
     public EntityModel<UserDto> register(
@@ -35,5 +37,20 @@ public class AuthenticationController {
         allLinks = Links.of(selfLink);
 
         return EntityModel.of(userResponseDto, allLinks);
+    }
+
+    //10.30 Add Reissue accessToken.
+    @GetMapping(value = "/reissue", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TokenResponseDto> reissueAccessToken(
+            @RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken,
+            @CookieValue("refresh-token") String refreshToken
+    ){
+        accessToken = accessToken.replace("Bearer ","");
+        //Refresh Token.
+        JwtDto reissueToken = this.refreshTokenService.refreshJwtToken(accessToken, refreshToken);
+        ResponseCookie responseCookie = this.refreshTokenService.createRefreshToken(refreshToken);
+        return ResponseEntity.status(HttpStatus.OK)
+                .header(HttpHeaders.SET_COOKIE, responseCookie.toString())
+                .body(TokenResponseDto.toTokenResponseDto(reissueToken));
     }
 }
