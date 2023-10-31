@@ -2,6 +2,9 @@ package dev.notypie.application;
 
 import dev.notypie.dao.UsersRepository;
 import dev.notypie.domain.Users;
+import dev.notypie.exceptions.UserDomainException;
+import dev.notypie.exceptions.UserErrorCodeImpl;
+import dev.notypie.global.error.ArgumentError;
 import dev.notypie.jwt.utils.JwtTokenProvider;
 import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.CookieProvider;
@@ -16,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,14 +48,20 @@ public class DefaultRefreshTokenService implements RefreshTokenService{
         Long id = Long.valueOf(this.tokenProvider.getClaimsFromJwtToken(accessToken).getSubject());
         Users user = this.repository.findByIdWithException(id);
         String findRefreshToken = user.getRefreshToken();
-        // Checklist, 1. AccessToken is expired?,
-        if(!this.tokenProvider.isExpiredToken(accessToken) ||
-            !this.tokenProvider.validateJwtToken(refreshToken) ||//2. Is valid refreshToken?
-            !this.tokenProvider.equalRefreshTokenId(findRefreshToken, refreshToken)){ // 3. RefreshToken is not changed
-            //flush token.
+        // 10.31 show more detail exceptions.
+        List<ArgumentError> errors = new ArrayList<>();
+        if(!this.tokenProvider.isExpiredToken(accessToken))
+            errors.add(new ArgumentError("access token",accessToken,"Access Token is not expired yet. This will be reported"));
+        if(!this.tokenProvider.validateJwtToken(refreshToken))
+            errors.add(new ArgumentError("refresh token",refreshToken,"Refresh Token is not valid. This will be reported"));
+        if(!this.tokenProvider.equalRefreshTokenId(findRefreshToken, refreshToken))
+            errors.add(new ArgumentError("Refresh Token","NO_DETAIL","Refresh Token is not valid. This will be reported"));
+        if(!errors.isEmpty()){//Remove refreshToken.
             this.repository.updateRefreshToken(id, null);
-            throw new RuntimeException("Refresh Failed.");
+            throw UserDomainException.builder()
+                    .errorCode(UserErrorCodeImpl.TOKEN_REISSUE_FAILED).argumentErrors(errors).build();
         }
+
         Authentication authentication = getAuthentication(user.getUserId());
         List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
         String newAccessToken = this.tokenProvider.createJwtAccessToken(String.valueOf(id), roles);

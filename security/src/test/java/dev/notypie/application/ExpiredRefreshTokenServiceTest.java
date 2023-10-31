@@ -1,17 +1,16 @@
 package dev.notypie.application;
 
-import dev.notypie.annotations.WithMockCustomUser;
 import dev.notypie.base.SpringMockTest;
 import dev.notypie.builders.MockUserBuilders;
 import dev.notypie.dao.UsersRepository;
 import dev.notypie.domain.Users;
+import dev.notypie.exceptions.UserDomainException;
 import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.JwtTokenProvider;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
@@ -47,9 +46,13 @@ public class ExpiredRefreshTokenServiceTest extends SpringMockTest {
         roles.add("testRole");
 
         //Test with In Memory User Details
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(this.user.getRole()));
-        this.service.createUser(new User(this.user.getUserId(), this.user.getPassword(),authorities));
+        try{
+            Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority(this.user.getRole()));
+            this.service.createUser(new User(this.user.getUserId(), this.user.getPassword(),authorities));
+        }catch(IllegalArgumentException e){//Duplicate User exception in integration test.
+
+        }
     }
 
     @Test
@@ -67,5 +70,23 @@ public class ExpiredRefreshTokenServiceTest extends SpringMockTest {
         Assertions.assertNotNull(reissueToken.getAccessToken());
         Assertions.assertEquals(reissueToken.getRefreshToken(), newToken.getRefreshToken());
         Assertions.assertNotEquals(accessToken, reissueToken.getAccessToken());
+    }
+
+    @Test
+    @DisplayName("[mod.Security] Reissue accessToken failed")
+    void reissueTokenFailed(){
+        //given
+        JwtDto newToken = this.refreshTokenService.generateNewTokens(id, roles);
+        this.refreshTokenService.updateRefreshToken(id, newToken.getRefreshToken());
+        JwtDto invalidToken = this.refreshTokenService.generateNewTokens(10L, roles);
+        //when
+        String invalidAccessToken = invalidToken.getAccessToken();
+        String accessToken = newToken.getAccessToken();
+        //then
+        Assertions.assertThrows(UserDomainException.class,//UserNotFoundExceptions.
+                () -> this.refreshTokenService.refreshJwtToken(invalidAccessToken, newToken.getRefreshToken()));
+        UserDomainException e = Assertions.assertThrows(UserDomainException.class,
+                ()-> this.refreshTokenService.refreshJwtToken(accessToken, invalidToken.getRefreshToken()));
+        Assertions.assertNotNull(e.getDetail());
     }
 }

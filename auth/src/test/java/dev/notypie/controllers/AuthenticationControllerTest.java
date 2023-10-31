@@ -1,6 +1,7 @@
 package dev.notypie.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.notypie.application.RefreshTokenService;
 import dev.notypie.application.UserCRUDService;
 import dev.notypie.base.ControllerTest;
 import dev.notypie.builders.UserRegisterDtoBuilder;
@@ -45,6 +46,10 @@ public class AuthenticationControllerTest extends ControllerTest {
 
     @MockBean
     UserCRUDService userService;
+
+    //10.31 Add Test case
+    @MockBean
+    RefreshTokenService refreshTokenService;
 
     private UserRegisterDtoBuilder dtoBuilder;
     private Users user;

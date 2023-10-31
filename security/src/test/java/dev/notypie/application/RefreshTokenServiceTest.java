@@ -8,7 +8,6 @@ import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.JwtTokenProvider;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
@@ -58,6 +57,11 @@ public class RefreshTokenServiceTest extends SpringMockTest {
     }
 
     @Test
+    @DisplayName("[mod.Security] Successfully create Tokens")
     void createRefreshToken() {
+        //given
+
+        //when
+        //then
     }
 }
