@@ -14,7 +14,7 @@ public class TokenResponseDto {
     @JsonProperty("accessToken")
     private String accessToken;
 
-    @JsonProperty("expire")
+    @JsonProperty("expired")
     private String expired;
 
 
