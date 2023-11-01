@@ -48,6 +48,7 @@ public class DefaultRefreshTokenService implements RefreshTokenService{
         Long id = Long.valueOf(this.tokenProvider.getClaimsFromJwtToken(accessToken).getSubject());
         Users user = this.repository.findByIdWithException(id);
         String findRefreshToken = user.getRefreshToken();
+        if(findRefreshToken == null) throw new UserDomainException(UserErrorCodeImpl.REFRESH_TOKEN_NOT_EXISTS, new ArrayList<>());
         // 10.31 show more detail exceptions.
         List<ArgumentError> errors = new ArrayList<>();
         if(!this.tokenProvider.isExpiredToken(accessToken))
@@ -84,7 +85,8 @@ public class DefaultRefreshTokenService implements RefreshTokenService{
 
     @Override
     public ResponseCookie logoutToken(String accessToken) {
-        if(!this.tokenProvider.validateJwtToken(accessToken)) throw new RuntimeException("Access token is not valid.");
+        if(!this.tokenProvider.validateJwtToken(accessToken))
+            throw UserDomainException.builder().errorCode(UserErrorCodeImpl.INVALID_ACCESS_TOKEN).build();
         Long id = Long.valueOf(this.tokenProvider.getClaimsFromJwtToken(accessToken).getSubject());
         this.repository.updateRefreshToken(id, null);
         return this.cookieProvider.removeRefreshTokenCookie();

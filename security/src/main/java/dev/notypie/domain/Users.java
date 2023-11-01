@@ -96,7 +96,8 @@ public class Users {
 
     public Users updateUsers(Users updateInfo){
         if(!this.userName.equals(updateInfo.getUserName()) && updateInfo.getUserName() != null) this.userName = updateInfo.getUserName();
-        if(!this.email.equals(updateInfo.getEmail()) && updateInfo.getEmail() != null) this.email = updateInfo.getEmail();
+        // Now email is cannot update.
+//        if(!this.email.equals(updateInfo.getEmail()) && updateInfo.getEmail() != null) this.email = updateInfo.getEmail();
         if(this.address!= null)
             if(!this.address.equals(updateInfo.getAddress())) this.address = updateInfo.getAddress();
         return this;

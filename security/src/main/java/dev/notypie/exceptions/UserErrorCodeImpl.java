@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum UserErrorCodeImpl implements ErrorCode {
     USER_NOT_FOUND(HttpStatus.INTERNAL_SERVER_ERROR, "User Not Found"),
+    REFRESH_TOKEN_NOT_EXISTS(HttpStatus.UNAUTHORIZED, "RefreshToken is empty."),
+    INVALID_ACCESS_TOKEN(HttpStatus.BAD_REQUEST, "Access token is not valid."),
     TOKEN_REISSUE_FAILED(HttpStatus.UNAUTHORIZED, "Reissue failed.");
 
     private final HttpStatus status;
