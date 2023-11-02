@@ -1,6 +1,8 @@
 package dev.notypie.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.notypie.exceptions.UserDomainException;
+import dev.notypie.exceptions.UserErrorCodeImpl;
 import dev.notypie.jwt.dto.LoginRequestDto;
 import dev.notypie.jwt.dto.JwtDto;
 import dev.notypie.jwt.utils.CookieGenerator;
@@ -29,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +77,8 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         //Multiple Login
         if(this.refreshTokenService.isDuplicateRefreshToken(id)){
             this.refreshTokenService.updateRefreshToken(id, null);
-            throw new RuntimeException("Multiple Login detected.");
+//            throw new RuntimeException("Multiple Login detected.");
+            throw new UserDomainException(UserErrorCodeImpl.AUTHENTICATION_FAILED, new ArrayList<>());
         }
         JwtDto newToken = this.refreshTokenService.generateNewTokens(id, roles);
 

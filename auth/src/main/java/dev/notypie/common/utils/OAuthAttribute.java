@@ -1,11 +1,13 @@
 package dev.notypie.common.utils;
 
 import dev.notypie.domain.Users;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Function;
 
+@RequiredArgsConstructor
 public enum OAuthAttribute {
     GITHUB("github", (attributes) ->
             Users.builder()
@@ -21,11 +23,6 @@ public enum OAuthAttribute {
 
     private final String registrationId;
     private final Function<Map<String, Object>, Users> of;
-
-    OAuthAttribute(String registrationId, Function<Map<String, Object>, Users> of){
-        this.registrationId = registrationId;
-        this.of = of;
-    }
 
     public static Users extract(String registrationId, Map<String, Object> attributes){
         return Arrays.stream(values())
