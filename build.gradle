@@ -1,6 +1,6 @@
 buildscript{
     ext{
-        springBootVersion = '3.1.1'
+        springBootVersion = '3.1.4'
         oracleVersionDependency = '19.8.0.0'
     }
     repositories{
@@ -23,7 +23,7 @@ subprojects {
     apply plugin: 'java-library'
     apply plugin: 'java-test-fixtures'
 
-    sourceCompatibility = '17'
+    sourceCompatibility = '21'
 
     ext{
         set('springCloudVersion',"2022.0.3")
