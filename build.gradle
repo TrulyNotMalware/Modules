@@ -33,6 +33,10 @@ subprojects {
         mavenCentral()
     }
 
+    tasks.named('test', Test){
+        useJUnitPlatform()
+    }
+
     dependencyManagement{
         imports {
 //            mavenBom "com.oracle.database.jdbc:ojdbc-bom:${oracleVersionDependency}"

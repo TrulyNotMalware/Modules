@@ -21,7 +21,6 @@ import static dev.notypie.constants.Constants.USER_ROLE_DEFAULT;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@AllArgsConstructor Do not use AllArgsConstructor
 @DiscriminatorColumn(name = "DTYPE")
 @SequenceGenerator(
         name = "USER_SQ_GENERATOR",
