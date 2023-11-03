@@ -1,4 +1,4 @@
-FROM eclipse-temurin:17.0.5_8-jdk
+FROM eclipse-temurin:21.0.1_12-jdk
 ARG JAR_FILE_NAME=test
 ARG SERVER_PORT=80
 
