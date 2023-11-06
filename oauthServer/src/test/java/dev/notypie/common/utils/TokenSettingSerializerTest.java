@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Set;
 
 @ActiveProfiles("jpa-oauth-server")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //Use Test database for Real database.
+@AutoConfigureTestDatabase
 public class TokenSettingSerializerTest extends JpaDaoTest {
 
     private final ClientRepository clientRepository;

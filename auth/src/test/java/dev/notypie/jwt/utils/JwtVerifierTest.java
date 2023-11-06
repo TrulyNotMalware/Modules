@@ -1,6 +1,7 @@
 package dev.notypie.jwt.utils;
 
 
+import dev.notypie.base.SpringIntegrationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -16,9 +17,8 @@ import java.util.Base64;
 
 
 @Tag("auth")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles({"jwt","dev"})
-public class JwtVerifierTest {
+@ActiveProfiles("jwt")
+public class JwtVerifierTest extends SpringIntegrationTest {
 
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
