@@ -81,7 +81,7 @@ public class JwtTokenProvider {
         }catch (Exception e) {
             log.error("Error in refresh");
             e.printStackTrace();
-            throw new RuntimeException("Claims Parse error.");
+            throw e;
         }
     }
 

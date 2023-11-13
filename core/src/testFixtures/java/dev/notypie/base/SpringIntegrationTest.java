@@ -10,6 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@TestPropertySource(locations = "classpath:application-test.yaml")
+@TestPropertySource(properties = {"spring.config.location = classpath:application-test.yaml"})
 public class SpringIntegrationTest {
 }

@@ -2,13 +2,16 @@ package dev.notypie.jwt.utils;
 
 
 import dev.notypie.base.SpringIntegrationTest;
+import dev.notypie.base.SpringMockTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
@@ -16,23 +19,19 @@ import java.security.PublicKey;
 import java.util.Base64;
 
 
-@Tag("auth")
+@Tag("common")
 @ActiveProfiles("jwt")
 public class JwtVerifierTest extends SpringIntegrationTest {
 
-    private final PrivateKey privateKey;
-    private final PublicKey publicKey;
-    private final JwtVerifier verifier;
-
     @Autowired
-    JwtVerifierTest(PrivateKey privateKey, PublicKey publicKey, JwtVerifier verifier){
-        this.privateKey = privateKey;
-        this.publicKey = publicKey;
-        this.verifier = verifier;
-    }
+    private PrivateKey privateKey;
+    @Autowired
+    private PublicKey publicKey;
+    @Autowired
+    private JwtVerifier verifier;
 
     @Test
-    @DisplayName("[app.Auth] JwtVerifier work successfully")
+    @DisplayName("[mod.Common] JwtVerifier work successfully")
     public void testSignature() throws Exception{
         String plainText = "THIS IS TEST PLAIN TEXT";
         String encrypt = this.verifier.sign(plainText);
