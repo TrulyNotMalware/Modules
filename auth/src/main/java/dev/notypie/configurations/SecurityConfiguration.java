@@ -26,7 +26,9 @@ import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import java.util.Arrays;
 import java.util.List;
@@ -48,11 +50,10 @@ public class SecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer configure(){
-        return (web) -> web.ignoring().requestMatchers(
-                "/swagger-ui/**",
-                "/api/auth/**",
-                "h2-console/**" //Localhost h2-console.
-        );
+        return (web) -> web.ignoring()//H2-console enable issue.
+                .requestMatchers(new AntPathRequestMatcher("/api/auth/**"))
+                .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
+                .requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
     }
 
     @Bean
@@ -60,7 +61,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(
             HttpSecurity httpSecurity,
             LoginAuthenticationFilter filter,
-            OAuth2UserService<OAuth2UserRequest, OAuth2User> userService
+            OAuth2UserService<OAuth2UserRequest, OAuth2User> userService,
+            HandlerMappingIntrospector introspector
     ) throws Exception {
         //Jwt Stateless
 //        httpSecurity.sessionManagement(httpSecuritySessionManagementConfigurer -> {
@@ -69,7 +71,7 @@ public class SecurityConfiguration {
 //        OAuth2LoginAuthenticationFilter
         httpSecurity.addFilterAt(filter, UsernamePasswordAuthenticationFilter.class);
 //        HttpSessionOAuth2AuthorizationRequestRepository
-        httpSecurity.authorizeHttpRequests(auth -> auth.requestMatchers("/**").permitAll().anyRequest().authenticated());
+        httpSecurity.authorizeHttpRequests(auth -> auth.requestMatchers(new MvcRequestMatcher(introspector,"/**")).permitAll().anyRequest().authenticated());
 //        ClientAuthenticationMethod.CLIENT_SECRET_POST
         httpSecurity.formLogin(form -> form.loginPage(this.loginRequestUrl).defaultSuccessUrl("/"));
         httpSecurity.logout(config -> config.logoutRequestMatcher(new AntPathRequestMatcher(this.logoutRequestUrl))
