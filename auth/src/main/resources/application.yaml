@@ -45,9 +45,9 @@ info:
       version: ${spring-framework.version}
   java:
     version: ${java.version}
-logging:
-  level:
-    root: trace
+#logging:
+#  level:
+#    root: trace
 ---
 server:
   port: 80
