@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public final class UserInfoExchanger {
 
+    @Deprecated
     public static UserDto exchangeToUserDto(Users user){
         return UserDto.builder()
                 .id(user.getId())

@@ -26,6 +26,7 @@ subprojects {
     sourceCompatibility = '21'
 
     ext{
+        //2023.0.0 not updated yet.
         set('springCloudVersion',"2022.0.3")
     }
 
