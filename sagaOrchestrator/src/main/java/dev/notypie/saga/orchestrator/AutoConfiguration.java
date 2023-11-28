@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@EnableAutoConfiguration
-@Import({SagaOrchestratorConfiguration.class,//SagaInstanceFactory
-        TramMessagingCommonAutoConfiguration.class,//ChannelMapping
-        TramMessageProducerJdbcConfiguration.class,//MessageProducerImplementation
-        TramCommandsCommonAutoConfiguration.class,//CommandNameMapping
-        EventuateTramKafkaMessageConsumerConfiguration.class,//MessageConsumer
-        TramConsumerJdbcAutoConfiguration.class//DuplicateMessageDetector
-})
+//@EnableAutoConfiguration
+//@Import({SagaOrchestratorConfiguration.class,//SagaInstanceFactory
+//        TramMessagingCommonAutoConfiguration.class,//ChannelMapping
+//        TramMessageProducerJdbcConfiguration.class,//MessageProducerImplementation
+//        TramCommandsCommonAutoConfiguration.class,//CommandNameMapping
+//        EventuateTramKafkaMessageConsumerConfiguration.class,//MessageConsumer
+//        TramConsumerJdbcAutoConfiguration.class//DuplicateMessageDetector
+//})
 public class AutoConfiguration {
 }

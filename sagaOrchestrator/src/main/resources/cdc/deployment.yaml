@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: eventuate-tram-cdc
-          image: eventuateio/eventuate-cdc-service:0.15.0.RELEASE
+          image: eventuateio/eventuate-cdc-service:0.16.0.RELEASE
           ports:
             - containerPort: 8099
           imagePullPolicy: IfNotPresent
