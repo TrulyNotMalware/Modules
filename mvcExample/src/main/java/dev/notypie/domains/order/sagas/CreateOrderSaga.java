@@ -22,7 +22,7 @@ public class CreateOrderSaga implements SimpleSaga<CreateOrderSagaData> {
     private final OrderService orderService;
     private final CustomerServiceProxy customerServiceProxy;
 
-    private SagaDefinition<CreateOrderSagaData> sagaDefinition =
+    private final SagaDefinition<CreateOrderSagaData> sagaDefinition =
             step()
                     .invokeLocal(this::create)
                     .withCompensation(this::reject)

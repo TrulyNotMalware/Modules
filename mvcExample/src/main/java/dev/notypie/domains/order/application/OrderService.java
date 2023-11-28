@@ -5,8 +5,10 @@ import dev.notypie.domains.order.domain.OrderRepository;
 import dev.notypie.messaging.common.OrderDetails;
 import dev.notypie.messaging.common.RejectionReason;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderService {
@@ -15,6 +17,8 @@ public class OrderService {
     public Order createOrder(OrderDetails orderDetails) {
         Order order = Order.createOrder(orderDetails);
         this.orderRepository.save(order);
+        Order find = this.orderRepository.findById(orderDetails.getCustomerId()).orElseThrow();
+        log.info("order selected : {}",find.getOrderDetails());
         return order;
     }
 
