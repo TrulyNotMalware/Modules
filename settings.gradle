@@ -13,4 +13,5 @@ include 'oauthServer'
 include 'gateway'
 include 'reactorSecurity'
 include 'common'
+include 'assistant'
 

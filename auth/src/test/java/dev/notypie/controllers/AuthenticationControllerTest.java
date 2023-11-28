@@ -83,7 +83,7 @@ public class AuthenticationControllerTest extends ControllerTest {
                 .path("/")
                 .maxAge(Long.parseLong("20000")).build();
         //register default users.
-        Mockito.when(this.userService.register(any(UserRegisterDto.class))).thenReturn(UserInfoExchanger.exchangeToUserDto(this.user));
+        Mockito.when(this.userService.register(any(UserRegisterDto.class))).thenReturn(this.user.toUserDto());
         Mockito.when(this.refreshTokenService.refreshJwtToken(any(String.class), any(String.class))).thenReturn(this.jwtDto);
         Mockito.when(this.refreshTokenService.createRefreshToken(any(String.class))).thenReturn(responseCookie);
     }

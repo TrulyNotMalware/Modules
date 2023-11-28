@@ -1,0 +1,19 @@
+ext{
+    slackApiVersion = "1.36.1"
+}
+dependencies{
+    implementation project(':core')
+    //Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation "org.springframework.boot:spring-boot-starter-web"
+//    Slack support
+//    implementation "com.slack.api:bolt:${slackApiVersion}"
+    implementation "com.slack.api:bolt-jakarta-servlet:${slackApiVersion}"
+    //Email service
+    implementation "org.springframework.boot:spring-boot-starter-mail"
+
+    //Test Source
+    testImplementation(testFixtures(project(":core")))
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}

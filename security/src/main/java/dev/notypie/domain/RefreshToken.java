@@ -35,6 +35,4 @@ class RefreshToken {
         this.refreshToken = refreshToken;
         this.refreshAuthenticatedAt = LocalDateTime.now();
     }
-
-    String getRefreshToken(){ return this.refreshToken; }
 }
