@@ -7,7 +7,7 @@ dependencies{
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation "org.springframework.boot:spring-boot-starter-web"
 //    Slack support
-//    implementation "com.slack.api:bolt:${slackApiVersion}"
+    implementation "com.slack.api:bolt:${slackApiVersion}"
     implementation "com.slack.api:bolt-jakarta-servlet:${slackApiVersion}"
     //Email service
     implementation "org.springframework.boot:spring-boot-starter-mail"
