@@ -3,6 +3,8 @@ package dev.notypie.aggregate.slack.event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.aggregate.slack.SlackRequestHeaders;
 import dev.notypie.aggregate.slack.dto.SlackAppMentionContext;
+import dev.notypie.aggregate.slack.dto.SlackEventContents;
+import dev.notypie.aggregate.slack.dto.SlackChatEventContents;
 import dev.notypie.constants.Constants;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -39,5 +41,12 @@ public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
     @Override
     public SlackRequestHeaders getHeaders() {
         return this.headers;
+    }
+
+    @Override
+    public SlackEventContents buildEventContents() {
+        return SlackChatEventContents.builder()
+                .ok(true)
+                .build();
     }
 }
