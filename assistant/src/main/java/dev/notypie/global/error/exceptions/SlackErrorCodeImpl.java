@@ -7,7 +7,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public enum SlackErrorCodeImpl implements ErrorCode{
-    NOT_A_VALID_REQUEST(HttpStatus.BAD_REQUEST, " Not a valid request. this try will be recorded.");
+    NOT_A_VALID_REQUEST(HttpStatus.BAD_REQUEST, " Not a valid request. this try will be recorded."),
+    EVENT_NOT_SUPPORTED(HttpStatus.INTERNAL_SERVER_ERROR, "This type of event is not supported yet.");
 
     private final HttpStatus status;
     private final String message;
