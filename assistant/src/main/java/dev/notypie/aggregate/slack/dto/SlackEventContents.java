@@ -21,4 +21,6 @@ public abstract class SlackEventContents {
     private String provided;
     private transient Map<String, List<String>> httpResponseHeaders;
 
+    //Event response type.
+    private String type;
 }
