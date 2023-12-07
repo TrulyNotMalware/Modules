@@ -44,6 +44,9 @@ public class DefaultRequestParser implements SlackRequestParser{
                     case Constants.APP_MENTION -> new AppMentionEvent(headers, payload, this.objectMapper);
                     case Constants.MESSAGE_EVENT -> {
                         //FIXME Update later.
+                        log.info("Except Unsupported events. type is {}", payloadType);
+                        log.info("headers: {}",headers);
+                        log.info("payload: {}",payload);
                         throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
                     }
                     default -> {
