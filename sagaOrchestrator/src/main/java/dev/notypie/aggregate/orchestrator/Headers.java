@@ -2,28 +2,32 @@ package dev.notypie.aggregate.orchestrator;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.notypie.converter.JsonStringConverter;
 
 import java.util.Date;
 
 public class Headers {
 
-    @JsonProperty("command_saga_id")
-    private String commandSagaId;
-
-    @JsonProperty("PARTITION_ID")
+    @JsonProperty("PARTITION_ID") // UUID
     private String partitionId;
 
     @JsonProperty("DATE")
-    private Date date;
-
-    @JsonProperty("command_type")
-    private String commandType;
-
-    @JsonProperty("command_reply_to")
-    private String commandReplyTo;
+    private String date;
 
     @JsonProperty("DESTINATION")
     private String destination;
 
-//    @JsonProperty("command")
+    @JsonProperty("ID") // UUID
+    private String ID;
+
+    private PublishHeaders publishHeaders;
+
+    private ReplyHeaders replyHeaders;
+
+    public static class HeaderConverter extends JsonStringConverter<Headers>{
+        public HeaderConverter() {
+            super(new ObjectMapper());
+        }
+    }
 }
