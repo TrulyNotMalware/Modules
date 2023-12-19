@@ -9,6 +9,7 @@ dependencies {
     //Spring MVC
     api project(":core")
     api(platform("io.eventuate.platform:eventuate-platform-dependencies:${eventuateBomVersion}"))
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
     //Eventuate-tram Saga orchestrator
     api 'io.eventuate.tram.sagas:eventuate-tram-sagas-spring-orchestration-simple-dsl-starter'
