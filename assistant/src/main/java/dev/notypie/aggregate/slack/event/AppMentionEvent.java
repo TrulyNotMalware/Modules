@@ -21,15 +21,12 @@ public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
     private final SlackAppMentionContext context;
     private final SlackRequestHeaders headers;
 
-    @Value("${slack.api.token}")
-    private String botToken;
-
-    @Value("${slack.api.channel}")
     private String channel;
 
-    public AppMentionEvent(SlackRequestHeaders headers, Map<String, Object> payload, ObjectMapper mapper){
+    public AppMentionEvent(String channel, SlackRequestHeaders headers, Map<String, Object> payload, ObjectMapper mapper){
         this.headers = headers;
         this.context = mapper.convertValue(payload, SlackAppMentionContext.class);
+        this.channel = channel;
     }
 
     @Override
@@ -58,7 +55,6 @@ public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
                 .ok(true)
                 .type(Methods.CHAT_POST_MESSAGE)
                 .request(ChatPostMessageRequest.builder()
-                        .token(this.botToken)
                         .channel(this.channel)
                         .text("This is test mention")
                         .build())

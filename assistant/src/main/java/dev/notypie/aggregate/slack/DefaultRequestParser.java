@@ -12,6 +12,7 @@ import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ import java.util.Map;
 public class DefaultRequestParser implements SlackRequestParser{
 
     private final ObjectMapper objectMapper;
+
+    @Value("${slack.api.channel}")
+    private String channel;
 
     @Override
     public SlackEvent<?> parseRequest(SlackRequestHeaders headers, Map<String, Object> payload)  {
@@ -41,7 +45,7 @@ public class DefaultRequestParser implements SlackRequestParser{
             case Constants.EVENT_CALLBACK -> {
                 AppMentionEventType event = this.objectMapper.convertValue(payload.get("event"), AppMentionEventType.class);
                 yield switch (event.getType()) {
-                    case Constants.APP_MENTION -> new AppMentionEvent(headers, payload, this.objectMapper);
+                    case Constants.APP_MENTION -> new AppMentionEvent(this.channel, headers, payload, this.objectMapper);
                     case Constants.MESSAGE_EVENT -> {
                         //FIXME Update later.
                         log.info("Except Unsupported events. type is {}", payloadType);
