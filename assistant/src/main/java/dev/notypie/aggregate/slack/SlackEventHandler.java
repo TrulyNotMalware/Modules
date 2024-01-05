@@ -10,6 +10,7 @@ import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchProperties;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -42,9 +43,8 @@ public class SlackEventHandler implements EventHandler<SlackEventContents, Slack
     @Override
     public ResponseEntity<SlackEventResponse> generateEventResponse(SlackEventContents event) {
         if(event.getType().equals(Methods.CHAT_POST_MESSAGE)){
-            SlackChatEventContents chatEvent = (SlackChatEventContents) event;
             log.info("Chat Post requests");
-            log.info("Headers : Bearer {}", this.botToken);
+            SlackChatEventContents chatEvent = (SlackChatEventContents) event;
             post(Methods.CHAT_POST_MESSAGE, chatEvent.getRequest());
         }
         return new ResponseEntity<>(SlackEventResponse.builder()
@@ -56,6 +56,8 @@ public class SlackEventHandler implements EventHandler<SlackEventContents, Slack
     private void post(String uri, ChatPostMessageRequest request){
         ResponseEntity<Object> response = this.restClient.post()
                 .uri(uri)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer "+this.botToken)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(request)
                 .retrieve()
                 .toEntity(Object.class);
