@@ -39,7 +39,8 @@ public class DefaultRequestParser implements SlackRequestParser{
         }
         String payloadType = payload.get("type").toString();
 //        if(payloadType.equals(Constants.URL_VERIFICATION)) return new UrlVerificationEvent(headers);
-
+        log.info("headers: {}",headers);
+        log.info("payload: {}",payload);
         return switch (payloadType) {
             case Constants.URL_VERIFICATION -> new UrlVerificationEvent(headers, payload, this.objectMapper);
             case Constants.EVENT_CALLBACK -> {
@@ -49,22 +50,16 @@ public class DefaultRequestParser implements SlackRequestParser{
                     case Constants.MESSAGE_EVENT -> {
                         //FIXME Update later.
                         log.info("Except Unsupported events. type is {}", payloadType);
-                        log.info("headers: {}",headers);
-                        log.info("payload: {}",payload);
                         throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
                     }
                     default -> {
                         log.info("Except Unsupported events. type is {}", payloadType);
-                        log.info("headers: {}",headers);
-                        log.info("payload: {}",payload);
                         throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
                     }
                 };
             }
             default -> {
                 log.info("Except Unsupported events. type is {}", payloadType);
-                log.info("headers: {}",headers);
-                log.info("payload: {}",payload);
                 throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
             }
         };

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class SlackAppMentionContext extends Contexts {
@@ -14,9 +16,14 @@ public class SlackAppMentionContext extends Contexts {
     @NotNull
     private String type;
 
+    @JsonProperty("team_id")
+    private String teamId;
+
     @JsonProperty("event")
     private AppMentionEventType event;
 
+    @JsonProperty("authorizations")
+    private List<Authorization> authorizations;
 
     @Override
     protected EventHistory getHistoryContents() {
