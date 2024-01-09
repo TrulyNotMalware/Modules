@@ -21,9 +21,11 @@ public class DefaultAssistantServiceImpl implements AssistantService{
 
     private final EventHandler<SlackEventContents, SlackEventResponse> responseHandler;
     private final SlackRequestParser requestParser;
+    private final CommandHandler handler;
 
     public ResponseEntity<SlackEventResponse> categorization(Map<String, List<String>> headers, Map<String, Object> payload){
-        SlackEvent<?> slackEvent = requestParser.parseRequest(new SlackRequestHeaders(headers), payload);
+        SlackEvent<?> slackEvent = this.requestParser.parseRequest(new SlackRequestHeaders(headers), payload);
+        this.handler.handleRequest(slackEvent);
         return this.responseHandler.generateEventResponse(slackEvent.buildEventContents());
     }
 }

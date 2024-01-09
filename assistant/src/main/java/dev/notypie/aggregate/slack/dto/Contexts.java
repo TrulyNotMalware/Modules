@@ -1,5 +1,6 @@
 package dev.notypie.aggregate.slack.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.notypie.aggregate.slack.EventHistory;
 
 import java.util.List;
@@ -10,8 +11,12 @@ public abstract class Contexts {
      * The basic slack references
      */
     protected boolean tracking = true;
+
+    @JsonProperty("team_id")
     protected String teamId;
-    protected String botToken;
+
+    @JsonProperty("token")
+    protected String token;
     protected List<String> botScopes;
     protected String botId;
     protected String botUserId;

@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @Builder
 public class AppMentionEventType {
@@ -27,9 +29,8 @@ public class AppMentionEventType {
     @JsonProperty("text")
     private String text;
 
-    //FIXME What is Blocks do?
-//    @JsonProperty("blocks")
-//    private List<Blocks> blockList;
+    @JsonProperty("blocks")
+    private List<Block> blocks;
 
     @JsonProperty("ts")
     private Double timeSeconds;
