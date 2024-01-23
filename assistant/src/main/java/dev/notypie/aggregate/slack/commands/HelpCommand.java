@@ -1,5 +1,6 @@
 package dev.notypie.aggregate.slack.commands;
 
+import dev.notypie.aggregate.slack.dto.SlackEventContents;
 import dev.notypie.constants.Constants;
 import lombok.Getter;
 
@@ -21,5 +22,11 @@ public class HelpCommand implements Command{
     @Override
     public String toStringCommand() {
         return this.command.toStringCommand();
+    }
+
+    @Override
+    public SlackEventContents generateEventContents() {
+        //FIXME NOT IMPLEMENTED YET
+        return null;
     }
 }
