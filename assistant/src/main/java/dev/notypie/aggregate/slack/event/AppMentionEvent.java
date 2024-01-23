@@ -20,7 +20,7 @@ public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
     private final SlackAppMentionContext context;
     private final SlackRequestHeaders headers;
 
-    private String channel;
+    private final String channel;
 
     public AppMentionEvent(String channel, SlackRequestHeaders headers, Map<String, Object> payload, ObjectMapper mapper){
         this.headers = headers;

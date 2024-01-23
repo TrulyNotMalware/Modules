@@ -1,28 +1,32 @@
 package dev.notypie.aggregate.slack.commands;
 
 import dev.notypie.aggregate.slack.dto.*;
+import dev.notypie.aggregate.slack.event.SlackEvent;
 import dev.notypie.constants.Constants;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Queue;
 
 @Slf4j
 @Getter
 public class AppMentionCommand implements Command{
 
     private Command command;
-    private String userId;
     private String botId;
-    private String rawText;
+    private final String channel;
+    private final String userId;
+    private final String rawText;
 
     @Builder
-    public AppMentionCommand(SlackAppMentionContext context){
+    public AppMentionCommand(SlackAppMentionContext context, String channel){
         AppMentionEventType event = context.getEvent();
         this.userId = event.getUser();
         this.rawText = event.getText();
+        this.channel = channel;
         //check Authorization
         for(Authorization auth : context.getAuthorizations()){
             if(auth.isBot()){
@@ -45,29 +49,47 @@ public class AppMentionCommand implements Command{
         }
     }
 
+    // Special Case, app mention event
     private void parseCommand(List<Element> elementList){
+        Queue<String> userQueue = new LinkedList<>();
+        Queue<String> commandQueue = new LinkedList<>();
+
         for(Element element: elementList){
-            if(element.getType().equals(Constants.ELEMENT_TYPE_USER)){
-                //EXTRACT USER FROM COMMANDS
+            // Skip bot user.
+            if(element.getType().equals(Constants.ELEMENT_TYPE_USER) && element.getUserId().equals(this.botId)) continue;
+            if(element.getType().equals(Constants.ELEMENT_TYPE_USER))
+                userQueue.offer(element.getUserId());
+            else if(element.getType().equals(Constants.ELEMENT_TYPE_TEXT))
+                commandQueue.offer(element.getText());
+        }
+        //Construct Command
+        this.buildCommand(userQueue, commandQueue);
+    }
+
+    private void buildCommand(Queue<String> userQueue, Queue<String> commandQueue){
+        if(commandQueue.isEmpty()) {
+//            ArgumentError error = new ArgumentError("Command", "null","Command is empty.");
+//            throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, );
+        }
+        else{//Command is not empty
+            String command = commandQueue.poll().replaceAll(" ","");//remove whitespace
+            switch(command) {
+                case Constants.NOTICE_COMMAND -> this.command = NoticeCommand.builder().users(userQueue).channel(this.channel)
+                        .textQueue(commandQueue).build();
+                case Constants.ALERT_COMMAND -> this.command = NoticeCommand.builder().users(userQueue).channel(this.channel).build();
+                default -> this.command = ResponseTextCommand.builder().body("command "+command+" not found").build();
             }
         }
-    }
-    private void parseCommand(String rawText){
-//        StringTokenizer tokenizer = new StringTokenizer(rawText, Constants.COMMAND_DELIMITER);
-//        if(rawText.isBlank() || rawText.isEmpty() || tokenizer.countTokens() == 0){
-//            //is empty or blank then return default command
-//            this.command = ResponseTextCommand.builder()
-//                    .body("Command not found.").build();
-//            return;
-//        }
-//        String command = tokenizer.nextToken();
-//        switch(command) {
-//            case Constants.MENTION_COMMAND_ALARM ->
-//        }
     }
 
     @Override
     public String toStringCommand() {
         return this.command.toStringCommand();
+    }
+
+    //call Generate command contents
+    @Override
+    public SlackEventContents generateEventContents() {
+        return this.command.generateEventContents();
     }
 }
