@@ -6,20 +6,27 @@ import dev.notypie.aggregate.slack.dto.SlackAppMentionContext;
 import dev.notypie.aggregate.slack.event.SlackEvent;
 import dev.notypie.constants.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 public class CommandHandlerImpl implements CommandHandler{
 
+    @Value("${slack.api.channel}")
+    private String channel;
+
     @Override
-    public void handleRequest(SlackEvent<?> event) {
+    public Command handleRequest(SlackEvent<?> event) {
         // APP_MENTION EVENT command & functions.
         if(event.getRequestType().equals(Constants.APP_MENTION)){
             Command command = AppMentionCommand.builder().context(
-                    (SlackAppMentionContext) event.getContext()).build();
-            
+                    (SlackAppMentionContext) event.getContext())
+                    .channel(this.channel).build();
+            return command.getCommand();// get constructed command.
         }
+        //FIXME DO NOT RETURN NULL VALUE
+        return null;
     }
 
 

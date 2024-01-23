@@ -19,4 +19,8 @@ public final class Constants {
     public static final String ELEMENT_TYPE_TEXT_SECTION = "rich_text_section";
     public static final String ELEMENT_TYPE_USER = "user";
     public static final String ELEMENT_TYPE_TEXT = "text";
+
+    // Application Command lists
+    public static final String NOTICE_COMMAND = "notice";
+    public static final String ALERT_COMMAND = "alert";
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -21,6 +22,8 @@ public class AuthorizationConsent {
     private String authorities;
 
     public static class AuthorizationConsentId implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 8683608026915663539L;
         private String registeredClientId;
         private String principalName;
 
