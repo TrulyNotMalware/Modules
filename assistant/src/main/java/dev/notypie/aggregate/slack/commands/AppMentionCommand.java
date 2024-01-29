@@ -1,7 +1,6 @@
 package dev.notypie.aggregate.slack.commands;
 
 import dev.notypie.aggregate.slack.dto.*;
-import dev.notypie.aggregate.slack.event.SlackEvent;
 import dev.notypie.constants.Constants;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.StringTokenizer;
 
 @Slf4j
 @Getter
@@ -59,8 +59,11 @@ public class AppMentionCommand implements Command{
             if(element.getType().equals(Constants.ELEMENT_TYPE_USER) && element.getUserId().equals(this.botId)) continue;
             if(element.getType().equals(Constants.ELEMENT_TYPE_USER))
                 userQueue.offer(element.getUserId());
-            else if(element.getType().equals(Constants.ELEMENT_TYPE_TEXT))
-                commandQueue.offer(element.getText());
+            else if(element.getType().equals(Constants.ELEMENT_TYPE_TEXT)){
+                StringTokenizer tokenizer = new StringTokenizer(element.getText()," ");
+                while(tokenizer.hasMoreTokens()) commandQueue.offer(tokenizer.nextToken());
+//                commandQueue.offer(element.getText());
+            }
         }
         //Construct Command
         this.buildCommand(userQueue, commandQueue);
@@ -77,7 +80,7 @@ public class AppMentionCommand implements Command{
                 case Constants.NOTICE_COMMAND -> this.command = NoticeCommand.builder().users(userQueue).channel(this.channel)
                         .textQueue(commandQueue).build();
                 case Constants.ALERT_COMMAND -> this.command = NoticeCommand.builder().users(userQueue).channel(this.channel).build();
-                default -> this.command = ResponseTextCommand.builder().body("command "+command+" not found").build();
+                default -> this.command = ResponseTextCommand.builder().body("command "+command+" not found").channel(this.channel).build();
             }
         }
     }
