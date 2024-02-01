@@ -60,7 +60,7 @@ public class AppMentionCommand implements Command{
             if(element.getType().equals(Constants.ELEMENT_TYPE_USER))
                 userQueue.offer(element.getUserId());
             else if(element.getType().equals(Constants.ELEMENT_TYPE_TEXT)){
-                StringTokenizer tokenizer = new StringTokenizer(element.getText()," ");
+                StringTokenizer tokenizer = new StringTokenizer(element.getText(),Constants.COMMAND_DELIMITER);
                 while(tokenizer.hasMoreTokens()) commandQueue.offer(tokenizer.nextToken());
 //                commandQueue.offer(element.getText());
             }
