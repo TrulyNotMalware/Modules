@@ -11,8 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 @Slf4j
-@Configuration
-@Profile("slack-bolt")
+@Deprecated
+//@Configuration
+//@Profile("slack-bolt")
 public class SlackBoltConfig {
 
     @Value("${slack.app.token}")
@@ -22,7 +23,7 @@ public class SlackBoltConfig {
     @Value("${slack.api.signingSecret}")
     private String signingSecret;
 
-    @Bean
+//    @Bean
     public AppConfig appConfig(){
         return AppConfig.builder()
                 .singleTeamBotToken(this.botToken)
@@ -30,7 +31,7 @@ public class SlackBoltConfig {
                 .build();
     }
 
-    @Bean
+//    @Bean
     //We do not support socketmode in springframework.
     public App startSocketModeApp(AppConfig appConfig) throws Exception {
         log.info("Start Slack bolt service.");
