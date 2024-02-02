@@ -68,7 +68,9 @@ public class SecurityConfiguration {
                         authorize.anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.ignoringRequestMatchers(endpointsMatcher))
-                .apply(authorizationServerConfigurer);
+                // DEPRECATED in 6.2
+//                .apply(authorizationServerConfigurer);
+                .with(authorizationServerConfigurer, Customizer.withDefaults());
 
         //2023.10.11 No longer need to add the Generator this way.
         //2023.09.20 JPA Duration Serialize & Deserialize issue.

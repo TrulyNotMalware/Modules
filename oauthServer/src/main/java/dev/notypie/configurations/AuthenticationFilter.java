@@ -41,7 +41,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                     }
                 }
                 String json = builder.toString();
-                log.info("json : {}",json);
                 String[] list = json.split("&");
                 String[] userId = list[0].split("=");
                 String[] password = list[1].split("=");
