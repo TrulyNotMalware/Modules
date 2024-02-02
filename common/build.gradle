@@ -4,13 +4,16 @@ bootJar {
 jar {
     enabled = true
 }
+ext{
+    jjwtVersion = "0.11.5"
+}
 dependencies {
 
     implementation 'org.springframework:spring-web'
     testImplementation(testFixtures(project(":core")))
 
     //Jwt Token
-    api 'io.jsonwebtoken:jjwt-api:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
-    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    api "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
 }
