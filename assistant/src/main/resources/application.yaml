@@ -1,7 +1,7 @@
 spring:
   profiles:
     group:
-      "local": "hikari-default-config, h2-local-database"
+      "local": "default-base, hikari-default-config, h2-local-database"
       "slack-service": "slack, slack-bolt"
 
     active: local, slack-service
@@ -43,6 +43,11 @@ info:
       version: ${spring-framework.version}
   java:
     version: ${java.version}
+
+core:
+  requester:
+    config:
+      baseUrl: "https://slack.com/api/" # Slack Requester BaseURL
 ---
 spring:
   config:
@@ -90,5 +95,6 @@ slack:
   api:
     token: API_TOKEN_VALUE
     channel: BOT_CHANNEL_NAME
+    signingSecret: SIGNING_SECRET_VALUE
   app:
     token: APP_API_TOKEN_VALUE
