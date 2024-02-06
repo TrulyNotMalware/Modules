@@ -4,6 +4,7 @@ import com.slack.api.methods.Methods;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import dev.notypie.aggregate.slack.dto.SlackChatEventContents;
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
+import dev.notypie.constants.Constants;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -28,7 +29,7 @@ public class NoticeCommand implements Command{
 
     @Override
     public String toStringCommand() {
-        return command.toStringCommand();
+        return Constants.NOTICE_COMMAND;
     }
 
     @Override

@@ -39,6 +39,9 @@ If you want to execute the module, it requires additional configurations to run.
 1. [*Saga*](https://github.com/TrulyNotMalware/Modules/blob/main/saga/README.md) : [Eventuate Tram](https://github.com/eventuate-tram/eventuate-tram-sagas) framework's  [Saga participant example](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders) application & Configuration.
 2. [*Saga Orchestrator*](https://github.com/TrulyNotMalware/Modules/blob/main/sagaOrchestrator/README.md) : Eventuate Tram framework's Saga orchestrator example configuration. the example is in [mvc example](https://github.com/TrulyNotMalware/Modules/tree/main/mvcExample/src/main/java/dev/notypie)
 
+*Service Application*
+1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : Development helper service. Implement services collaboration such as slack bots, scheduling and build pipeline.
+
 ### Spring Webflux
 *Basic*
 1. [*Reactor Core*](https://github.com/TrulyNotMalware/Modules/blob/main/reactorCore/README.md) : Tracing(Zipkin & Micrometer) context configuration & Utils module
@@ -95,6 +98,9 @@ For more information, see README for each module.
 *Micro Service Architecture - Saga pattern*
 1. [*Saga*](https://github.com/TrulyNotMalware/Modules/blob/main/saga/README.md) : [Eventuate Tram](https://github.com/eventuate-tram/eventuate-tram-sagas) 프레임워크의  [사가 참여자 예제](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders)를 구현한 어플리케이션.
 2. [*Saga Orchestrator*](https://github.com/TrulyNotMalware/Modules/blob/main/sagaOrchestrator/README.md) : Eventuate Tram 프레임워크의 Saga orchestrator 구현을 위한 설정 모듈. 예제는 [mvc example](https://github.com/TrulyNotMalware/Modules/tree/main/mvcExample/src/main/java/dev/notypie)에 있습니다.
+
+*Service Application*
+1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : 개발 도우미 서비스입니다. 슬랙 봇, 스케쥴링 및 빌드툴 등 협업에 관한 서비스를 구현합니다.
 
 ### Spring Webflux
 *Basic*
