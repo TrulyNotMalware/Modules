@@ -10,10 +10,10 @@ import org.springframework.web.client.RestClient;
 @Component
 public class RestClientRequester {
 
-    @Value("${core.requester.config.baseUrl}")
+    @Value("${core.requester.config.baseUrl:}")
     private String baseUrl;
 
-    @Value("${core.requester.config.authorization}")
+    @Value("${core.requester.config.authorization:}")
     private String authorization;
 
     public static final String defaultContentType = "application/json; charset=utf-8";
@@ -21,7 +21,7 @@ public class RestClientRequester {
             .baseUrl(this.baseUrl)
             .defaultHeaders(headers -> {
                 headers.add(HttpHeaders.CONTENT_TYPE, defaultContentType);
-                if( authorization != null ) headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+this.authorization);
+                if( authorization != null && !authorization.isBlank() ) headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+this.authorization);
             })
             .build();
 

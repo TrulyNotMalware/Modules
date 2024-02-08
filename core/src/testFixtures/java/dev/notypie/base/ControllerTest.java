@@ -9,7 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @Disabled
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-@TestPropertySource(locations = "classpath:application-test.yaml")
+@TestPropertySource(properties = {"spring.config.location = classpath:application-test.yaml"})
 public class ControllerTest {
 
 }
