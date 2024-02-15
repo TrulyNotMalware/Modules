@@ -6,6 +6,7 @@ import dev.notypie.aggregate.slack.SlackRequestHeaders;
 import dev.notypie.aggregate.slack.SlackRequestParser;
 import dev.notypie.aggregate.slack.commands.Command;
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
+import dev.notypie.aggregate.slack.dto.contexts.Contexts;
 import dev.notypie.aggregate.slack.event.SlackEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class DefaultAssistantServiceImpl implements AssistantService{
     private final CommandHandler handler;
 
     public ResponseEntity<SlackEventResponse> categorization(Map<String, List<String>> headers, Map<String, Object> payload){
-        SlackEvent<?> slackEvent = this.requestParser.parseRequest(new SlackRequestHeaders(headers), payload);
+        SlackEvent<? extends Contexts> slackEvent = this.requestParser.parseRequest(new SlackRequestHeaders(headers), payload);
         Command command = this.handler.handleRequest(slackEvent);
         return this.responseHandler.generateEventResponse(command.generateEventContents());
     }

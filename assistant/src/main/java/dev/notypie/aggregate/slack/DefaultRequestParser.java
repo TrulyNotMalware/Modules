@@ -39,8 +39,8 @@ public class DefaultRequestParser implements SlackRequestParser{
         }
         String payloadType = payload.get("type").toString();
 //        if(payloadType.equals(Constants.URL_VERIFICATION)) return new UrlVerificationEvent(headers);
-        log.info("headers: {}",headers);
-        log.info("payload: {}",payload);
+//        log.info("headers: {}",headers);
+//        log.info("payload: {}",payload);
         return switch (payloadType) {
             case Constants.URL_VERIFICATION -> new UrlVerificationEvent(headers, payload, this.objectMapper);
             case Constants.EVENT_CALLBACK -> {

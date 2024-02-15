@@ -1,6 +1,7 @@
 package dev.notypie.aggregate.slack.commands;
 
 import dev.notypie.aggregate.slack.dto.*;
+import dev.notypie.aggregate.slack.dto.contexts.SlackAppMentionContext;
 import dev.notypie.constants.Constants;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,8 +25,8 @@ public class AppMentionCommand implements Command{
     @Builder
     public AppMentionCommand(SlackAppMentionContext context, String channel){
         AppMentionEventType event = context.getEvent();
-        this.userId = event.getUser();
-        this.rawText = event.getText();
+        this.userId = event.getUserId();
+        this.rawText = event.getRawText();
         this.channel = channel;
         //check Authorization
         for(Authorization auth : context.getAuthorizations()){
