@@ -2,9 +2,12 @@ package dev.notypie.aggregate.slack;
 
 import com.slack.api.methods.Methods;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
+import dev.notypie.aggregate.slack.dto.SlackApiResponse;
 import dev.notypie.aggregate.slack.dto.SlackChatEventContents;
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
 import dev.notypie.constants.Constants;
+import dev.notypie.global.error.exceptions.SlackDomainException;
+import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
 import dev.notypie.requester.RestClientRequester;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +51,10 @@ public class SlackEventHandler implements EventHandler<SlackEventContents, Slack
         if(event.getType().equals(Methods.CHAT_POST_MESSAGE)){
             log.info("Chat Post requests");
             SlackChatEventContents chatEvent = (SlackChatEventContents) event;
-            ResponseEntity<SlackEventResponse> response = requester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackEventResponse.class);
+            ResponseEntity<SlackApiResponse> response = this.requester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackApiResponse.class);
+            log.info("response:"+response.getBody());
+            if( !Objects.requireNonNull(response.getBody()).isOk() )
+                throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, null);
         }
         return new ResponseEntity<>(SlackEventResponse.builder()
                 .contentType(defaultContentType)

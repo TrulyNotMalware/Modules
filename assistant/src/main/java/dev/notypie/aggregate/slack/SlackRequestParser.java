@@ -1,6 +1,6 @@
 package dev.notypie.aggregate.slack;
 
-import dev.notypie.aggregate.slack.dto.Contexts;
+import dev.notypie.aggregate.slack.dto.contexts.Contexts;
 import dev.notypie.aggregate.slack.event.SlackEvent;
 
 import java.util.Map;

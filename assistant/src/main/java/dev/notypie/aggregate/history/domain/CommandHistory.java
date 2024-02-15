@@ -1,4 +1,4 @@
-package dev.notypie.aggregate.slack.domain;
+package dev.notypie.aggregate.history.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

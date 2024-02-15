@@ -1,6 +1,9 @@
 package dev.notypie.aggregate.slack.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.notypie.aggregate.slack.dto.bot.BotProfile;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,13 +11,10 @@ import java.util.List;
 
 @Getter
 @Builder
-public class AppMentionEventType {
-
-    /**
-     * Required scopes : app_mention:read
-     */
-    @JsonProperty("client_msg_id")
-    private String clientMessageId;
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+public class SlackApiMessage {
+    @JsonProperty("bot_id")
+    private String botId;
 
     @JsonProperty("type")
     private String type;
@@ -23,10 +23,13 @@ public class AppMentionEventType {
     private String rawText;
 
     @JsonProperty("user")
-    private String userId;
+    private String user;
 
     @JsonProperty("ts")
     private Double ts;
+
+    @JsonProperty("app_id")
+    private String appId;
 
     @JsonProperty("blocks")
     private List<Block> blocks;
@@ -34,9 +37,7 @@ public class AppMentionEventType {
     @JsonProperty("team")
     private String team;
 
-    @JsonProperty("channel")
-    private String channel;
+    @JsonProperty("bot_profile")
+    private BotProfile botProfile;
 
-    @JsonProperty("event_ts")
-    private Double eventTs;
 }
