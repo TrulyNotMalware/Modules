@@ -1,13 +1,11 @@
-package dev.notypie.aggregate.slack.dto;
+package dev.notypie.aggregate.slack.dto.contexts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.notypie.aggregate.slack.EventHistory;
+import dev.notypie.aggregate.history.domain.EventHistory;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.Map;
 
 @Getter
 @Builder
@@ -26,7 +24,7 @@ public class SlackChallengeContext extends Contexts {
     private String challenge;
 
     @Override
-    protected EventHistory getHistoryContents() {
-        return null;
+    public EventHistory buildEventHistory() {
+        return EventHistory.builder().build();
     }
 }

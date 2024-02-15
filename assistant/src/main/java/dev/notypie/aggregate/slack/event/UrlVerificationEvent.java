@@ -1,8 +1,9 @@
 package dev.notypie.aggregate.slack.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.notypie.aggregate.history.domain.EventHistory;
 import dev.notypie.aggregate.slack.SlackRequestHeaders;
-import dev.notypie.aggregate.slack.dto.SlackChallengeContext;
+import dev.notypie.aggregate.slack.dto.contexts.SlackChallengeContext;
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
 import dev.notypie.aggregate.slack.dto.SlackUrlVerificationContents;
 import dev.notypie.constants.Constants;
@@ -34,6 +35,11 @@ public class UrlVerificationEvent extends SlackEvent<SlackChallengeContext> {
     @Override
     public String getRequestBodyAsString() {
         return null;
+    }
+
+    @Override
+    public EventHistory getEventHistory() {
+        return this.context.buildEventHistory();
     }
 
     @Override
