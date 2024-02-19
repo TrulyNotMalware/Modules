@@ -1,7 +1,7 @@
 package dev.notypie.aggregate.slack.dto.contexts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.notypie.aggregate.history.domain.EventHistory;
+import dev.notypie.aggregate.history.entity.History;
 
 import java.util.List;
 
@@ -24,5 +24,5 @@ public abstract class Contexts {
     protected String requestUserToken;
     protected List<String> requestUserScopes;
 
-    public abstract EventHistory buildEventHistory();
+    public abstract History buildEventHistory();
 }

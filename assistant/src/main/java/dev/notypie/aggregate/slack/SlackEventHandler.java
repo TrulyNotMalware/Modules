@@ -1,11 +1,9 @@
 package dev.notypie.aggregate.slack;
 
 import com.slack.api.methods.Methods;
-import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import dev.notypie.aggregate.slack.dto.SlackApiResponse;
 import dev.notypie.aggregate.slack.dto.SlackChatEventContents;
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
-import dev.notypie.constants.Constants;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
 import dev.notypie.requester.RestClientRequester;
@@ -13,14 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
-import java.util.Map;
 import java.util.Objects;
 
 import static dev.notypie.requester.RestClientRequester.defaultContentType;

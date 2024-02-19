@@ -1,4 +1,4 @@
-package dev.notypie.aggregate.history.domain;
+package dev.notypie.infrastructure.dao.history;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CommandHistory {
+class SlackCommandHistory {
 
     @Id
     private Long id;
@@ -60,10 +60,10 @@ public class CommandHistory {
     private LocalDateTime createdAt;
 
     @Builder
-    CommandHistory(@NotNull String appId, @NotNull String teamId,
-                   @NotNull String eventType, @NotNull String channel,
-                   @NotNull String publisher, Command command, @NotNull String data,
-                   int responseStatus){
+    SlackCommandHistory(@NotNull String appId, @NotNull String teamId,
+                        @NotNull String eventType, @NotNull String channel,
+                        @NotNull String publisher, Command command, @NotNull String data,
+                        int responseStatus){
         this.appId = appId;
         this.teamId = teamId;
         this.eventType = eventType;
