@@ -1,4 +1,4 @@
-package dev.notypie.configurations;
+package dev.notypie.global.configurations;
 
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.AppConfig;

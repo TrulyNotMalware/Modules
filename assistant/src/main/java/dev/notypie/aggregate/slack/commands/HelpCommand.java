@@ -1,7 +1,6 @@
 package dev.notypie.aggregate.slack.commands;
 
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
-import dev.notypie.constants.Constants;
 import lombok.Getter;
 
 @Getter

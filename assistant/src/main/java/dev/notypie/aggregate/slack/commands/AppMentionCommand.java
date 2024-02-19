@@ -2,7 +2,7 @@ package dev.notypie.aggregate.slack.commands;
 
 import dev.notypie.aggregate.slack.dto.*;
 import dev.notypie.aggregate.slack.dto.contexts.SlackAppMentionContext;
-import dev.notypie.constants.Constants;
+import dev.notypie.global.constants.Constants;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

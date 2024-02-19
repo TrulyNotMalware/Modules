@@ -5,7 +5,7 @@ import dev.notypie.aggregate.slack.dto.AppMentionEventType;
 import dev.notypie.aggregate.slack.event.AppMentionEvent;
 import dev.notypie.aggregate.slack.event.SlackEvent;
 import dev.notypie.aggregate.slack.event.UrlVerificationEvent;
-import dev.notypie.constants.Constants;
+import dev.notypie.global.constants.Constants;
 import dev.notypie.global.error.ArgumentError;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;

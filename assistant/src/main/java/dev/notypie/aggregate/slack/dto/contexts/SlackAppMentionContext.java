@@ -1,7 +1,7 @@
 package dev.notypie.aggregate.slack.dto.contexts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.notypie.aggregate.history.domain.EventHistory;
+import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.aggregate.slack.dto.AppMentionEventType;
 import dev.notypie.aggregate.slack.dto.Authorization;
 import lombok.Builder;
@@ -44,8 +44,8 @@ public class SlackAppMentionContext extends Contexts {
     private String eventContext;
 
     @Override
-    public EventHistory buildEventHistory() {
-        return EventHistory.builder()
+    public History buildEventHistory() {
+        return History.builder()
 
                 .build();
     }

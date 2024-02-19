@@ -1,4 +1,4 @@
-package dev.notypie.controllers;
+package dev.notypie.infrastructure.controllers;
 
 import com.slack.api.bolt.App;
 import com.slack.api.bolt.jakarta_servlet.SlackAppServlet;

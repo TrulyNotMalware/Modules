@@ -1,4 +1,4 @@
-package dev.notypie.application;
+package dev.notypie.infrastructure.application;
 
 import dev.notypie.aggregate.slack.commands.Command;
 import dev.notypie.aggregate.slack.dto.contexts.Contexts;

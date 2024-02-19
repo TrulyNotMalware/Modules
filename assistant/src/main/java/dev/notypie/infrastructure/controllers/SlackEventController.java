@@ -1,6 +1,6 @@
-package dev.notypie.controllers;
+package dev.notypie.infrastructure.controllers;
 
-import dev.notypie.application.AssistantService;
+import dev.notypie.infrastructure.application.AssistantService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;

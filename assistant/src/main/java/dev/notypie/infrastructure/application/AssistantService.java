@@ -1,4 +1,4 @@
-package dev.notypie.application;
+package dev.notypie.infrastructure.application;
 
 import dev.notypie.aggregate.slack.SlackEventResponse;
 import dev.notypie.aggregate.slack.SlackRequestHeaders;

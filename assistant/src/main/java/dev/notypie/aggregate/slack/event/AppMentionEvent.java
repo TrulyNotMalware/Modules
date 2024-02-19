@@ -3,12 +3,12 @@ package dev.notypie.aggregate.slack.event;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.slack.api.methods.Methods;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
-import dev.notypie.aggregate.history.domain.EventHistory;
+import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.aggregate.slack.SlackRequestHeaders;
 import dev.notypie.aggregate.slack.dto.contexts.SlackAppMentionContext;
 import dev.notypie.aggregate.slack.dto.SlackEventContents;
 import dev.notypie.aggregate.slack.dto.SlackChatEventContents;
-import dev.notypie.constants.Constants;
+import dev.notypie.global.constants.Constants;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +47,7 @@ public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
     }
 
     @Override
-    public EventHistory getEventHistory() {
+    public History getEventHistory() {
         return this.context.buildEventHistory();
     }
 
