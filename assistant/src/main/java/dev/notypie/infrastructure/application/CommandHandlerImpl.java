@@ -1,11 +1,11 @@
-package dev.notypie.application;
+package dev.notypie.infrastructure.application;
 
 import dev.notypie.aggregate.slack.commands.AppMentionCommand;
 import dev.notypie.aggregate.slack.commands.Command;
 import dev.notypie.aggregate.slack.dto.contexts.Contexts;
 import dev.notypie.aggregate.slack.dto.contexts.SlackAppMentionContext;
 import dev.notypie.aggregate.slack.event.SlackEvent;
-import dev.notypie.constants.Constants;
+import dev.notypie.global.constants.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

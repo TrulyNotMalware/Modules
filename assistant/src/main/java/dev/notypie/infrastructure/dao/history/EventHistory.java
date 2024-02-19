@@ -1,4 +1,4 @@
-package dev.notypie.aggregate.history.domain;
+package dev.notypie.infrastructure.dao.history;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class EventHistory {
+class EventHistory {
 
     @Id
     private String eventId;
@@ -45,9 +45,6 @@ public class EventHistory {
     @Column(name = "raw_data", columnDefinition = "TEXT")
     private String rawData;
 
-    @Column(name = "expected_command")
-    private String command;
-
     @CreatedDate
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -57,7 +54,7 @@ public class EventHistory {
     @Builder
     EventHistory(@NotNull String eventId, @NotNull String requestAppName, @NotNull String requestAppId,
                  @NotNull String publisher, @NotNull String eventType,
-                 @NotNull String source, @NotNull String rawData, @NotNull String command
+                 @NotNull String source, @NotNull String rawData
     ){
         this.eventId = eventId;
         this.requestAppName = requestAppName;
@@ -66,6 +63,5 @@ public class EventHistory {
         this.eventType = eventType;
         this.source = source;
         this.rawData = rawData;
-        this.command = command;
     }
 }

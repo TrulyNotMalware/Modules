@@ -1,4 +1,4 @@
-package dev.notypie.constants;
+package dev.notypie.global.constants;
 
 public final class Constants {
 
