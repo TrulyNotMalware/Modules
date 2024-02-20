@@ -1,6 +1,6 @@
 package dev.notypie.infrastructure.controllers;
 
-import dev.notypie.infrastructure.application.AssistantService;
+import dev.notypie.infrastructure.application.SlackService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SlackEventController {
 
-    private final AssistantService service;
+    private final SlackService service;
 
     //Api Challenge
     @PostMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)

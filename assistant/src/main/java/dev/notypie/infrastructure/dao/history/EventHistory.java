@@ -22,10 +22,6 @@ class EventHistory {
     @Id
     private String eventId;
 
-    @Column(name = "request_app_name")
-    @NotNull
-    private String requestAppName;
-
     @Column(name = "request_app_id")
     @NotNull
     private String requestAppId;
@@ -52,12 +48,11 @@ class EventHistory {
     private LocalDateTime createdAt;
 
     @Builder
-    EventHistory(@NotNull String eventId, @NotNull String requestAppName, @NotNull String requestAppId,
+    EventHistory(@NotNull String eventId, @NotNull String requestAppId,
                  @NotNull String publisher, @NotNull String eventType,
                  @NotNull String source, @NotNull String rawData
     ){
         this.eventId = eventId;
-        this.requestAppName = requestAppName;
         this.requestAppId = requestAppId;
         this.publisher = publisher;
         this.eventType = eventType;
