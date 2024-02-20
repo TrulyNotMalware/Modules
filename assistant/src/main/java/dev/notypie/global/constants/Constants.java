@@ -2,6 +2,10 @@ package dev.notypie.global.constants;
 
 public final class Constants {
 
+    // parse requests
+    public static final String SLACK_COMMAND_TYPE = "slack_api";
+    public static final String REST_COMMAND_TYPE = "rest_api";
+
     // Slack Request Type Constants
     public static final String URL_VERIFICATION="url_verification";
     public static final String EVENT_CALLBACK = "event_callback";
