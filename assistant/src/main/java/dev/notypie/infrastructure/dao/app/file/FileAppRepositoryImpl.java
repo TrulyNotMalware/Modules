@@ -1,12 +1,10 @@
-package dev.notypie.infrastructure.dao.app;
+package dev.notypie.infrastructure.dao.app.file;
 
 import dev.notypie.aggregate.app.entity.App;
 import dev.notypie.aggregate.app.repository.AppRepository;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class JpaAppRepositoryImpl implements AppRepository {
-
+//FIXME Not Implemented Yet
+public class FileAppRepositoryImpl implements AppRepository {
 
     @Override
     public App findByAppId(String appId) {

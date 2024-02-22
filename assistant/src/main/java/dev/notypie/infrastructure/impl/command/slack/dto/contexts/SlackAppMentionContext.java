@@ -2,46 +2,27 @@ package dev.notypie.infrastructure.impl.command.slack.dto.contexts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.notypie.aggregate.history.entity.History;
+import dev.notypie.infrastructure.impl.command.slack.SlackRequestHeaders;
 import dev.notypie.infrastructure.impl.command.slack.dto.AppMentionEventType;
 import dev.notypie.infrastructure.impl.command.slack.dto.Authorization;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackAppMentionDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
-@Builder
-public class SlackAppMentionContext extends Contexts {
+public class SlackAppMentionContext extends SlackContext {
 
-    @JsonProperty("token")
-    private String token;
+    private final SlackAppMentionDto slackAppMentionDto;
 
-    @JsonProperty("team_id")
-    private String teamId;
-
-    @JsonProperty("api_app_id")
-    private String apiAppId;
-
-    @JsonProperty("event")
-    private AppMentionEventType event;
-
-    @JsonProperty("type")
-    private String type;
-
-    @JsonProperty("event_id")
-    private String eventId;
-
-    @JsonProperty("event_time")
-    private int event_time;
-
-    @JsonProperty("authorizations")
-    private List<Authorization> authorizations;
-
-    @JsonProperty("is_ext_shared_channel")
-    private boolean isExtSharedChannel;
-
-    @JsonProperty("event_context")
-    private String eventContext;
+    @Builder
+    SlackAppMentionContext(SlackAppMentionDto slackAppMentionDto, String requestType,
+                           Map<String, List<String>> headers, Map<String, Object> payload){
+        super(headers, payload, requestType);
+        this.slackAppMentionDto = slackAppMentionDto;
+    }
 
     @Override
     public History buildEventHistory() {
@@ -50,4 +31,8 @@ public class SlackAppMentionContext extends Contexts {
                 .build();
     }
 
+    @Override
+    public void runCommand() {
+
+    }
 }

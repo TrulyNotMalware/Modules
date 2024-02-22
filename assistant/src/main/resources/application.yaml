@@ -1,7 +1,7 @@
 spring:
   profiles:
     group:
-      "local": "default-base, hikari-default-config, h2-local-database"
+      "local": "default-base, hikari-default-config, h2-local-database, settings"
       "slack-service": "slack, slack-bolt"
 
     active: local, slack-service
@@ -97,4 +97,19 @@ slack:
     channel: BOT_CHANNEL_NAME
     signingSecret: SIGNING_SECRET_VALUE
   app:
-    token: APP_API_TOKEN_VALUE
+    token: APP_TOKEN
+---
+spring:
+  config:
+    activate:
+      on-profile: "settings"
+
+assistant:
+  app:
+    event:
+      tracking:
+        type: jpa
+
+event:
+  logs:
+    enabled: false
