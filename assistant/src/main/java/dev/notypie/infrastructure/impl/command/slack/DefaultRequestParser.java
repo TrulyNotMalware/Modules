@@ -31,7 +31,7 @@ public class DefaultRequestParser implements SlackRequestParser{
     private String channel;
 
     @Override
-    public SlackEvent<?> parseRequest(SlackRequestHeaders headers, Map<String, Object> payload)  {
+    public SlackEvent<?> parseRequest(Map<String, List<String>> headers, Map<String, Object> payload)  {
         if(!payload.containsKey("type")){
             List<ArgumentError> argumentErrors = new ArrayList<>();
             argumentErrors.add(new ArgumentError("type","null","type cannot be NULL"));

@@ -24,12 +24,12 @@ public class AppMentionCommand implements SlackCommand {
 
     @Builder
     public AppMentionCommand(SlackAppMentionContext context, String channel){
-        AppMentionEventType event = context.getEvent();
+        AppMentionEventType event = context.getSlackAppMentionDto().getEvent();
         this.userId = event.getUserId();
         this.rawText = event.getRawText();
         this.channel = channel;
         //check Authorization
-        for(Authorization auth : context.getAuthorizations()){
+        for(Authorization auth : context.getSlackAppMentionDto().getAuthorizations()){
             if(auth.isBot()){
                 this.botId = auth.getUserId();
                 break;
