@@ -1,13 +1,12 @@
-package dev.notypie.infrastructure.application;
+package dev.notypie.application.command;
 
-import dev.notypie.aggregate.commands.entity.Command;
 import dev.notypie.aggregate.commands.entity.EventHandler;
 import dev.notypie.infrastructure.impl.command.slack.SlackEventResponse;
 import dev.notypie.infrastructure.impl.command.slack.SlackRequestHeaders;
 import dev.notypie.infrastructure.impl.command.slack.SlackRequestParser;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.Contexts;
+import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +27,8 @@ public class DefaultSlackServiceImpl implements SlackService {
 
     @Override
     public ResponseEntity<SlackEventResponse> categorization(Map<String, List<String>> headers, Map<String, Object> payload){
-        SlackEvent<? extends Contexts> slackEvent = this.requestParser.parseRequest(new SlackRequestHeaders(headers), payload);
-        SlackCommand slackCommand = this.handler.handleRequest(slackEvent);
+        SlackEvent<? extends SlackContext> slackEvent = this.requestParser.parseRequest(headers, payload);
+        SlackCommand slackCommand = this.handler.generateSlackCommand(slackEvent);
         return this.responseHandler.generateEventResponse(slackCommand.generateEventContents());
     }
 

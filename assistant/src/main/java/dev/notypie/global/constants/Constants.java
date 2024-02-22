@@ -2,8 +2,14 @@ package dev.notypie.global.constants;
 
 public final class Constants {
 
+    // app type
+    public static final String APP_TYPE_SLACK = "slack";
+
     // parse requests
+    public static final String SLACK_REQUEST_KEY_NAME = "api_app_id";
     public static final String SLACK_COMMAND_TYPE = "slack_api";
+
+    public static final String REST_REQUEST_KEY_NAME = "appId";
     public static final String REST_COMMAND_TYPE = "rest_api";
 
     // Slack Request Type Constants
