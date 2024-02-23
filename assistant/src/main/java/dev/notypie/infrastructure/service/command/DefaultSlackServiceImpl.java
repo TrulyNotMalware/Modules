@@ -1,9 +1,7 @@
-package dev.notypie.application.command;
+package dev.notypie.infrastructure.service.command;
 
 import dev.notypie.aggregate.commands.entity.EventHandler;
-import dev.notypie.infrastructure.impl.command.slack.SlackEventResponse;
-import dev.notypie.infrastructure.impl.command.slack.SlackRequestHeaders;
-import dev.notypie.infrastructure.impl.command.slack.SlackRequestParser;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventResponse;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;

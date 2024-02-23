@@ -7,6 +7,7 @@ import dev.notypie.infrastructure.impl.command.slack.dto.SlackChatEventContents;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventResponse;
 import dev.notypie.requester.RestClientRequester;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

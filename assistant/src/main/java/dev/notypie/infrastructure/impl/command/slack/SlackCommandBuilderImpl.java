@@ -2,24 +2,25 @@ package dev.notypie.infrastructure.impl.command.slack;
 
 import dev.notypie.aggregate.commands.entity.Command;
 import dev.notypie.aggregate.commands.entity.CommandBuilder;
-import dev.notypie.aggregate.commands.entity.CommandContext;
 import dev.notypie.aggregate.commands.entity.EventHandler;
-import dev.notypie.application.command.SlackCommandHandler;
-import dev.notypie.application.command.SlackService;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventResponse;
+import dev.notypie.infrastructure.service.command.SlackCommandHandler;
 import dev.notypie.global.constants.Constants;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
+import dev.notypie.infrastructure.service.command.SlackRequestParser;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Profile("slack")
 @Component
 @RequiredArgsConstructor
 public class SlackCommandBuilderImpl implements CommandBuilder {
