@@ -1,6 +1,6 @@
 package dev.notypie.infrastructure.controllers;
 
-import dev.notypie.application.command.SlackService;
+import dev.notypie.infrastructure.service.command.SlackService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;

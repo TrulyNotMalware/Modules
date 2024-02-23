@@ -2,7 +2,7 @@ package dev.notypie.infrastructure.impl.command.slack.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.aggregate.history.entity.History;
-import dev.notypie.infrastructure.impl.command.slack.SlackRequestHeaders;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackRequestHeaders;
 import dev.notypie.infrastructure.impl.command.slack.dto.UrlVerificationDto;
 import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackChallengeContext;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
