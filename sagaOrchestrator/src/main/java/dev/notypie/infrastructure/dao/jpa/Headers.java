@@ -1,11 +1,9 @@
-package dev.notypie.aggregate.orchestrator;
+package dev.notypie.infrastructure.dao.jpa;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.converter.JsonStringConverter;
-
-import java.util.Date;
 
 public class Headers {
 
