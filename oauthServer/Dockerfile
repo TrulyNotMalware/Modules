@@ -7,4 +7,4 @@ ENV PROFILE=${PROFILES}
 COPY ./build/libs/$JAR_FILE_NAME.jar /app.jar
 
 EXPOSE $SERVER_PORT
-ENTRYPOINT exec java -jar -Dspring.profiles.active=\"${PROFILE}\" -Duser.timezone=Asia/Seoul /app.jar
+ENTRYPOINT exec java -jar -Dspring.profiles.active=${PROFILE} -Duser.timezone=Asia/Seoul /app.jar

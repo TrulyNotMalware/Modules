@@ -1,4 +1,4 @@
-package dev.notypie.aggregate.orchestrator;
+package dev.notypie.infrastructure.dao.jpa;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
