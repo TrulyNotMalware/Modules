@@ -1,6 +1,5 @@
 package dev.notypie.aggregate.app.entity;
 
-import dev.notypie.infrastructure.dao.app.jpa.RegisteredApp;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -13,19 +12,9 @@ public class App {
     private final String appId;
     private final String appName;
     private final String appType;
-    private boolean isAuthenticated;
-    private boolean isEnabled;
+    private final boolean isAuthenticated;
+    private final boolean isEnabled;
     private final LocalDateTime registeredDate;
-
-    @Builder(builderMethodName = "toDomainEntity")
-    public App(RegisteredApp tableObject){
-        this.appId = tableObject.getAppId();
-        this.appName = tableObject.getAppName();
-        this.appType = tableObject.getAppType();
-        this.isAuthenticated = tableObject.isAuthenticated();
-        this.isEnabled = tableObject.isEnabled();
-        this.registeredDate = tableObject.getCreatedAt();
-    }
 
     @Builder(builderMethodName = "newAppBuilder")
     public App(String appName, String appType){
@@ -35,6 +24,17 @@ public class App {
         this.isAuthenticated = false;
         this.isEnabled = false;
         this.registeredDate = LocalDateTime.now();
+    }
+
+    @Builder(builderMethodName = "toEntity")
+    public App(String appId, String appName, String appType,
+               boolean isAuthenticated, boolean isEnabled, LocalDateTime registeredDate){
+        this.appId = appId;
+        this.appName = appName;
+        this.appType = appType;
+        this.isAuthenticated = isAuthenticated;
+        this.isEnabled = isEnabled;
+        this.registeredDate = registeredDate;
     }
 
     public boolean isAvailable(){

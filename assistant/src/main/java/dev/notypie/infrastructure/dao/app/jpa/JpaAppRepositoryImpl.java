@@ -11,13 +11,12 @@ public class JpaAppRepositoryImpl implements AppRepository {
 
     @Override
     public App findByAppId(String appId) {
-        return App.toDomainEntity().tableObject(
-                repository.findById(appId).orElseThrow()).build();
+        return repository.findById(appId).orElseThrow().toDomainEntity();
     }
 
     @Override
     public App save(App app) {
         RegisteredApp tableEntity = RegisteredApp.toTable().app(app).build();
-        return App.toDomainEntity().tableObject(this.repository.save(tableEntity)).build();
+        return this.repository.save(tableEntity).toDomainEntity();
     }
 }
