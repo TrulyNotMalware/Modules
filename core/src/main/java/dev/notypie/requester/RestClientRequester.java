@@ -1,5 +1,6 @@
 package dev.notypie.requester;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,13 +18,19 @@ public class RestClientRequester {
     private String authorization;
 
     public static final String defaultContentType = "application/json; charset=utf-8";
-    private final RestClient restClient = RestClient.builder()
-            .baseUrl(this.baseUrl)
-            .defaultHeaders(headers -> {
-                headers.add(HttpHeaders.CONTENT_TYPE, defaultContentType);
-                if( authorization != null && !authorization.isBlank() ) headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+this.authorization);
-            })
-            .build();
+    private RestClient restClient;
+
+    // Initialize with @Value annotated value
+    @PostConstruct
+    public void init(){
+        this.restClient = RestClient.builder()
+                .baseUrl(this.baseUrl)
+                .defaultHeaders(headers -> {
+                    headers.add(HttpHeaders.CONTENT_TYPE, defaultContentType);
+                    if( authorization != null && !authorization.isBlank() ) headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+this.authorization);
+                })
+                .build();
+    }
 
     public <T> ResponseEntity<T> post(String uri, String authorizationHeader, Object body, Class<T> responseType){
         RestClient.RequestBodySpec spec =  this.restClient.post()
