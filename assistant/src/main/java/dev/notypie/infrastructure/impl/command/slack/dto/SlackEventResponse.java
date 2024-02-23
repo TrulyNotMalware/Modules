@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.impl.command.slack;
+package dev.notypie.infrastructure.impl.command.slack.dto;
 
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import lombok.Builder;

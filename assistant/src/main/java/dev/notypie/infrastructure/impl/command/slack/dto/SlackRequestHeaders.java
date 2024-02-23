@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.impl.command.slack;
+package dev.notypie.infrastructure.impl.command.slack.dto;
 
 import java.util.*;
 

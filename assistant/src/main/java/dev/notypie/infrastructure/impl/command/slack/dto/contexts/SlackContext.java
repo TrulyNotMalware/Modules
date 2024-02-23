@@ -2,7 +2,7 @@ package dev.notypie.infrastructure.impl.command.slack.dto.contexts;
 
 import dev.notypie.aggregate.commands.entity.CommandContext;
 import dev.notypie.aggregate.history.entity.History;
-import dev.notypie.infrastructure.impl.command.slack.SlackRequestHeaders;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackRequestHeaders;
 import lombok.Getter;
 
 import java.util.List;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.slack.api.methods.Methods;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import dev.notypie.aggregate.history.entity.History;
-import dev.notypie.infrastructure.impl.command.slack.SlackRequestHeaders;
+import dev.notypie.infrastructure.impl.command.slack.dto.SlackRequestHeaders;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackAppMentionDto;
 import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackAppMentionContext;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
