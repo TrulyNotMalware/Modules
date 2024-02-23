@@ -1,6 +1,7 @@
 package dev.notypie.infrastructure.controllers;
 
-import dev.notypie.infrastructure.service.command.SlackService;
+
+import dev.notypie.application.command.CommandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -17,16 +18,14 @@ import java.util.Map;
 @RequestMapping("/api/slack")
 @RequiredArgsConstructor
 public class SlackEventController {
-
-    private final SlackService service;
+    private final CommandService service;
 
     //Api Challenge
     @PostMapping(value = "/events", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> slackEventController(
             @RequestHeader MultiValueMap<String, String> headers,
-            @RequestBody Map<String, Object> data
+            @RequestBody Map<String, Object> payload
     ){
-        return this.service.categorization(headers, data);
-//        return new ResponseEntity<>(this.service, HttpStatus.OK);
+        return this.service.executeCommand(headers, payload);
     }
 }

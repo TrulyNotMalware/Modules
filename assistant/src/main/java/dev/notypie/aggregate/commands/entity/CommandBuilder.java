@@ -10,6 +10,5 @@ public interface CommandBuilder {
 
     boolean isSupport(String appType);
     Command buildCommand(String appId, Map<String, List<String>> headers, Map<String, Object> payload);
-
     ResponseEntity<?> executeCommand(Command command);
 }

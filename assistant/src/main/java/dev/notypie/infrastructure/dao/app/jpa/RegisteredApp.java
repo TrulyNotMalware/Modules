@@ -58,4 +58,15 @@ public class RegisteredApp {
         this.isAuthenticated = app.isAuthenticated();
         this.isEnabled = app.isEnabled();
     }
+
+    App toDomainEntity(){
+        return App.toEntity()
+                .appId(this.appId)
+                .appName(this.appName)
+                .appType(this.appType)
+                .isAuthenticated(this.isAuthenticated)
+                .isEnabled(this.isEnabled)
+                .registeredDate(this.createdAt)
+                .build();
+    }
 }
