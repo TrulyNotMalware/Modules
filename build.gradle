@@ -27,6 +27,7 @@ subprojects {
 
     ext{
         set('springCloudVersion',"2023.0.0")
+        set('redissonVersion',"3.27.0")
     }
 
     repositories {

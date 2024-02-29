@@ -1,7 +1,8 @@
 spring:
   profiles:
     group:
-      "local": "default-base, hikari-default-config, h2-local-database, settings"
+      "local": "core-redis-embedded, default-base, hikari-default-config, h2-local-database, settings"
+      "dev": "core-redis-cluster, default-base, hikari-default-config, dev-oracle-database, settings"
       "slack-service": "slack, slack-bolt"
 
     active: local, slack-service
@@ -86,6 +87,40 @@ spring:
     init:
       mode: embedded
 ---
+# Develop SQL - Oracle Database 19c
+spring:
+  config:
+    activate:
+      on-profile: "dev-oracle-database"
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@${DEV_TNS_NAME}?TNS_ADMIN=${DEV_ORACLE_WALLET_DIRECTORY}
+    username: ${DEV_ORACLE_USER_NAME}
+    password: ${DEV_ORACLE_DB_PASSWORD}
+    hikari:
+      connection-test-query: SELECT 1 FROM DUAL # Oracle Database Connection Query.
+      transaction-isolation: TRANSACTION_READ_COMMITTED # READ_COMMITTED and SERIALIZABLE are the only valid transaction levels ( Oracle )
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: true #Show Beautify sql2
+    database: ORACLE
+    database-platform: org.hibernate.dialect.OracleDialect
+  h2: # Disable Local h2 database.
+    console:
+      enabled: false
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+---
 spring:
   config:
     activate:
@@ -93,11 +128,11 @@ spring:
 
 slack:
   api:
-    token: API_TOKEN_VALUE
-    channel: BOT_CHANNEL_NAME
-    signingSecret: SIGNING_SECRET_VALUE
+    token: ${API_TOKEN_VALUE}
+    channel: ${BOT_CHANNEL_NAME}
+    signingSecret: ${SIGNING_SECRET_VALUE}
   app:
-    token: APP_TOKEN
+    token: ${APP_TOKEN}
 ---
 spring:
   config:
@@ -113,3 +148,25 @@ assistant:
 event:
   logs:
     enabled: false
+
+---
+spring:
+  config:
+    activate:
+      on-profile: core-redis-cluster
+
+  data:
+    redis:
+      cluster:
+        nodes: ${YOUR_REDIS_CLUSTER_NODES}
+      password: ${REDIS_CLUSTER_PASSWORD}
+---
+spring:
+  config:
+    activate:
+      on-profile: core-redis-embedded
+
+core:
+  embedded:
+    redis:
+      port: 6379
