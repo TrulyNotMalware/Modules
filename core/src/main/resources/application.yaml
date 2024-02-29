@@ -27,3 +27,22 @@ spring:
       max-lifetime: 1800000
       pool-name: hikari_pool
 ---
+spring:
+  config:
+    activate:
+      on-profile: core
+  # require redis lock.
+  data:
+    redis:
+      cluster:
+        nodes: ${YOUR_REDIS_CLUSTER_NODES}
+      password: ${REDIS_CLUSTER_PASSWORD}
+
+core:
+  requester:
+    config:
+      baseUrl: ${REQUESTER_BASE_URLS}
+      authorization: ${REQUESTER_AUTHORIZATION_TOKEN}
+  embedded:
+    redis:
+      port: ${EMBEDDED_REDIS_PORT}
