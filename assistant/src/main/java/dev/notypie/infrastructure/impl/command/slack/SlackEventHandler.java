@@ -9,6 +9,7 @@ import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventResponse;
 import dev.notypie.requester.RestClientRequester;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,13 +28,21 @@ import static dev.notypie.requester.RestClientRequester.defaultContentType;
 @Service
 public class SlackEventHandler implements EventHandler<SlackEventContents, SlackEventResponse> {
 
+    @Value("${core.requester.config.baseUrl:}")
+    private String baseUrl;
+
     @Value("${slack.api.token}")
     private String botToken;
 
     @Value("${slack.api.channel}")
     private String channel;
-
-    private final RestClientRequester requester;
+    private RestClientRequester requester;
+    @PostConstruct
+    public void init(){
+        this.requester = RestClientRequester.builder()
+                .baseUrl(this.baseUrl)
+                .build();
+    }
 //    private static final String defaultContentType = "application/json; charset=utf-8";
 //    private final RestClient restClient = RestClient.builder()
 //            .baseUrl(Constants.SLACK_API_ENDPOINT)
