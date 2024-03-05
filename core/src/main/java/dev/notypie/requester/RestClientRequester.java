@@ -1,6 +1,7 @@
 package dev.notypie.requester;
 
 import jakarta.annotation.PostConstruct;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -8,26 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-@Component
 public class RestClientRequester {
 
-    @Value("${core.requester.config.baseUrl:}")
-    private String baseUrl;
-
-    @Value("${core.requester.config.authorization:}")
-    private String authorization;
-
     public static final String defaultContentType = "application/json; charset=utf-8";
-    private RestClient restClient;
+    private final RestClient restClient;
 
-    // Initialize with @Value annotated value
-    @PostConstruct
-    public void init(){
+    @Builder
+    public RestClientRequester(String baseUrl, String authorization){
         this.restClient = RestClient.builder()
-                .baseUrl(this.baseUrl)
+                .baseUrl(baseUrl)
                 .defaultHeaders(headers -> {
                     headers.add(HttpHeaders.CONTENT_TYPE, defaultContentType);
-                    if( authorization != null && !authorization.isBlank() ) headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+this.authorization);
+                    if( authorization != null && !authorization.isBlank() ) headers.add(HttpHeaders.AUTHORIZATION, "Bearer "+authorization);
                 })
                 .build();
     }
@@ -38,8 +31,38 @@ public class RestClientRequester {
                 .contentType(MediaType.APPLICATION_JSON);
         if( authorizationHeader != null )
             spec.header(HttpHeaders.AUTHORIZATION, "Bearer "+authorizationHeader);
-        else if( this.authorization != null )
-            spec.header(HttpHeaders.AUTHORIZATION, "Bearer "+this.authorization);
+        return spec.body(body).retrieve().toEntity(responseType);
+    }
+
+    public <T> ResponseEntity<T> get(String uri, String authorizationHeader, Class<T> responseType){
+        RestClient.RequestHeadersSpec<?> spec = this.restClient.get().uri(uri);
+        if( authorizationHeader != null )
+            spec.header(HttpHeaders.AUTHORIZATION, "Bearer "+authorizationHeader);
+        return spec.retrieve().toEntity(responseType);
+    }
+
+    public <T> ResponseEntity<T> delete(String uri, String authorizationHeader, Class<T> responseType){
+        RestClient.RequestHeadersSpec<?> spec = this.restClient.delete().uri(uri);
+        if( authorizationHeader != null )
+            spec.header(HttpHeaders.AUTHORIZATION, "Bearer "+authorizationHeader);
+        return spec.retrieve().toEntity(responseType);
+    }
+
+    public <T> ResponseEntity<T> put(String uri, String authorizationHeader, Object body, Class<T> responseType){
+        RestClient.RequestBodySpec spec =  this.restClient.put()
+                .uri(uri)
+                .contentType(MediaType.APPLICATION_JSON);
+        if( authorizationHeader != null )
+            spec.header(HttpHeaders.AUTHORIZATION, "Bearer "+authorizationHeader);
+        return spec.body(body).retrieve().toEntity(responseType);
+    }
+
+    public <T> ResponseEntity<T> patch(String uri, String authorizationHeader, Object body, Class<T> responseType){
+        RestClient.RequestBodySpec spec =  this.restClient.patch()
+                .uri(uri)
+                .contentType(MediaType.APPLICATION_JSON);
+        if( authorizationHeader != null )
+            spec.header(HttpHeaders.AUTHORIZATION, "Bearer "+authorizationHeader);
         return spec.body(body).retrieve().toEntity(responseType);
     }
 }
