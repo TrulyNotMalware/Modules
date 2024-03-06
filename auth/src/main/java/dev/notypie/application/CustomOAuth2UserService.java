@@ -1,6 +1,6 @@
 package dev.notypie.application;
 
-import dev.notypie.common.utils.OAuthAttribute;
+import dev.notypie.global.common.utils.OAuthAttribute;
 import dev.notypie.dao.UsersRepository;
 import dev.notypie.domain.Users;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package dev.notypie.configurations;
+package dev.notypie.global.configurations;
 
 import dev.notypie.application.LoginAuthenticationFilter;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package dev.notypie.configurations;
+package dev.notypie.global.configurations;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

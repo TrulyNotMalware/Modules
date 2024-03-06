@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Embeddable
-class Address {
+public class Address {
 
     @JsonProperty("country")
     private String country;

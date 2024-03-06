@@ -12,11 +12,11 @@ import java.io.IOException;
 
 
 @Slf4j
-@Profile("local")
+@Profile({"local","test"})
 @Configuration
 public class EmbeddedRedis {
 
-    @Value("${core.embedded.redis.port}")
+    @Value("${core.embedded.redis.port:6379}")
     private int redisPort;
 
     private RedisServer redisServer;

@@ -28,7 +28,7 @@ public class UserRegisterDto {
     private String email;
 
     @JsonProperty("password")
-    @Pattern(regexp = "^[a-zA-Z0-9_#@!-]*$")
+    @Pattern(regexp = "^[a-zA-Z0-9_#@!]*$")
     private String password;
 
     @JsonProperty("phoneNumber")
