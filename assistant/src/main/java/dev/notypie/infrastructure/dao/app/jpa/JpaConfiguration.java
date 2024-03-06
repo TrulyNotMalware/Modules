@@ -1,13 +1,12 @@
 package dev.notypie.infrastructure.dao.app.jpa;
 
 import dev.notypie.aggregate.app.repository.AppRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Slf4j
 @Configuration
+@ConditionalOnProperty(prefix = "assistant.app.event.tracking", name = "type", havingValue = "jpa")
 public class JpaConfiguration {
 
     /**
@@ -16,7 +15,6 @@ public class JpaConfiguration {
      * @return a new instance of AppRepository
      */
     @Bean
-    @ConditionalOnProperty(prefix = "assistant.app.event.tracking", name = "type", havingValue = "jpa")
     public AppRepository jpaAppRepository(RegisteredAppRepository appRepository){
         return new JpaAppRepositoryImpl(appRepository);
     }
