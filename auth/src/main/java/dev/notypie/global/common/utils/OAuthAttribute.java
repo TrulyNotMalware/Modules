@@ -1,4 +1,4 @@
-package dev.notypie.common.utils;
+package dev.notypie.global.common.utils;
 
 import dev.notypie.domain.Users;
 import lombok.RequiredArgsConstructor;

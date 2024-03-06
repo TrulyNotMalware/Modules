@@ -1,4 +1,4 @@
-package dev.notypie.controllers;
+package dev.notypie.infrastructure.controllers;
 
 import dev.notypie.application.RefreshTokenService;
 import dev.notypie.application.UserCRUDService;

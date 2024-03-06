@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Embeddable
-class RefreshToken {
+public class RefreshToken {
 
     @JsonProperty("refreshToken")
     @Column(name = "refresh_token", length = 500)//490
