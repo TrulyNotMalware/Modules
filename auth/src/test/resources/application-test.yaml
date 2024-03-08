@@ -24,6 +24,11 @@ spring:
   sql:
     init:
       mode: embedded
+
+auth:
+  app:
+    persistent:
+      type: jpa
 ---
 spring:
   config:
