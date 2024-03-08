@@ -1,8 +1,11 @@
 package dev.notypie.aggregate.user.entity;
 
+import dev.notypie.exceptions.UserDomainException;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static dev.notypie.global.util.Util.validateString;
 
@@ -11,11 +14,11 @@ public class MutableUserInformation {
 
     @NotBlank
     private String userName;
-    private final String userNameRegex = "[^a-zA-Z0-9_]";
+    private final String userNameRegex = "^[a-zA-Z0-9_]*$";
 
     @NotBlank
     private String password;
-    private final String passwordRegex = "[^a-zA-Z0-9!#@]";
+    private final String passwordRegex = "^[a-zA-Z0-9!/#.@$]*$";
 
     @NotBlank
     private String phoneNumber;

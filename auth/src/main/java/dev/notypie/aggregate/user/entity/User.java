@@ -17,7 +17,7 @@ public class User extends AggregateRoot {
 
     @NotBlank
     private final String userId;
-    private final String userIdRegex = "[^a-zA-Z0-9]";
+    private final String userIdRegex = "[a-zA-Z0-9]";
 
     @Email
     private final String email;
@@ -64,18 +64,18 @@ public class User extends AggregateRoot {
     }
 
 
-    @Builder(builderMethodName = "fromRegisterDto")
+    @Builder(builderMethodName = "fromRegisterDto", buildMethodName = "dtoBuilder")
     public static User createUser(UserRegisterDto registerDto){
         return createInstance(() -> new User(registerDto));
     }
 
-    @Builder(builderMethodName = "newUser")
+    @Builder(builderMethodName = "newUser", builderClassName = "defaultBuilder")
     public static User createUser(@NotBlank String userId, @NotBlank String userName, @NotBlank String password,
                                   @Email String email, @NotBlank String phoneNumber){
         return createInstance(() -> new User(userId, userName, password, email, phoneNumber));
     }
 
-    @Builder(builderMethodName = "toEntity")
+    @Builder(builderMethodName = "toEntity", builderClassName = "entityBuilder")
     protected static User createUser(@NotNull Long id, @NotBlank String userId, @NotBlank String userName, @NotBlank String password,
                                      @Email String email, @NotBlank String phoneNumber,
                                      String country, String streetAddress, String city, String region, String zipCode){
@@ -93,4 +93,7 @@ public class User extends AggregateRoot {
         this.userInformation.validationUserInformation();
     }
 
+    public void changePassword(String newPassword){
+        this.userInformation.changePassword(newPassword);
+    }
 }
