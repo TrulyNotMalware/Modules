@@ -1,9 +1,9 @@
 spring:
   profiles:
     group:
-      "prod": "prod-base, hikari-prod-config, prod-oracle-database"
-      "dev": "default-base, hikari-default-config, dev-oracle-database"
-      "local": "default-base, hikari-default-config, h2-local-database"
+      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster"
+      "dev": "default-base, hikari-default-config, dev-oracle-database, jpaPersistent, core-redis-cluster"
+      "local": "default-base, hikari-default-config, h2-local-database, core-redis-embedded"
       "jwt": "jwt-configuration"
       "oauth-client": "oauth"
     active: dev, jwt, oauth-client
@@ -235,6 +235,16 @@ authentication:
 spring:
   config:
     activate:
+      on-profile: jpaPersistent
+
+auth:
+  app:
+    persistent:
+      type: jpa
+---
+spring:
+  config:
+    activate:
       on-profile: "oauth"
 
   security:
@@ -259,3 +269,24 @@ spring:
             token-uri: https://auth.notypie.dev/oauth2/token
             user-info-uri: https://api.notypie.dev/v1/users/me
             user-name-attribute: userId
+---
+spring:
+  config:
+    activate:
+      on-profile: core-redis-cluster
+
+  data:
+    redis:
+      cluster:
+        nodes: ${YOUR_REDIS_CLUSTER_NODES}
+      password: ${REDIS_CLUSTER_PASSWORD}
+---
+spring:
+  config:
+    activate:
+      on-profile: core-redis-embedded
+
+core:
+  embedded:
+    redis:
+      port: 6379
