@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: harbor.registry.notypie.dev/apis/api-gateway:latest
+          image: harbor.registry.notypie.dev/apis/gateway:latest
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef: # implementation project (":common")
