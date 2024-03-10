@@ -4,5 +4,6 @@ metadata:
   name: api-auth-client-configmap
   namespace: api-service
 data:
+  SERVLET_SESSION_TIMEOUT: "SERVLET_SESSION_TIMEOUT"
   GITHUB_CLIENT_ID: 'YOUR_GITHUB_CLIENT_ID'
   GITHUB_SECRET: 'GITHUB_SECRET'

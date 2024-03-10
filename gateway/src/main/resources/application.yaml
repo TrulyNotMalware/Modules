@@ -170,12 +170,12 @@ spring:
 
 jwt:
   token:
-    accessTokenExpiredTime: 200000
-    refreshTokenExpiredTime: 2000000
+    accessTokenExpiredTime: ${ACCESS_EXPIRED_TIME}
+    refreshTokenExpiredTime: ${REFRESH_EXPIRED_TIME}
     keystore:
-      classpath: clientkeystore.jks
-      password: teststorepass
+      classpath: ${KEY_NAME}
+      password: ${KEYSTORE_PASSWORD}
     key:
-      alias: client
-      privateKeyPassPhrase: teststorepass
+      alias: ${KEY_ALIAS}
+      privateKeyPassPhrase: ${PRIVATE_KEY_PASS_PHRASE}
 ---
