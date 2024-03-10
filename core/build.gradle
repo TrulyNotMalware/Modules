@@ -30,5 +30,6 @@ dependencies {
     //Redis Lock
     implementation "org.redisson:redisson-spring-boot-starter:${redissonVersion}"
     //Embedded Redis
-    implementation "it.ozimov:embedded-redis:0.7.3"
+    //https://github.com/ozimov/embedded-redis/pull/18 Raise exception when run test code.
+    implementation "it.ozimov:embedded-redis:0.7.3" exclude group: "org.slf4j", module: "slf4j-simple"
 }
