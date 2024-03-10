@@ -6,7 +6,7 @@ spring:
       "local": "default-base, hikari-default-config, h2-local-database, core-redis-embedded"
       "jwt": "jwt-configuration"
       "oauth-client": "oauth"
-    active: dev, jwt, oauth-client
+    active: prod, jwt, oauth-client
 ---
 server:
   port: 8888
@@ -252,8 +252,8 @@ spring:
       client:
         registration:
           github:
-            client-id: GITHUB_CLIENT_ID
-            client-secret: GITHUB_SECRET
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_SECRET}
             scope: name, email, avatar_url
           myService:
             client-id: a5d84fa4672d11eebde4f1e330a208a0

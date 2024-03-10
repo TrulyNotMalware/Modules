@@ -1,21 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: authentication-service
-  namespace: dev-platform
+  name: auth-client
+  namespace: api-service
 spec:
   selector:
     matchLabels:
-      app: authentication-service
+      app: auth-client
   template:
     metadata:
       labels:
-        app: authentication-service
-        namespace: dev-platform
+        app: auth-client
+        namespace: api-service
     spec:
       containers:
         - name: authentication-service
-          image: harbor.registry.notypie.dev/devgru/authentication-client:latest
+          image: harbor.registry.notypie.dev/apis/auth-client:latest
           ports:
             - containerPort: 80
           imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef: # implementation project (":common")
+                name: api-common-secret
+            - secretRef: # implementation project (":core")
+                name: api-oracle-database-secret # Example: use Oracle database.
+            - secretRef: # implementation project (":core configuration")
+                name: api-core-secret
+            - configMapRef:
+                name: api-auth-client-configmap
+          volumeMounts:
+            - mountPath: "YOUR_VOLUME_MOUNT_PATH"
+              name: oracle-wallet
+              readOnly: true
+      volumes: # This is also example for Oracle.
+        - name: oracle-wallet
+          secret:
+            secretName: oracle-wallet-config
