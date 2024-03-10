@@ -22,6 +22,8 @@ spec:
                 name: api-common-secret
             - secretRef: # implementation project (":core")
                 name: api-oracle-database-secret # Example: use Oracle database.
+            - secretRef: # implementation project (":core configuration")
+                name: api-core-secret
             - configMapRef:
                 name: api-oauth-server-configmap
           volumeMounts:
