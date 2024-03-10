@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-auth-client-configmap
+  namespace: api-service
+data:
+  GITHUB_CLIENT_ID: 'YOUR_GITHUB_CLIENT_ID'
+  GITHUB_SECRET: 'GITHUB_SECRET'

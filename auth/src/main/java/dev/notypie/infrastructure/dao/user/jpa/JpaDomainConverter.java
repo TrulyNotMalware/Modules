@@ -29,18 +29,34 @@ public class JpaDomainConverter implements Converter<User, Users> {
     @Override
     public User convert(Users users) {
         Address address = users.getAddress();
-        return User.toEntity()
-                .id(users.getId())
-                .userId(users.getUserId())
-                .userName(users.getUserName())
-                .email(users.getEmail())
-                .region(address.getRegion())
-                .streetAddress(address.getStreetAddress())
-                .zipCode(address.getZipCode())
-                .city(address.getCity())
-                .country(address.getCountry())
-                .password(users.getPassword())
-                .phoneNumber(users.getPhoneNumber())
-                .build();
+        if(address == null){
+            return User.toEntity()
+                    .id(users.getId())
+                    .userId(users.getUserId())
+                    .userName(users.getUserName())
+                    .email(users.getEmail())
+                    .region(null)
+                    .streetAddress(null)
+                    .zipCode(null)
+                    .city(null)
+                    .country(null)
+                    .password(users.getPassword())
+                    .phoneNumber(users.getPhoneNumber())
+                    .build();
+        }
+        else
+            return User.toEntity()
+                    .id(users.getId())
+                    .userId(users.getUserId())
+                    .userName(users.getUserName())
+                    .email(users.getEmail())
+                    .region(address.getRegion())
+                    .streetAddress(address.getStreetAddress())
+                    .zipCode(address.getZipCode())
+                    .city(address.getCity())
+                    .country(address.getCountry())
+                    .password(users.getPassword())
+                    .phoneNumber(users.getPhoneNumber())
+                    .build();
     }
 }

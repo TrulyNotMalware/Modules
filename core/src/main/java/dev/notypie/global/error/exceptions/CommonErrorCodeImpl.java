@@ -14,7 +14,8 @@ public enum CommonErrorCodeImpl implements ErrorCode{
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR,"Internal Server Error"),
     SQL_CONNECTION_REFUSED(HttpStatus.INTERNAL_SERVER_ERROR, "Could not open connection for transaction."),
     JSON_CONVERT_ERRORS(HttpStatus.INTERNAL_SERVER_ERROR, "Json Convert failed."),
-    REGEX_NOT_EXPECTED(HttpStatus.BAD_REQUEST, "the regular expression provided is not expected.");
+    REGEX_NOT_EXPECTED(HttpStatus.BAD_REQUEST, "the regular expression provided is not expected."),
+    PORT_ALREADY_OCCUPIED(HttpStatus.INTERNAL_SERVER_ERROR, "Port already occupied");
 
     private final HttpStatus status;
     private final String message;
