@@ -1,8 +1,0 @@
-ext {
-    eventuateBomVersion = '2023.0.RELEASE'
-}
-dependencies {
-    //Spring MVC
-    api project(":sagaOrchestrator")
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-}
