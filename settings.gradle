@@ -11,3 +11,5 @@ include 'gateway'
 include 'reactorSecurity'
 include 'common'
 include 'assistant'
+include 'event'
+
