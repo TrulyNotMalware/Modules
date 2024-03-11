@@ -28,6 +28,7 @@ If you want to execute the module, it requires additional configurations to run.
 1. [*Common*](https://github.com/TrulyNotMalware/Modules/blob/main/common/README.md) : Mvc & Reactor Common Jwt and Util module.
 2. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : Database JPA Configurations & Utils module.
 3. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : Apache Kafka Producer & Consumer example & configuration module.
+4. [*Event*](https://github.com/TrulyNotMalware/Modules/blob/main/event/README.md) : [Axon](https://docs.axoniq.io/reference-guide/) framework based event-sourcing participants package.
 
 *Security*
 1. [*Security*](https://github.com/TrulyNotMalware/Modules/blob/main/security/README.md) : Jwt authentication configuration & implements module.
@@ -35,9 +36,6 @@ If you want to execute the module, it requires additional configurations to run.
 3. [*OAuth*](https://github.com/TrulyNotMalware/Modules/blob/main/oauthServer/README.md) : OAuth [authorization server](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/index.html) application with JPA
 4. [*Resource Server*](https://github.com/TrulyNotMalware/Modules/blob/main/resourceServer/README.md) : OAuth Resource Server application.
 
-*Micro Service Architecture - Saga pattern*
-1. [*Saga*](https://github.com/TrulyNotMalware/Modules/blob/main/saga/README.md) : [Eventuate Tram](https://github.com/eventuate-tram/eventuate-tram-sagas) framework's  [Saga participant example](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders) application & Configuration.
-2. [*Saga Orchestrator*](https://github.com/TrulyNotMalware/Modules/blob/main/sagaOrchestrator/README.md) : Eventuate Tram framework's Saga orchestrator example configuration. the example is in [mvc example](https://github.com/TrulyNotMalware/Modules/tree/main/mvcExample/src/main/java/dev/notypie)
 
 *Service Application*
 1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : Development helper service. Implement services collaboration such as slack bots, scheduling and build pipeline.
@@ -87,17 +85,13 @@ For more information, see README for each module.
 1. [*Common*](https://github.com/TrulyNotMalware/Modules/blob/main/common/README.md) : Mvc & Reactor 공통 Jwt와 Util 모듈.
 2. [*Core*](https://github.com/TrulyNotMalware/Modules/blob/main/core/README.md) : JPA 설정 & 유틸리티 모듈.
 3. [*Kafka*](https://github.com/TrulyNotMalware/Modules/blob/main/kafka/README.md) : 아파치 카프카 Producer & Consumer example 와 설정 모듈.
+4. [*Event*](https://github.com/TrulyNotMalware/Modules/blob/main/event/README.md) : [Axon](https://docs.axoniq.io/reference-guide/) 프레임워크 기반 이벤트 소싱 참여자 설정 모듈.
 
 *Security*
 1. [*Security*](https://github.com/TrulyNotMalware/Modules/blob/main/security/README.md) : Jwt 인증을 위한 설정과 그 구현체를 만든 모듈
 2. [*Auth*](https://github.com/TrulyNotMalware/Modules/blob/main/auth/README.md) : OAuth 클라이언트와 인증서비스를 포함하는 어플리케이션.
 3. [*OAuth*](https://github.com/TrulyNotMalware/Modules/blob/main/oauthServer/README.md) : JPA를 사용한 OAuth [인가 서버](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/index.html) 어플리케이션
 4. [*Resource Server*](https://github.com/TrulyNotMalware/Modules/blob/main/resourceServer/README.md) : OAuth 리소스 서버 어플리케이션.
-
-
-*Micro Service Architecture - Saga pattern*
-1. [*Saga*](https://github.com/TrulyNotMalware/Modules/blob/main/saga/README.md) : [Eventuate Tram](https://github.com/eventuate-tram/eventuate-tram-sagas) 프레임워크의  [사가 참여자 예제](https://github.com/eventuate-tram/eventuate-tram-sagas-examples-customers-and-orders)를 구현한 어플리케이션.
-2. [*Saga Orchestrator*](https://github.com/TrulyNotMalware/Modules/blob/main/sagaOrchestrator/README.md) : Eventuate Tram 프레임워크의 Saga orchestrator 구현을 위한 설정 모듈. 예제는 [mvc example](https://github.com/TrulyNotMalware/Modules/tree/main/mvcExample/src/main/java/dev/notypie)에 있습니다.
 
 *Service Application*
 1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : 개발 도우미 서비스입니다. 슬랙 봇, 스케쥴링 및 빌드툴 등 협업에 관한 서비스를 구현합니다.
