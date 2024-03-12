@@ -11,5 +11,6 @@ dependencies{
 
     // Kafka & MongoDB Extensions
     implementation "org.axonframework.extensions.kafka:axon-kafka-spring-boot-starter:${axonVersion}"
+    implementation "org.springframework.data:spring-data-mongodb"
     implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonVersion}"
  }

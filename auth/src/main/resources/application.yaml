@@ -1,9 +1,9 @@
 spring:
   profiles:
     group:
-      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster, axon-kafka-settings"
+      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster"
       "dev": "default-base, hikari-default-config, dev-oracle-database, jpaPersistent, core-redis-cluster, axon-kafka-settings"
-      "local": "default-base, hikari-default-config, h2-local-database, core-redis-embedded, axon-kafka-settings"
+      "local": "default-base, hikari-default-config, h2-local-database, core-redis-embedded"
       "jwt": "jwt-configuration"
       "oauth-client": "oauth"
     active: prod, jwt, oauth-client
@@ -323,7 +323,7 @@ axon:
     producer:
       transaction-id-prefix: ${AXON_TRANSACTION_ID_PREFIX}
       retries: 5
-      event-processor-mode: tracking
+#      event-processor-mode: tracking
 
     consumer:
       event-processor-mode: tracking
