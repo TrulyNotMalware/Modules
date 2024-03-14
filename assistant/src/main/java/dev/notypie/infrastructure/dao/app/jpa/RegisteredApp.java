@@ -12,6 +12,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.axonframework.commandhandling.CommandHandler;
+import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.modelling.command.AggregateIdentifier;
+import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -19,9 +23,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Aggregate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RegisteredApp {
+public class RegisteredApp { //State Store Aggregate
 
+    @AggregateIdentifier
     @Id
     private String appId;
 
@@ -69,4 +75,6 @@ public class RegisteredApp {
                 .registeredDate(this.createdAt)
                 .build();
     }
+
+//    @EventSourcingHandler()
 }

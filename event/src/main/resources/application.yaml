@@ -17,7 +17,7 @@ axon:
   axonserver:
     enabled: false
   kafka:
-    bootstrap-servers: ${KAFKA_BROKER_STRING}
+    bootstrap-servers: ${KAFKA_BROKER_LIST}
     client-id: ${AXON_CLIENT_ID}
     default-topic: "events"
     properties:
