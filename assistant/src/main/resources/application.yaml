@@ -2,10 +2,10 @@ spring:
   profiles:
     group:
       "local": "core-redis-embedded, default-base, hikari-default-config, h2-local-database, settings"
-      "dev": "core-redis-cluster, default-base, hikari-default-config, dev-oracle-database, settings"
+      "dev": "core-redis-cluster, default-base, hikari-default-config, h2-local-database, settings, axon-kafka-settings"
       "slack-service": "slack, slack-bolt"
 
-    active: local, slack-service
+    active: dev, slack-service
 ---
 server:
   port: 9898
@@ -170,3 +170,52 @@ core:
   embedded:
     redis:
       port: 6379
+---
+spring:
+  config:
+    activate:
+      on-profile: kafka-settings
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+
+# https://docs.axoniq.io/reference-guide/extensions/kafka
+axon:
+  serializer:
+    general: jackson
+    events: jackson
+    messages: jackson
+  # Disable AxonServer. Use Apache Kafka & MongoDB
+  axonserver:
+    enabled: false
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER_LIST}
+    client-id: ${AXON_CLIENT_ID}
+    default-topic: "events"
+    properties:
+      security.protocol: PLAINTEXT
+
+    publisher:
+      confirmation-mode: transactional
+    fetcher:
+      poll-timeout: 3000
+    producer:
+      transaction-id-prefix: ${AXON_TRANSACTION_ID_PREFIX}
+      retries: 5
+      event-processor-mode: tracking
+
+    consumer:
+      event-processor-mode: tracking
+      auto-commit-interval:
+  #      enable-auto-commit: true
+  #      auto-commit-interval: 3000
+
+  mongo:
+    database-name: ${AXON_DATASTORE_NAME}
+    token-store:
+      enabled: true
+    saga-store:
+      enabled: true
+    event-store:
+      enabled: true

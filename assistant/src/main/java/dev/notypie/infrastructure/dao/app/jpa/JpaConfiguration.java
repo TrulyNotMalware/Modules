@@ -10,9 +10,10 @@ import org.springframework.context.annotation.Configuration;
 public class JpaConfiguration {
 
     /**
-     * Creates a new instance of AppRepository based on the input RegisteredAppRepository.
-     * @param RegisteredAppRepository the RegisteredAppRepository used to create the AppRepository
-     * @return a new instance of AppRepository
+     * Creates a JpaAppRepository object.
+     *
+     * @param appRepository The RegisteredAppRepository object to be used by the JpaAppRepositoryImpl instance.
+     * @return The JpaAppRepositoryImpl object.
      */
     @Bean
     public AppRepository jpaAppRepository(RegisteredAppRepository appRepository){
