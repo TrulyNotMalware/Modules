@@ -7,10 +7,12 @@ ext{
 
 dependencies{
     // Axon frameworks
-    implementation "org.axonframework:axon-spring-boot-starter:${axonVersion}"
+    api "org.axonframework:axon-spring-boot-starter:${axonVersion}"
 
     // Kafka & MongoDB Extensions
+    // Event Publish & Subscribe
     implementation "org.axonframework.extensions.kafka:axon-kafka-spring-boot-starter:${axonVersion}"
+    // EventStorage - MongoDB
     implementation "org.springframework.data:spring-data-mongodb"
     implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonVersion}"
  }
