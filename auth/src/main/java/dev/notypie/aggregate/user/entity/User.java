@@ -87,6 +87,18 @@ public class User extends AggregateRoot {
         ));
     }
 
+    public boolean roleRequired(String role){
+        return switch (role) {
+            case Constants.USER_ROLE_DEFAULT -> this.role.equals(Constants.USER_ROLE_ADMIN)
+                    || this.role.equals(Constants.USER_ROLE_DEFAULT)
+                    || this.role.equals(Constants.USER_ROLE_SUPER_USER);
+            case Constants.USER_ROLE_ADMIN ->
+                    this.role.equals(Constants.USER_ROLE_ADMIN) || this.role.equals(Constants.USER_ROLE_SUPER_USER);
+            case Constants.USER_ROLE_SUPER_USER -> this.role.equals(Constants.USER_ROLE_SUPER_USER);
+            default -> false;
+        };
+    }
+
     @Override
     protected void validate() {
         validateString(this.userIdRegex, this.userId);
