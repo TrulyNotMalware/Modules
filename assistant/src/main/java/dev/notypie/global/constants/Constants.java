@@ -33,4 +33,9 @@ public final class Constants {
     // Application Command lists
     public static final String NOTICE_COMMAND = "notice";
     public static final String ALERT_COMMAND = "alert";
+
+    // User Role
+    public static final String USER_ROLE_SUPER_USER = "Superuser";
+    public static final String USER_ROLE_ADMIN = "Admin";
+    public static final String USER_ROLE_DEFAULT = "User";
 }
