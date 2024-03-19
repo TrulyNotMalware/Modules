@@ -5,6 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import dev.notypie.aggregate.app.entity.App;
+import dev.notypie.command.app.AppEnableCommand;
+import dev.notypie.command.app.AppRegisterCommand;
+import dev.notypie.event.app.AppAuthorizeEvent;
+import dev.notypie.event.app.AppRegisteredCompletedEvent;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,15 +16,19 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+import static org.axonframework.modelling.command.AggregateLifecycle.apply;
+
+@Slf4j
 @Entity
 @Getter
 @Aggregate
@@ -55,6 +63,29 @@ public class RegisteredApp { //State Store Aggregate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @CommandHandler
+    protected RegisteredApp(AppRegisterCommand registerCommand){
+        log.info("handling {}", registerCommand);
+        this.appId = registerCommand.getAppId();
+        this.appName = registerCommand.getAppName();
+        this.appType = registerCommand.getAppType();
+        this.isAuthenticated = false;
+        this.isEnabled = false;
+        this.createdAt = registerCommand.getRegisteredDate();
+
+        apply(AppAuthorizeEvent.builder().transactionId(UUID.randomUUID().toString())
+                .appId(this.appId).ownerId(registerCommand.getCreatorId())
+                .build());
+    }
+
+    @CommandHandler
+    protected void enableApp(AppEnableCommand enableCommand){
+        log.info("handling {}", enableCommand);
+        this.isEnabled = true;
+        apply(AppRegisteredCompletedEvent.builder()
+                .appId(this.appId).authenticatedDate(LocalDateTime.now())
+                .build());
+    }
 
     @Builder(builderMethodName = "toTable")
     RegisteredApp(App app){
@@ -75,6 +106,4 @@ public class RegisteredApp { //State Store Aggregate
                 .registeredDate(this.createdAt)
                 .build();
     }
-
-//    @EventSourcingHandler()
 }
