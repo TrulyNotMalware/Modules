@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import dev.notypie.aggregate.app.entity.App;
+import dev.notypie.command.app.AppAuthorizeCommand;
 import dev.notypie.command.app.AppEnableCommand;
 import dev.notypie.command.app.AppRegisterCommand;
 import dev.notypie.event.app.AppAuthorizeEvent;
 import dev.notypie.event.app.AppRegisteredCompletedEvent;
+import dev.notypie.event.app.AppRegisteredEvent;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -73,9 +75,16 @@ public class RegisteredApp { //State Store Aggregate
         this.isEnabled = false;
         this.createdAt = registerCommand.getRegisteredDate();
 
-        apply(AppAuthorizeEvent.builder().transactionId(UUID.randomUUID().toString())
-                .appId(this.appId).ownerId(registerCommand.getCreatorId())
+        apply(AppRegisteredEvent.builder()
+                .appId(this.appId).appName(this.appName)
                 .build());
+    }
+
+    @CommandHandler
+    protected void getEnableApp(AppAuthorizeCommand appAuthorizeCommand){
+        log.info("handling {}", appAuthorizeCommand);
+        apply(AppAuthorizeEvent.builder().transactionId(UUID.randomUUID().toString())
+                .appId(appAuthorizeCommand.getAppId()).ownerId(appAuthorizeCommand.getCreatorId()).build());
     }
 
     @CommandHandler
