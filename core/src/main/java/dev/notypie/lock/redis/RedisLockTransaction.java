@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class RedisLockTransaction {
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, transactionManager = "transactionManager")
     public Object proceed(final ProceedingJoinPoint joinPoint) throws Throwable{
         return joinPoint.proceed();
     }
