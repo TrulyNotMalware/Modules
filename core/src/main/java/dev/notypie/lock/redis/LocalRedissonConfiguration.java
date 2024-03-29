@@ -6,6 +6,7 @@ import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 
 @Profile({"local","test"}) //Test는 기본적으로 Embedded 로 실행.
@@ -18,6 +19,7 @@ public class LocalRedissonConfiguration {
     private static final String REDIS_LOCAL_HOST = "redis://127.0.0.1";
 
     @Bean
+    @DependsOn("embeddedRedis")
     RedissonClient redissonClient(){
         Config config = new Config();
         config.useSingleServer().setAddress(REDIS_LOCAL_HOST+":"+this.redisPort);

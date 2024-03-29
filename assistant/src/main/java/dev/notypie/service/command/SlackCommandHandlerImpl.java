@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.service.command;
+package dev.notypie.service.command;
 
 import dev.notypie.infrastructure.impl.command.slack.commands.AppMentionCommand;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;

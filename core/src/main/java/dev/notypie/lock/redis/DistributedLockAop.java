@@ -1,7 +1,6 @@
 package dev.notypie.lock.redis;
 
 import dev.notypie.lock.DistributedLock;
-import dev.notypie.lock.LockAopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -22,14 +21,13 @@ import java.lang.reflect.Method;
 @Aspect
 @RequiredArgsConstructor
 @Slf4j
-public class DistributedLockAop implements LockAopService {
+public class DistributedLockAop{
     private static final String REDISSON_LOCK_PREFIX = "LOCK:";
 
     private final RedissonClient redissonClient;
     private final RedisLockTransaction redisLockTransaction;
 
 
-    @Override
     @Around("@annotation(dev.notypie.lock.DistributedLock)")
     public Object doLock(final ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
@@ -52,7 +50,8 @@ public class DistributedLockAop implements LockAopService {
             try {
                 rLock.unlock();
             } catch (IllegalMonitorStateException e) {
-
+                log.info("Redisson Lock Already UnLock {} {}"
+                        , method.getName(), key);
             }
         }
     }
