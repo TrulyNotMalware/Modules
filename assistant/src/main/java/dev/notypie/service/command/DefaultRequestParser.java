@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.service.command;
+package dev.notypie.service.command;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.infrastructure.impl.command.slack.dto.AppMentionEventType;
@@ -9,7 +9,6 @@ import dev.notypie.global.constants.Constants;
 import dev.notypie.global.error.ArgumentError;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
-import dev.notypie.infrastructure.service.command.SlackRequestParser;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

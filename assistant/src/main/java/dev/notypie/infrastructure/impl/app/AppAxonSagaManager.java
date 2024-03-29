@@ -8,7 +8,6 @@ import dev.notypie.event.auth.UserInsufficientPrivilegesEvent;
 import dev.notypie.event.auth.UserRoleCheckedEvent;
 import dev.notypie.global.constants.Constants;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -25,9 +24,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 //@RequiredArgsConstructor
 public class AppAxonSagaManager {
 
-    @Autowired
+    //must create by NoArgsConstructor.
     private transient CommandGateway commandGateway;
 
+    //Setter injection
+    @Autowired
+    public void setCommandGateway(CommandGateway commandGateway){
+        this.commandGateway = commandGateway;
+    }
 
     @StartSaga
     @SagaEventHandler(associationProperty = "transactionId")

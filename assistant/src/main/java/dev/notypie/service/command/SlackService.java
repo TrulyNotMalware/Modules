@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.service.command;
+package dev.notypie.service.command;
 
 import org.springframework.http.ResponseEntity;
 
