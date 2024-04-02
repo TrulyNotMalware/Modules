@@ -2,7 +2,7 @@ spring:
   profiles:
     group:
       "local": "core-redis-embedded, default-base, hikari-default-config, h2-local-database, settings"
-      "dev": "core-redis-cluster, default-base, hikari-default-config, h2-local-database, settings, axon-kafka-settings"
+      "dev": "core-redis-cluster, default-base, hikari-default-config, h2-local-database, settings, axon-settings"
       "slack-service": "slack, slack-bolt"
 
     active: dev, slack-service
@@ -174,7 +174,7 @@ core:
 spring:
   config:
     activate:
-      on-profile: kafka-settings
+      on-profile: axon-settings
 
   data:
     mongodb:
@@ -186,30 +186,10 @@ axon:
     general: jackson
     events: jackson
     messages: jackson
-  # Disable AxonServer. Use Apache Kafka & MongoDB
+  # MongoDB with AxonServer.
   axonserver:
-    enabled: false
-  kafka:
-    bootstrap-servers: ${KAFKA_BROKER_LIST}
-    client-id: ${AXON_CLIENT_ID}
-    default-topic: "events"
-    properties:
-      security.protocol: PLAINTEXT
-
-    publisher:
-      confirmation-mode: transactional
-    fetcher:
-      poll-timeout: 3000
-    producer:
-      transaction-id-prefix: ${AXON_TRANSACTION_ID_PREFIX}
-      retries: 5
-      event-processor-mode: tracking
-
-    consumer:
-      event-processor-mode: tracking
-      auto-commit-interval:
-  #      enable-auto-commit: true
-  #      auto-commit-interval: 3000
+    servers: ${AXON_SERVER_URLS}
+    token: ${AXON_ACCESS_TOKEN}
 
   mongo:
     database-name: ${AXON_DATASTORE_NAME}
