@@ -1,7 +1,7 @@
 spring:
   config:
     activate:
-      on-profile: kafka-settings
+      on-profile: axon-settings
 
   data:
     mongodb:
@@ -13,29 +13,11 @@ axon:
     general: jackson
     events: jackson
     messages: jackson
-  # Disable AxonServer. Use Apache Kafka & MongoDB
+  # Use MongoDB with Axon
   axonserver:
-    enabled: false
-  kafka:
-    bootstrap-servers: ${KAFKA_BROKER_LIST}
-    client-id: ${AXON_CLIENT_ID}
-    default-topic: "events"
-    properties:
-      security.protocol: PLAINTEXT
-
-    publisher:
-      confirmation-mode: transactional
-    fetcher:
-      poll-timeout: 3000
-    producer:
-      transaction-id-prefix: ${AXON_TRANSACTION_ID_PREFIX}
-      retries: 5
-      event-processor-mode: tracking
-
-    consumer:
-      event-processor-mode: tracking
-      auto-commit-interval:
-#      enable-auto-commit: true
+    servers: ${AXON_SERVER_URLS}
+    token: ${AXON_ACCESS_TOKEN}
+  #      enable-auto-commit: true
 #      auto-commit-interval: 3000
 
   mongo:
@@ -46,16 +28,3 @@ axon:
       enabled: true
     event-store:
       enabled: true
----
-spring:
-  config:
-    activate:
-      on-profile: axon-server-settings
-axon:
-  serializer:
-    general: jackson
-    events: jackson
-    messages: jackson
-  axonserver:
-    enabled: true
-    servers: ${AXON_SERVER_HOST}:${AXON_SERVER_PORT}
