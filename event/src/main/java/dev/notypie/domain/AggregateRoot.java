@@ -1,10 +1,19 @@
 package dev.notypie.domain;
 
+import lombok.NoArgsConstructor;
+import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.function.Supplier;
 
-public abstract class AggregateRoot {
+@Aggregate
+@NoArgsConstructor
+public abstract class AggregateRoot<ID> {
+
+    @AggregateIdentifier
+    public ID id;
+
+
     /**
      * Validates the current instance.
      * This method should be overridden by subclasses to provide custom validation logic.
@@ -13,7 +22,7 @@ public abstract class AggregateRoot {
 
     protected void validate(){}
 
-    protected static <T extends AggregateRoot> T createInstance(
+    protected static <T extends AggregateRoot<?>> T createInstance(
             Supplier<T> supplier
     ){
         T instance = supplier.get();

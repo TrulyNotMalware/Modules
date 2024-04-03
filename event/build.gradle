@@ -2,7 +2,8 @@ bootJar{ enabled = false }
 jar{ enabled = true }
 
 ext{
-    axonVersion = '4.9.0'
+    axonVersion = '4.9.3'
+    axonMongoExtensionVersion = '4.9.0'
 }
 
 dependencies{
@@ -11,5 +12,5 @@ dependencies{
 
     // EventStorage - MongoDB
     implementation "org.springframework.data:spring-data-mongodb"
-    implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonVersion}"
+    implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonMongoExtensionVersion}"
  }

@@ -10,10 +10,8 @@ import lombok.Getter;
 import static dev.notypie.global.util.Util.validateString;
 
 @Getter
-public class User extends AggregateRoot {
+public class User extends AggregateRoot<Long> {
 
-    @NotNull
-    private final Long id;
 
     @NotBlank
     private final String userId;

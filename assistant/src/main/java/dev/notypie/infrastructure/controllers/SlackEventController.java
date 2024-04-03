@@ -1,7 +1,8 @@
 package dev.notypie.infrastructure.controllers;
 
 
-import dev.notypie.application.command.CommandService;
+import dev.notypie.aggregate.commands.entity.Command;
+import dev.notypie.service.command.CommandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -26,6 +27,7 @@ public class SlackEventController {
             @RequestHeader MultiValueMap<String, String> headers,
             @RequestBody Map<String, Object> payload
     ){
-        return this.service.executeCommand(headers, payload);
+        Command slackCommand = this.service.buildCommand(headers, payload);
+        return this.service.executeCommand(slackCommand);
     }
 }
