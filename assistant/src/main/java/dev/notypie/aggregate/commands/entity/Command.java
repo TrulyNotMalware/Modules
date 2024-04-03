@@ -1,37 +1,31 @@
 package dev.notypie.aggregate.commands.entity;
 
 
-import dev.notypie.global.error.exceptions.CommandErrorCodeImpl;
-import dev.notypie.global.error.exceptions.CommandException;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NonNull;
 
-import java.util.List;
-import java.util.Map;
 
 @Getter
 public class Command {
 
+    @NotNull
     private final Long commandId;
-    private final String appId;
-    private String commandType;
-    private final Long publisherId;
-    private CommandContext context;
 
-    @Builder
-    public Command(Long commandId, String appId, Long publisherId, String commandType){
-        if(commandId == null) this.commandId = 0L;
-        else this.commandId = commandId;
-        this.appId = appId;
-        this.publisherId = publisherId;
-        this.commandType = commandType;
-    }
+    @NotBlank
+    private final String appId;
+
+    @NotBlank
+    private final String commandType;
+    private final Long publisherId;
+    private final CommandContext context;
 
 
     @Builder(builderMethodName = "NewCommand")
-    public Command(@NotNull String appId, @NotNull String commandType,
-                   @NotNull Long publisherId, @NotNull CommandContext commandContext){
+    public Command(@NonNull String appId, @NonNull String commandType,
+                   @NonNull Long publisherId, @NonNull CommandContext commandContext){
         this.commandId = this.generateIdValue();
         this.appId = appId;
         this.commandType = commandType;
@@ -39,8 +33,8 @@ public class Command {
         this.context = commandContext;
     }
 
-    private void parseAndInsertValueFromMap(){
-
+    public boolean isSupportCommand(String commandType){
+        return this.commandType.equals(commandType);
     }
 
     private Long generateIdValue(){

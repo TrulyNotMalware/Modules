@@ -9,6 +9,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Aggregate
 @Inherited
-public @interface DomainEntity {
+public @interface DomainRootEntity {
 
 }

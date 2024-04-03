@@ -1,4 +1,4 @@
-package dev.notypie.service.command;
+package dev.notypie.service.command.slack;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.infrastructure.impl.command.slack.dto.AppMentionEventType;
