@@ -1,4 +1,4 @@
-package dev.notypie.application.app;
+package dev.notypie.service.app;
 
 
 import dev.notypie.aggregate.app.dto.AppRegisterDto;

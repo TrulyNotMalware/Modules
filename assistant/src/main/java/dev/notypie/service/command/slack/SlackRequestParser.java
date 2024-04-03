@@ -1,4 +1,4 @@
-package dev.notypie.service.command;
+package dev.notypie.service.command.slack;
 
 import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;

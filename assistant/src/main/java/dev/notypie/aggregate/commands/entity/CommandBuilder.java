@@ -1,6 +1,5 @@
 package dev.notypie.aggregate.commands.entity;
 
-import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

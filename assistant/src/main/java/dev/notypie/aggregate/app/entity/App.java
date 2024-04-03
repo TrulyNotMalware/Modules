@@ -1,5 +1,6 @@
 package dev.notypie.aggregate.app.entity;
 
+import dev.notypie.domain.AggregateRoot;
 import lombok.Builder;
 import lombok.Getter;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -7,7 +8,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import java.time.LocalDateTime;
 
 @Getter
-public class App {
+public class App extends AggregateRoot<String> {
 
     private final String appId;
     private final String appName;
@@ -20,6 +21,7 @@ public class App {
     @Builder(builderMethodName = "newAppBuilder")
     public App(String appName, String appType){
         this.appId = generateNewAppId();
+        this.id = appId;
         this.appName = appName;
         this.appType = appType;
         this.isAuthenticated = false;
@@ -32,6 +34,7 @@ public class App {
     public App(String appId, String appName, String appType,
                boolean isAuthenticated, boolean isEnabled, boolean isEnterprise, LocalDateTime registeredDate){
         this.appId = appId;
+        this.id = appId;
         this.appName = appName;
         this.appType = appType;
         this.isAuthenticated = isAuthenticated;

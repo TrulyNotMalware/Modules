@@ -1,4 +1,4 @@
-package dev.notypie.service.command;
+package dev.notypie.service.command.slack;
 
 import org.springframework.http.ResponseEntity;
 

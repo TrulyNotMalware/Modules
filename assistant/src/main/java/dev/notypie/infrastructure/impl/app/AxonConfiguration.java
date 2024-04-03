@@ -7,9 +7,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AxonConfiguration {
-
-    @Bean
-    public EntityManagerProvider entityManagerProvider() {
-        return new ContainerManagedEntityManagerProvider();
-    }
+    
 }
