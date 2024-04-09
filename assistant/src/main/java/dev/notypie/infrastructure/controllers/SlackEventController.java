@@ -2,9 +2,11 @@ package dev.notypie.infrastructure.controllers;
 
 
 import dev.notypie.aggregate.commands.entity.Command;
+import dev.notypie.global.constants.Constants;
 import dev.notypie.service.command.CommandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import java.util.Map;
 @RequestMapping("/api/slack")
 @RequiredArgsConstructor
 public class SlackEventController {
+
+    @Qualifier(Constants.SLACK_COMMAND_SERVICE)
     private final CommandService service;
 
     //Api Challenge

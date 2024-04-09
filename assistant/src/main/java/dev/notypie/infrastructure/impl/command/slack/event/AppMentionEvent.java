@@ -10,6 +10,7 @@ import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackAppMentio
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackChatEventContents;
 import dev.notypie.global.constants.Constants;
+import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ import java.util.Map;
 
 @Slf4j
 @Getter
-public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
+public class AppMentionEvent extends SlackEvent<SlackContext>{
 
     private final SlackAppMentionContext context;
     private final SlackRequestHeaders headers;
@@ -28,15 +29,19 @@ public class AppMentionEvent extends SlackEvent<SlackAppMentionContext>{
     private final String requestType = Constants.APP_MENTION;
 
     @Builder
-    public AppMentionEvent(String channel, Map<String, List<String>> headers, Map<String, Object> payload, ObjectMapper mapper){
+    public AppMentionEvent(String channel, Map<String, List<String>> headers, Map<String, Object> payload, ObjectMapper mapper,
+                           String baseUrl, String botToken){
         this.headers = new SlackRequestHeaders(headers);
+        this.channel = channel;
         this.context = SlackAppMentionContext.builder()
                 .slackAppMentionDto(mapper.convertValue(payload, SlackAppMentionDto.class))
                 .requestType(this.requestType)
                 .headers(headers)
                 .payload(payload)
+                .channel(this.channel)
+                .baseUrl(baseUrl)
+                .botToken(botToken)
                 .build();
-        this.channel = channel;
     }
 
     @Override

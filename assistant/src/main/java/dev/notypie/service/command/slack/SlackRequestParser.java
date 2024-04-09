@@ -8,5 +8,5 @@ import java.util.Map;
 
 public interface SlackRequestParser {
 
-    SlackEvent<? extends SlackContext> parseRequest(Map<String, List<String>> headers, Map<String, Object> payload);
+    SlackEvent<SlackContext> parseSlackEventFromRequest(Map<String, List<String>> headers, Map<String, Object> payload);
 }
