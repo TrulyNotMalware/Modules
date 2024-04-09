@@ -72,7 +72,7 @@ public class SlackCommandServiceImpl implements CommandService {
 
     @Override
     public ResponseEntity<?> executeCommand(Command command) {
-        command
+//        command
         SlackCommand slackCommand = slackCommandHandler.generateSlackCommand((SlackContext) command.getContext());
         return this.responseHandler.generateEventResponse(slackCommand.generateEventContents());
 //        new CommandException(CommandErrorCodeImpl.UNKNOWN_COMMAND_TYPE);
@@ -134,18 +134,18 @@ public class SlackCommandServiceImpl implements CommandService {
         };
     }
 
-    public ResponseEntity<SlackEventResponse> generateEventResponse(SlackEventContents event) {
-        if(event.getType().equals(Methods.CHAT_POST_MESSAGE)){
-            log.info("Chat Post requests");
-            SlackChatEventContents chatEvent = (SlackChatEventContents) event;
-            ResponseEntity<SlackApiResponse> response = this.requester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackApiResponse.class);
-            log.info("response:"+response.getBody());
-            if( !Objects.requireNonNull(response.getBody()).isOk() )
-                throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, null);
-        }
-        return new ResponseEntity<>(SlackEventResponse.builder()
-                .contentType(defaultContentType)
-                .eventContents(event)
-                .build(), HttpStatus.OK);
-    }
+//    public ResponseEntity<SlackEventResponse> generateEventResponse(SlackEventContents event) {
+//        if(event.getType().equals(Methods.CHAT_POST_MESSAGE)){
+//            log.info("Chat Post requests");
+//            SlackChatEventContents chatEvent = (SlackChatEventContents) event;
+//            ResponseEntity<SlackApiResponse> response = this.requester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackApiResponse.class);
+//            log.info("response:"+response.getBody());
+//            if( !Objects.requireNonNull(response.getBody()).isOk() )
+//                throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, null);
+//        }
+//        return new ResponseEntity<>(SlackEventResponse.builder()
+//                .contentType(defaultContentType)
+//                .eventContents(event)
+//                .build(), HttpStatus.OK);
+//    }
 }
