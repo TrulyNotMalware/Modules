@@ -19,7 +19,7 @@ public class SlackChallengeContext extends SlackContext {
     @Builder
     public SlackChallengeContext(UrlVerificationDto urlVerificationDto, String requestType,
                                  Map<String, List<String>> headers, Map<String, Object> payload) {
-        super(headers, payload, requestType);
+        super(headers, payload, requestType, true);
         this.urlVerificationDto = urlVerificationDto;
     }
 
@@ -29,7 +29,12 @@ public class SlackChallengeContext extends SlackContext {
     }
 
     @Override
-    public void runCommand() {
+    public void executeCommand() {
+
+    }
+
+    @Override
+    public void validateCommand() {
 
     }
 }

@@ -12,12 +12,9 @@ public abstract class CommandContext {
     private final Map<String, Object> payload;
 
     void addHeader(String key, String data){
-        // Check if the headers already contains the key
         if (headers.containsKey(key)) {
-            // If yes, just add the new data to the existing list
             headers.get(key).add(data);
         } else {
-            // If no, create a new list with the data and put it in the headers
             headers.put(key, new ArrayList<>(Collections.singletonList(data)));
         }
     }
@@ -37,5 +34,6 @@ public abstract class CommandContext {
         this.payload = payload;
     }
 
-    public abstract void runCommand();
+    public abstract void executeCommand();
+    public abstract void validateCommand();
 }
