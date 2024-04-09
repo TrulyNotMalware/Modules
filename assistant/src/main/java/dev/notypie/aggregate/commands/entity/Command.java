@@ -19,7 +19,11 @@ public class Command {
 
     @NotBlank
     private final String commandType;
+
+    @NotNull
     private final Long publisherId;
+
+    @NotNull
     private final CommandContext context;
 
 
@@ -33,8 +37,23 @@ public class Command {
         this.context = commandContext;
     }
 
-    public boolean isSupportCommand(String commandType){
-        return this.commandType.equals(commandType);
+    public boolean verifyCommand(){
+        this.verifyCommandAuthorization();
+        this.verifyCommandValidate();
+        return true;
+    }
+
+    private void verifyCommandAuthorization(){
+        //FIXME Saga Assignment
+    }
+
+    private void verifyCommandValidate(){
+        this.context.validateCommand();
+    }
+
+    public void executeCommand(){
+        if(this.verifyCommand()) this.context.executeCommand();
+        else throw new RuntimeException("Command Verification failed");
     }
 
     private Long generateIdValue(){

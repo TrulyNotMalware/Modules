@@ -37,7 +37,7 @@ public class SlackCommandBuilderImpl implements CommandBuilder {
     @Override
     public Command buildCommand(@NotNull String appId, Map<String, List<String>> headers,
                                 Map<String, Object> payload) {
-        SlackEvent<?> event = this.slackRequestParser.parseRequest(headers, payload);
+        SlackEvent<?> event = this.slackRequestParser.parseSlackEventFromRequest(headers, payload);
         return Command.NewCommand()
                 .appId(appId)
                 .commandType(Constants.SLACK_COMMAND_TYPE)

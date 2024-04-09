@@ -25,7 +25,7 @@ public class DefaultSlackServiceImpl implements SlackService {
 
     @Override
     public ResponseEntity<SlackEventResponse> categorization(Map<String, List<String>> headers, Map<String, Object> payload){
-        SlackEvent<? extends SlackContext> slackEvent = this.requestParser.parseRequest(headers, payload);
+        SlackEvent<? extends SlackContext> slackEvent = this.requestParser.parseSlackEventFromRequest(headers, payload);
         SlackCommand slackCommand = this.handler.generateSlackCommand(slackEvent);
         return this.responseHandler.generateEventResponse(slackCommand.generateEventContents());
     }

@@ -15,8 +15,9 @@ public class SlackAppMentionContext extends SlackContext {
 
     @Builder
     SlackAppMentionContext(SlackAppMentionDto slackAppMentionDto, String requestType,
-                           Map<String, List<String>> headers, Map<String, Object> payload){
-        super(headers, payload, requestType);
+                           Map<String, List<String>> headers, Map<String, Object> payload,
+                           String channel, String baseUrl, String botToken){
+        super(headers, payload, requestType, true, channel, baseUrl, botToken);
         this.slackAppMentionDto = slackAppMentionDto;
     }
 
@@ -28,7 +29,12 @@ public class SlackAppMentionContext extends SlackContext {
     }
 
     @Override
-    public void runCommand() {
+    public void executeCommand() {
+
+    }
+
+    @Override
+    public void validateCommand() {
 
     }
 }

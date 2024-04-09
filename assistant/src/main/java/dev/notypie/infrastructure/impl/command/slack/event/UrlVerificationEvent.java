@@ -8,6 +8,7 @@ import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackChallenge
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackUrlVerificationContents;
 import dev.notypie.global.constants.Constants;
+import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @Getter
-public class UrlVerificationEvent extends SlackEvent<SlackChallengeContext> {
+public class UrlVerificationEvent extends SlackEvent<SlackContext> {
 
     private final SlackRequestHeaders requestHeaders;
     private final SlackChallengeContext context;
