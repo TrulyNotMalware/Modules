@@ -41,9 +41,9 @@ public class DefaultRequestParser implements SlackRequestParser {
         String payloadType = payload.get("type").toString();
         return switch (payloadType) {
             case Constants.URL_VERIFICATION -> new UrlVerificationEvent(headers, payload, this.objectMapper);
-            case Constants.EVENT_CALLBACK -> this.handleEventCallbackCommand(
-                        this.objectMapper.convertValue(payload.get("event"), AppMentionEventType.class),
-                        headers, payload);
+//            case Constants.EVENT_CALLBACK -> this.handleEventCallbackCommand(
+//                        this.objectMapper.convertValue(payload.get("event"), AppMentionEventType.class),
+//                        headers, payload);
             default -> {
                 log.info("Except Unsupported events. type is {}", payloadType);
                 throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
@@ -51,19 +51,19 @@ public class DefaultRequestParser implements SlackRequestParser {
         };
     }
 
-    private SlackEvent<SlackContext> handleEventCallbackCommand(AppMentionEventType event, Map<String, List<String>> headers, Map<String, Object> payload){
-        String payloadType = payload.get("type").toString();
-        return switch (event.getType()) {
-            case Constants.APP_MENTION -> new AppMentionEvent(this.channel, headers, payload, this.objectMapper);
-            case Constants.MESSAGE_EVENT -> {
-                //FIXME Update later.
-                log.info("Except Unsupported events. type is {}", payloadType);
-                throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
-            }
-            default -> {
-                log.info("Except Unsupported events. type is {}", payloadType);
-                throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
-            }
-        };
-    }
+//    private SlackEvent<SlackContext> handleEventCallbackCommand(AppMentionEventType event, Map<String, List<String>> headers, Map<String, Object> payload){
+//        String payloadType = payload.get("type").toString();
+//        return switch (event.getType()) {
+//            case Constants.APP_MENTION -> new AppMentionEvent(this.channel, headers, payload, this.objectMapper);
+//            case Constants.MESSAGE_EVENT -> {
+//                //FIXME Update later.
+//                log.info("Except Unsupported events. type is {}", payloadType);
+//                throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
+//            }
+//            default -> {
+//                log.info("Except Unsupported events. type is {}", payloadType);
+//                throw new SlackDomainException(SlackErrorCodeImpl.EVENT_NOT_SUPPORTED, null);
+//            }
+//        };
+//    }
 }
