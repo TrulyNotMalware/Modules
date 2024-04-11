@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.impl.command.slack.dto.contexts;
+package dev.notypie.infrastructure.impl.command.slack.contexts;
 
 import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackAppMentionDto;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Deprecated(forRemoval = true)
 public class SlackAppMentionContext extends SlackContext {
 
     private final SlackAppMentionDto slackAppMentionDto;

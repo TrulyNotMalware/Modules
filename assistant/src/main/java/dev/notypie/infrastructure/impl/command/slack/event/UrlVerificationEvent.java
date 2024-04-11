@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackRequestHeaders;
 import dev.notypie.infrastructure.impl.command.slack.dto.UrlVerificationDto;
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackChallengeContext;
+import dev.notypie.infrastructure.impl.command.slack.contexts.SlackChallengeContext;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackUrlVerificationContents;
 import dev.notypie.global.constants.Constants;
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
+import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,10 +53,6 @@ public class UrlVerificationEvent extends SlackEvent<SlackContext> {
         return this.context.buildEventHistory();
     }
 
-    @Override
-    public SlackRequestHeaders getHeaders() {
-        return this.requestHeaders;
-    }
 
     @Override
     public SlackEventContents buildEventContents() {

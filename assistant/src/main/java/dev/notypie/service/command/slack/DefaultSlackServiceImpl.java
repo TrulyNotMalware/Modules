@@ -4,7 +4,7 @@ import dev.notypie.aggregate.commands.entity.EventHandler;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventResponse;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
+import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +17,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Deprecated(forRemoval = true)
 public class DefaultSlackServiceImpl implements SlackService {
 
     private final EventHandler<SlackEventContents, SlackEventResponse> responseHandler;

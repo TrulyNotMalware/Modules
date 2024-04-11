@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Deprecated(forRemoval = true)
 public class RunTestCommand implements SlackCommand { // Run test code
 
     private final SlackCommand slackCommand;

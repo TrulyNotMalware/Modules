@@ -1,6 +1,7 @@
-package dev.notypie.infrastructure.impl.command.slack.dto.contexts;
+package dev.notypie.infrastructure.impl.command.slack.contexts;
 
 import com.slack.api.methods.Methods;
+import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import dev.notypie.aggregate.commands.entity.CommandContext;
 import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.global.error.exceptions.SlackDomainException;
@@ -17,20 +18,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Getter
 public abstract class SlackContext extends CommandContext {
     /**
      * Reference from Slack Bolt sdk context.
      * The basic slack references
      */
-    private final boolean tracking;
-    private final String requestType;
+    public final boolean tracking;
+    public final String requestType;
 
-    private final RestClientRequester restClientRequester;
+    public final RestClientRequester restClientRequester;
 
-    private final String channel;
-    private final String baseUrl;
-    private final String botToken;
+    public final String channel;
+    public final String baseUrl;
+    public final String botToken;
 
 
     SlackContext(Map<String, List<String>> headers, Map<String, Object> payload, String requestType, boolean tracking){
@@ -55,15 +55,26 @@ public abstract class SlackContext extends CommandContext {
     }
 
     public void broadcastBotResponseToChannel(String message){
-
+        SlackChatEventContents chatEvent = SlackChatEventContents.builder()
+                .ok(true)
+                .type(Methods.CHAT_POST_MESSAGE)
+                .request(ChatPostMessageRequest.builder()
+                        .channel(this.channel)
+                        .text(message)
+                        .build())
+                .build();
+        ResponseEntity<SlackApiResponse> response = this.restClientRequester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackApiResponse.class);
+        if( !Objects.requireNonNull(response.getBody()).isOk() )
+            throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, null);
     }
 
-    public void broadcastBotResponseToChannel(SlackEventContents event){
+    public ResponseEntity<SlackApiResponse> broadcastBotResponseToChannel(SlackEventContents event){
         if(event.getType().equals(Methods.CHAT_POST_MESSAGE)){
             SlackChatEventContents chatEvent = (SlackChatEventContents) event;
             ResponseEntity<SlackApiResponse> response = this.restClientRequester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackApiResponse.class);
             if( !Objects.requireNonNull(response.getBody()).isOk() )
                 throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, null);
+            return response;
         }else throw new RuntimeException("Broadcast type must be chat.postMessage");
     }
 

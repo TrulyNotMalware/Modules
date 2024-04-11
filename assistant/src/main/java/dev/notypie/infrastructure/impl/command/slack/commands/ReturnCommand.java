@@ -5,6 +5,7 @@ import dev.notypie.global.constants.Constants;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@Deprecated(forRemoval = true)
 public class ReturnCommand implements SlackCommand {
     @Override
     public String toStringCommand() {

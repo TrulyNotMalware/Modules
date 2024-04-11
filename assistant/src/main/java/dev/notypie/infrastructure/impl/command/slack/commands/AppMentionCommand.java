@@ -1,6 +1,6 @@
 package dev.notypie.infrastructure.impl.command.slack.commands;
 
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackAppMentionContext;
+import dev.notypie.infrastructure.impl.command.slack.contexts.SlackAppMentionContext;
 import dev.notypie.global.constants.Constants;
 import dev.notypie.infrastructure.impl.command.slack.dto.*;
 import lombok.Builder;
@@ -14,6 +14,7 @@ import java.util.StringTokenizer;
 
 @Slf4j
 @Getter
+@Deprecated(forRemoval = true)
 public class AppMentionCommand implements SlackCommand {
 
     private SlackCommand slackCommand;

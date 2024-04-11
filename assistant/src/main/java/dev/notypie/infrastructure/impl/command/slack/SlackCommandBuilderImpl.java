@@ -8,7 +8,7 @@ import dev.notypie.service.command.slack.SlackCommandHandler;
 import dev.notypie.global.constants.Constants;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
+import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
 import dev.notypie.service.command.slack.SlackRequestParser;
 import jakarta.validation.constraints.NotNull;

@@ -4,6 +4,7 @@ import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import lombok.Getter;
 
 @Getter
+@Deprecated(forRemoval = true)
 public class HelpCommand implements SlackCommand {
 
     private SlackCommand slackCommand;

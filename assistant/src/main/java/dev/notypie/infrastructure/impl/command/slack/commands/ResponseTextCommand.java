@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Deprecated(forRemoval = true)
 public class ResponseTextCommand implements SlackCommand {
 
     private final SlackCommand slackCommand;

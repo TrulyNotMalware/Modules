@@ -1,9 +1,7 @@
 package dev.notypie.service.command.slack;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.notypie.infrastructure.impl.command.slack.dto.AppMentionEventType;
-import dev.notypie.infrastructure.impl.command.slack.dto.contexts.SlackContext;
-import dev.notypie.infrastructure.impl.command.slack.event.AppMentionEvent;
+import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
 import dev.notypie.infrastructure.impl.command.slack.event.UrlVerificationEvent;
 import dev.notypie.global.constants.Constants;
@@ -24,6 +22,7 @@ import java.util.Map;
 @Getter
 @Service
 @RequiredArgsConstructor
+@Deprecated(forRemoval = true)
 public class DefaultRequestParser implements SlackRequestParser {
 
     private final ObjectMapper objectMapper;

@@ -11,6 +11,7 @@ import lombok.Getter;
 import java.util.Queue;
 
 @Getter
+@Deprecated(forRemoval = true)
 public class NoticeCommand implements SlackCommand {
 
     private final SlackCommand slackCommand;

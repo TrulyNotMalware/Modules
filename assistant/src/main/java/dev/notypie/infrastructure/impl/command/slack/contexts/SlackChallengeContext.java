@@ -1,10 +1,7 @@
-package dev.notypie.infrastructure.impl.command.slack.dto.contexts;
+package dev.notypie.infrastructure.impl.command.slack.contexts;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.infrastructure.impl.command.slack.dto.UrlVerificationDto;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
