@@ -2,6 +2,7 @@ package dev.notypie.infrastructure.dao.app.jpa;
 
 import dev.notypie.aggregate.app.entity.App;
 import dev.notypie.aggregate.app.repository.AppRepository;
+import dev.notypie.infrastructure.dao.app.jpa.schema.RegisteredApp;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

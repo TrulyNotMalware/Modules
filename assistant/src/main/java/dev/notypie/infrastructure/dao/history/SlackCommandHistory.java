@@ -46,9 +46,11 @@ class SlackCommandHistory {
     @NotNull
     private String command;
 
-    @Column(name = "data", columnDefinition = "TEXT")
+    //RESERVED_WORDS in Oracle Database
+    @Lob
+    @Column(name = "raw_data")
     @NotNull
-    private String data;
+    private String rawData;
 
     @Column(name = "response_status")
     private int responseStatus;
@@ -62,7 +64,7 @@ class SlackCommandHistory {
     @Builder
     SlackCommandHistory(@NotNull String appId, @NotNull String teamId,
                         @NotNull String eventType, @NotNull String channel,
-                        @NotNull String publisher, SlackCommand slackCommand, @NotNull String data,
+                        @NotNull String publisher, SlackCommand slackCommand, @NotNull String rawData,
                         int responseStatus){
         this.appId = appId;
         this.teamId = teamId;
@@ -70,7 +72,7 @@ class SlackCommandHistory {
         this.channel = channel;
         this.publisher = publisher;
         this.command = slackCommand.toStringCommand();
-        this.data = data;
+        this.rawData = rawData;
         this.responseStatus = responseStatus;
     }
 

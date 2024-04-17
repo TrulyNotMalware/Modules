@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.dao.app.jpa;
+package dev.notypie.infrastructure.dao.app.jpa.schema;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -105,7 +105,7 @@ public class RegisteredApp { //State Store Aggregate
         this.isEnabled = app.isEnabled();
     }
 
-    App toDomainEntity(){
+    public App toDomainEntity(){
         return App.toEntity()
                 .appId(this.appId)
                 .appName(this.appName)

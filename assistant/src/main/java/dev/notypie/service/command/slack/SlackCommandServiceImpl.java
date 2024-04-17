@@ -53,6 +53,7 @@ public class SlackCommandServiceImpl implements CommandService {
     @Override
     public Command buildCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
         String appId = resolveAppId(payload);
+        log.info("appId = "+appId);
         App app = this.appRepository.findByAppId(appId);
 
         SlackEvent<SlackContext> event = this.parseSlackEventFromRequest(headers, payload);
@@ -66,6 +67,7 @@ public class SlackCommandServiceImpl implements CommandService {
 
     @Override
     public ResponseEntity<?> executeCommand(Command command) {
+        log.info("execute command"+command.getContext());
         command.getContext().executeCommand();
         return null;
     }
