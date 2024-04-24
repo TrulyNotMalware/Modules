@@ -1,6 +1,5 @@
 package dev.notypie.infrastructure.controllers;
 
-
 import dev.notypie.global.constants.Constants;
 import dev.notypie.service.command.CommandService;
 import lombok.RequiredArgsConstructor;
