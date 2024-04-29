@@ -15,6 +15,7 @@ public abstract class SlackEvent<Context extends SlackContext> {
 
     public Map<String, List<String>> headers;
     public Map<String, Object> payload;
+    public String userId;
 
     public abstract Context getContext();
     public abstract String getRequestType();

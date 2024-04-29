@@ -29,7 +29,7 @@ public class AppMentionEvent extends SlackEvent<SlackContext>{
     private final SlackRequestHeaders slackHeaders;
 
     private final String botId;
-    private final String userId;
+//    private final String userId;
     private final String rawText;
     private final String channel;
     private final String requestType = Constants.APP_MENTION;

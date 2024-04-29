@@ -13,17 +13,19 @@ public class App extends AggregateRoot<String> {
     private final String appId;
     private final String appName;
     private final String appType;
+    private final String creatorId;
     private final boolean isAuthenticated;
     private final boolean isEnabled;
     private final boolean isEnterprise;
     private final LocalDateTime registeredDate;
 
     @Builder(builderMethodName = "newAppBuilder")
-    public App(String appName, String appType){
+    public App(String appName, String appType, String creatorId){
         this.appId = generateNewAppId();
         this.id = appId;
         this.appName = appName;
         this.appType = appType;
+        this.creatorId = creatorId;
         this.isAuthenticated = false;
         this.isEnabled = false;
         this.isEnterprise = false;
@@ -32,11 +34,12 @@ public class App extends AggregateRoot<String> {
 
     @Builder(builderMethodName = "toEntity")
     public App(String appId, String appName, String appType,
-               boolean isAuthenticated, boolean isEnabled, boolean isEnterprise, LocalDateTime registeredDate){
+               boolean isAuthenticated, boolean isEnabled, boolean isEnterprise, LocalDateTime registeredDate, String creatorId){
         this.appId = appId;
         this.id = appId;
         this.appName = appName;
         this.appType = appType;
+        this.creatorId = creatorId;
         this.isAuthenticated = isAuthenticated;
         this.isEnabled = isEnabled;
         this.isEnterprise = isEnterprise;

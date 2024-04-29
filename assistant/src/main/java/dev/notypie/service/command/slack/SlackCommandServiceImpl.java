@@ -11,6 +11,7 @@ import dev.notypie.global.error.exceptions.CommandErrorCodeImpl;
 import dev.notypie.global.error.exceptions.CommandException;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
+import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.*;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.event.AppMentionEvent;
@@ -19,6 +20,7 @@ import dev.notypie.infrastructure.impl.command.slack.event.UrlVerificationEvent;
 import dev.notypie.service.command.CommandService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,7 @@ public class SlackCommandServiceImpl implements CommandService {
 
     private final ObjectMapper objectMapper;
     private final AppRepository appRepository;
+    private final CommandGateway commandGateway;
 
     @Value("${slack.api.channel}")
     private String channel;
@@ -44,10 +47,18 @@ public class SlackCommandServiceImpl implements CommandService {
     @Value("${slack.api.token}")
     private String botToken;
 
+//    @Override
+//    public ResponseEntity<?> executeCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
+//        Command command = this.buildCommand(headers, payload);
+//        return this.executeCommand(command);
+//    }
+
     @Override
     public ResponseEntity<?> executeCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
-        Command command = this.buildCommand(headers, payload);
-        return this.executeCommand(command);
+        String appId = this.resolveAppId(payload);
+        SlackEvent<SlackContext> event = this.parseSlackEventFromRequest(headers, payload);
+        this.commandGateway.send(ExecuteSlackCommand.builder().appId(appId).event(event).build());
+        return null;
     }
 
     @Override
@@ -72,12 +83,6 @@ public class SlackCommandServiceImpl implements CommandService {
         return null;
     }
 
-
-    private SlackEvent<SlackContext> parseSlackEvent(Map<String, List<String>> headers, Map<String, Object> payload){
-        String appId = resolveAppId(payload);
-        App app = this.appRepository.findByAppId(appId);
-        return this.parseSlackEventFromRequest(headers, payload);
-    }
 
     private String resolveAppId(Map<String, Object> payload){
         return Arrays.stream(PayloadKeyNames.values())
