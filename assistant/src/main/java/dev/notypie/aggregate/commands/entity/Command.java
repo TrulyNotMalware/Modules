@@ -1,6 +1,7 @@
 package dev.notypie.aggregate.commands.entity;
 
 
+import dev.notypie.domain.AggregateRoot;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.NonNull;
 
 
 @Getter
-public class Command {
+public class Command extends AggregateRoot<Long> {
 
     @NotNull
     private final Long commandId;
@@ -31,6 +32,7 @@ public class Command {
     public Command(@NonNull String appId, @NonNull String commandType,
                    @NonNull Long publisherId, @NonNull CommandContext commandContext){
         this.commandId = this.generateIdValue();
+        this.id = commandId;
         this.appId = appId;
         this.commandType = commandType;
         this.publisherId = publisherId;

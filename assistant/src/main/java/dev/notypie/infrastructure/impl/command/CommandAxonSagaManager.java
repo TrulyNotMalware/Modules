@@ -1,6 +1,6 @@
 package dev.notypie.infrastructure.impl.command;
 
-import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
+import dev.notypie.infrastructure.impl.command.slack.event.SlackCommandExecuteEvent;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -22,8 +22,9 @@ public class CommandAxonSagaManager {
     }
 
     @StartSaga
-    @SagaEventHandler(associationProperty = "appId")
-    public void on(ExecuteSlackCommand executeSlackCommand){
-        log.info("create Saga instance {}", executeSlackCommand);
+    @SagaEventHandler(associationProperty = "transactionId")
+    public void on(SlackCommandExecuteEvent executeSlackEvent){
+        log.info("create Saga instance {}", executeSlackEvent);
+//        SagaLifecycle.associateWith("ownerId", appAuthorizeEvent.getOwnerId());
     }
 }

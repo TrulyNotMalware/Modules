@@ -5,6 +5,7 @@ import dev.notypie.command.app.AppAuthorizeCommand;
 import dev.notypie.command.app.AppEnableCommand;
 import dev.notypie.event.app.AppAuthorizeEvent;
 import dev.notypie.event.app.AppRegisteredCompletedEvent;
+import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -37,5 +38,10 @@ public class AppAxonCommandHandler {
         apply(AppRegisteredCompletedEvent.builder()
                 .appId(enableCommand.getAppId()).authenticatedDate(LocalDateTime.now())
                 .build());
+    }
+
+    @CommandHandler
+    protected void verifyAppRegistration(ExecuteSlackCommand executeSlackCommand){
+        this.appRepository.findByAppId(executeSlackCommand.getAppId());
     }
 }
