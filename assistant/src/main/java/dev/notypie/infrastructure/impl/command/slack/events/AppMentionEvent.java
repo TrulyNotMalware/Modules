@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.impl.command.slack.event;
+package dev.notypie.infrastructure.impl.command.slack.events;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.slack.api.methods.Methods;

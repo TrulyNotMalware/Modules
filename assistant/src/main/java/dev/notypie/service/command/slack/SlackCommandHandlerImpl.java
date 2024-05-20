@@ -4,7 +4,7 @@ import dev.notypie.infrastructure.impl.command.slack.commands.AppMentionCommand;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackAppMentionContext;
-import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
+import dev.notypie.infrastructure.impl.command.slack.events.SlackEvent;
 import dev.notypie.global.constants.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

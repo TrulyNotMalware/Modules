@@ -5,7 +5,7 @@ import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventResponse;
 import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackEventContents;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
-import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
+import dev.notypie.infrastructure.impl.command.slack.events.SlackEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

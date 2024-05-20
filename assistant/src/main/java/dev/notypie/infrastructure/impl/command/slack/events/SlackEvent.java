@@ -1,4 +1,4 @@
-package dev.notypie.infrastructure.impl.command.slack.event;
+package dev.notypie.infrastructure.impl.command.slack.events;
 
 
 import dev.notypie.aggregate.history.entity.History;

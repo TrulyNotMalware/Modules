@@ -2,8 +2,8 @@ package dev.notypie.service.command.slack;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
-import dev.notypie.infrastructure.impl.command.slack.event.SlackEvent;
-import dev.notypie.infrastructure.impl.command.slack.event.UrlVerificationEvent;
+import dev.notypie.infrastructure.impl.command.slack.events.SlackEvent;
+import dev.notypie.infrastructure.impl.command.slack.events.UrlVerificationEvent;
 import dev.notypie.global.constants.Constants;
 import dev.notypie.global.error.ArgumentError;
 import dev.notypie.global.error.exceptions.SlackDomainException;
