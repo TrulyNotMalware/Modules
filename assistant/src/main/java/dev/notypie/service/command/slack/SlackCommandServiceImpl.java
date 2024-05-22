@@ -11,6 +11,7 @@ import dev.notypie.global.error.exceptions.CommandErrorCodeImpl;
 import dev.notypie.global.error.exceptions.CommandException;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
+import dev.notypie.infrastructure.impl.command.slack.commands.CreateSlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.*;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
@@ -57,7 +58,9 @@ public class SlackCommandServiceImpl implements CommandService {
     public ResponseEntity<?> executeCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
         String appId = this.resolveAppId(payload);
         SlackEvent<SlackContext> event = this.parseSlackEventFromRequest(headers, payload);
-        this.commandGateway.send(ExecuteSlackCommand.builder().appId(appId).event(event).build());
+        String commandId = UUID.randomUUID().toString();
+        this.commandGateway.send(CreateSlackCommand.builder().commandId(UUID.randomUUID().toString()).appId(appId).event(event).build());
+        this.commandGateway.send(ExecuteSlackCommand.builder().commandId(commandId).appId(appId).event(event).build());
         return null;
     }
 

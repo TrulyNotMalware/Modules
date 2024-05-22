@@ -2,6 +2,7 @@ package dev.notypie.infrastructure.impl.command.slack;
 
 import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.events.SlackCommandExecuteEvent;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;

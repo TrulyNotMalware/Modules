@@ -1,19 +1,20 @@
 package dev.notypie.aggregate.commands.entity;
 
 
-import dev.notypie.domain.AggregateRoot;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.UUID;
+
 
 @Getter
-public class Command extends AggregateRoot<Long> {
+public class Command {
 
     @NotNull
-    private final Long commandId;
+    private final String commandId;
 
     @NotBlank
     private final String appId;
@@ -32,7 +33,6 @@ public class Command extends AggregateRoot<Long> {
     public Command(@NonNull String appId, @NonNull String commandType,
                    @NonNull Long publisherId, @NonNull CommandContext commandContext){
         this.commandId = this.generateIdValue();
-        this.id = commandId;
         this.appId = appId;
         this.commandType = commandType;
         this.publisherId = publisherId;
@@ -58,7 +58,7 @@ public class Command extends AggregateRoot<Long> {
         else throw new RuntimeException("Command Verification failed");
     }
 
-    private Long generateIdValue(){
-        return 0L;
+    private String generateIdValue(){
+        return UUID.randomUUID().toString();
     }
 }
