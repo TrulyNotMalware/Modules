@@ -3,11 +3,16 @@ package dev.notypie.aggregate.commands.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
-public abstract class CommandContext {
+public abstract class CommandContext implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 7519510162674808055L;
+
     private final Map<String, List<String>> headers;
     private final Map<String, Object> payload;
 

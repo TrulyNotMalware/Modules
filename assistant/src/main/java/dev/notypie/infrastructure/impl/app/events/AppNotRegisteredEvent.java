@@ -11,6 +11,6 @@ public class AppNotRegisteredEvent {
 
     private final String appId;
     private final String message;
-    private final SlackEvent<SlackContext> origin;
+    private final SlackContext context;
 
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -64,14 +63,14 @@ class SlackCommandHistory {
     @Builder
     SlackCommandHistory(@NotNull String appId, @NotNull String teamId,
                         @NotNull String eventType, @NotNull String channel,
-                        @NotNull String publisher, SlackCommand slackCommand, @NotNull String rawData,
+                        @NotNull String publisher, String command, @NotNull String rawData,
                         int responseStatus){
         this.appId = appId;
         this.teamId = teamId;
         this.eventType = eventType;
         this.channel = channel;
         this.publisher = publisher;
-        this.command = slackCommand.toStringCommand();
+        this.command = command;
         this.rawData = rawData;
         this.responseStatus = responseStatus;
     }

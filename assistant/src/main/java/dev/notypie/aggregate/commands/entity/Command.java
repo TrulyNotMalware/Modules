@@ -19,34 +19,35 @@ public class Command {
     @NotBlank
     private final String appId;
 
+    private final Boolean isAvailable;
+
     @NotBlank
     private final String commandType;
 
     @NotNull
-    private final Long publisherId;
+    private final String publisherId;
 
     @NotNull
     private final CommandContext context;
 
 
     @Builder(builderMethodName = "NewCommand")
-    public Command(@NonNull String appId, @NonNull String commandType,
-                   @NonNull Long publisherId, @NonNull CommandContext commandContext){
+    public Command(String appId, @NonNull String commandType, @NonNull Boolean isAvailable,
+                   @NonNull String publisherId, @NonNull CommandContext commandContext){
         this.commandId = this.generateIdValue();
         this.appId = appId;
         this.commandType = commandType;
+        this.isAvailable = isAvailable;
         this.publisherId = publisherId;
         this.context = commandContext;
     }
 
     public boolean verifyCommand(){
-        this.verifyCommandAuthorization();
-        this.verifyCommandValidate();
-        return true;
+        return this.verifyCommandAuthorization() && this.verifyCommand();
     }
 
-    private void verifyCommandAuthorization(){
-        //FIXME Saga Assignment
+    private boolean verifyCommandAuthorization(){
+        return this.appId != null && !this.appId.isBlank() && this.isAvailable;
     }
 
     private void verifyCommandValidate(){

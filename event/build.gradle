@@ -11,6 +11,6 @@ dependencies{
     api "org.axonframework:axon-spring-boot-starter:${axonVersion}"
 
     // EventStorage - MongoDB
-    implementation "org.springframework.data:spring-data-mongodb"
-    implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonMongoExtensionVersion}"
+//    implementation "org.springframework.data:spring-data-mongodb"
+//    implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonMongoExtensionVersion}"
  }

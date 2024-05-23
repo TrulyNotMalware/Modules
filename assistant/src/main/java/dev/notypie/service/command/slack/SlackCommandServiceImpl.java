@@ -11,8 +11,6 @@ import dev.notypie.global.error.exceptions.CommandErrorCodeImpl;
 import dev.notypie.global.error.exceptions.CommandException;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
-import dev.notypie.infrastructure.impl.command.slack.commands.CreateSlackCommand;
-import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
 import dev.notypie.infrastructure.impl.command.slack.dto.*;
 import dev.notypie.infrastructure.impl.command.slack.contexts.SlackContext;
 import dev.notypie.infrastructure.impl.command.slack.events.AppMentionEvent;
@@ -48,19 +46,10 @@ public class SlackCommandServiceImpl implements CommandService {
     @Value("${slack.api.token}")
     private String botToken;
 
-//    @Override
-//    public ResponseEntity<?> executeCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
-//        Command command = this.buildCommand(headers, payload);
-//        return this.executeCommand(command);
-//    }
-
     @Override
     public ResponseEntity<?> executeCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
-        String appId = this.resolveAppId(payload);
-        SlackEvent<SlackContext> event = this.parseSlackEventFromRequest(headers, payload);
-        String commandId = UUID.randomUUID().toString();
-        this.commandGateway.send(CreateSlackCommand.builder().commandId(UUID.randomUUID().toString()).appId(appId).event(event).build());
-        this.commandGateway.send(ExecuteSlackCommand.builder().commandId(commandId).appId(appId).event(event).build());
+        Command command = this.buildCommand(headers, payload);
+        command.executeCommand();
         return null;
     }
 
@@ -68,14 +57,15 @@ public class SlackCommandServiceImpl implements CommandService {
     public Command buildCommand(Map<String, List<String>> headers, Map<String, Object> payload) {
         String appId = resolveAppId(payload);
         log.info("appId = "+appId);
-        App app = this.appRepository.findByAppId(appId);
-
+        Optional<App> app = this.appRepository.findByAppId(appId);
+        //FIXME change to domain entity called "SlackCommand" or something else.
         SlackEvent<SlackContext> event = this.parseSlackEventFromRequest(headers, payload);
         return Command.NewCommand()
-                .appId(app.getAppId())
+                .appId(app.map(App::getAppId).orElse(null))
+                .isAvailable(app.map(App::isAvailable).orElse(false))
                 .commandType(Constants.SLACK_COMMAND_TYPE)
                 .commandContext(event.getContext())
-                .publisherId(0L)//TEST
+                .publisherId(event.getUserId())
                 .build();
     }
 

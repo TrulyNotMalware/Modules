@@ -4,11 +4,15 @@ import dev.notypie.aggregate.history.entity.History;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 public class SlackTextResponseContext extends SlackContext{
+
+    @Serial
+    private static final long serialVersionUID = 916651599633091913L;
 
     private final String responseText;
     @Builder(builderMethodName = "newContext")

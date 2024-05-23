@@ -14,11 +14,15 @@ import dev.notypie.requester.RestClientRequester;
 import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public abstract class SlackContext extends CommandContext {
+    @Serial
+    private static final long serialVersionUID = 5233110641470512868L;
     /**
      * Reference from Slack Bolt sdk context.
      * The basic slack references
@@ -54,7 +58,7 @@ public abstract class SlackContext extends CommandContext {
         this.restClientRequester = RestClientRequester.builder().baseUrl(baseUrl).build();
     }
 
-    public void broadcastBotResponseToChannel(String message){
+    public ResponseEntity<SlackApiResponse> broadcastBotResponseToChannel(String message){
         SlackChatEventContents chatEvent = SlackChatEventContents.builder()
                 .ok(true)
                 .type(Methods.CHAT_POST_MESSAGE)
@@ -66,6 +70,7 @@ public abstract class SlackContext extends CommandContext {
         ResponseEntity<SlackApiResponse> response = this.restClientRequester.post(Methods.CHAT_POST_MESSAGE, this.botToken, chatEvent.getRequest(), SlackApiResponse.class);
         if( !Objects.requireNonNull(response.getBody()).isOk() )
             throw new SlackDomainException(SlackErrorCodeImpl.NOT_A_VALID_REQUEST, null);
+        return response;
     }
 
     public ResponseEntity<SlackApiResponse> broadcastBotResponseToChannel(SlackEventContents event){

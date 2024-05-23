@@ -8,7 +8,6 @@ import dev.notypie.event.app.AppAuthorizeEvent;
 import dev.notypie.event.app.AppRegisteredCompletedEvent;
 import dev.notypie.infrastructure.impl.app.commands.VerifySlackAppCommand;
 import dev.notypie.infrastructure.impl.app.events.AppNotRegisteredEvent;
-import dev.notypie.infrastructure.impl.command.slack.commands.ExecuteSlackCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -46,10 +45,10 @@ public class AppAxonCommandHandler {
     @CommandHandler
     protected void verifyAppRegistration(VerifySlackAppCommand executeSlackCommand){
         try{
-            App app = this.appRepository.findByAppId(executeSlackCommand.getAppId());
+            App app = this.appRepository.findByAppIdWithException(executeSlackCommand.getAppId());
         } catch(Exception e ){ //FIXME Exception name change.
             apply(AppNotRegisteredEvent.builder().appId(executeSlackCommand.getAppId())
-                    .origin(executeSlackCommand.getEvent()).message("Your app is not registered yet.")
+                    .context(executeSlackCommand.getContext()).message("Your app is not registered yet.")
                     .build());
         }
     }

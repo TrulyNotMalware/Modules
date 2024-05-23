@@ -29,7 +29,6 @@ public class AppMentionEvent extends SlackEvent<SlackContext>{
     private final SlackRequestHeaders slackHeaders;
 
     private final String botId;
-//    private final String userId;
     private final String rawText;
     private final String channel;
     private final String requestType = Constants.APP_MENTION;
@@ -51,6 +50,7 @@ public class AppMentionEvent extends SlackEvent<SlackContext>{
         this.context = this.parseContextFromEvent(event, baseUrl, botToken);
     }
 
+    //FIXME change to domain entity called "SlackCommand" or something else.
     private SlackContext parseContextFromEvent(AppMentionEventType event, String baseUrl, String botToken){
         return event.getBlocks().stream()
                 .filter(block -> !block.getElements().isEmpty()

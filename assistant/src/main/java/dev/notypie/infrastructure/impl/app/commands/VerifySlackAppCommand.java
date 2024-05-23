@@ -12,5 +12,5 @@ public class VerifySlackAppCommand {
     @TargetAggregateIdentifier
     private final String appId;
     private final String creatorId;
-    private final SlackEvent<SlackContext> event;
+    private final SlackContext context;
 }

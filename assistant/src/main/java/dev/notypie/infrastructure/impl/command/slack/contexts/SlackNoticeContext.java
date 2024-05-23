@@ -7,6 +7,7 @@ import dev.notypie.infrastructure.impl.command.slack.dto.SlackChatEventContents;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -14,6 +15,9 @@ import java.util.stream.Collectors;
 
 @Getter
 public class SlackNoticeContext extends SlackContext{
+
+    @Serial
+    private static final long serialVersionUID = -7422279665631066272L;
 
     private final String responseText;
     private final Queue<String> users;

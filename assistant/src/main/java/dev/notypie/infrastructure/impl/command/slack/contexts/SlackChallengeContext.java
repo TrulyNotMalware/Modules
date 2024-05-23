@@ -5,11 +5,15 @@ import dev.notypie.infrastructure.impl.command.slack.dto.UrlVerificationDto;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 public class SlackChallengeContext extends SlackContext {
+
+    @Serial
+    private static final long serialVersionUID = 4835732166326255476L;
 
     private final UrlVerificationDto urlVerificationDto;
 

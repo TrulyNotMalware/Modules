@@ -1,15 +1,17 @@
 package dev.notypie.requester;
 
-import jakarta.annotation.PostConstruct;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
-public class RestClientRequester {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class RestClientRequester implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -6382872408981319845L;
 
     public static final String defaultContentType = "application/json; charset=utf-8";
     private final RestClient restClient;
