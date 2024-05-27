@@ -4,6 +4,7 @@ import com.slack.api.methods.Methods;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import dev.notypie.aggregate.commands.entity.CommandContext;
 import dev.notypie.aggregate.history.entity.History;
+import dev.notypie.global.error.exceptions.CommandException;
 import dev.notypie.global.error.exceptions.SlackDomainException;
 import dev.notypie.global.error.exceptions.SlackErrorCodeImpl;
 import dev.notypie.infrastructure.impl.command.slack.dto.SlackApiResponse;
@@ -88,5 +89,9 @@ public abstract class SlackContext extends CommandContext {
     }
 
     public abstract History buildEventHistory();
-
+    public void sendExceptionResponseToClient(CommandException commandException){
+        this.broadcastBotResponseToChannel(
+                "[Error] "+ commandException.getErrorMessage()
+        );
+    }
 }

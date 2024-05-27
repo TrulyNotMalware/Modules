@@ -72,7 +72,7 @@ public class SlackCommandServiceImpl implements CommandService {
     @Override
     public ResponseEntity<?> executeCommand(Command command) {
         log.info("execute command"+command.getContext());
-        command.getContext().executeCommand();
+        command.executeCommand();
         return null;
     }
 

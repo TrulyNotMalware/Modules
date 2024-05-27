@@ -24,4 +24,8 @@ public class CommandException extends RuntimeException{
         this.errorCode = errorCode;
         this.detail = null;
     }
+
+    public String getErrorMessage(){
+        return this.errorCode.getMessage();
+    }
 }

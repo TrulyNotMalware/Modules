@@ -1,6 +1,8 @@
 package dev.notypie.aggregate.commands.entity;
 
 
+import dev.notypie.global.error.exceptions.CommandErrorCodeImpl;
+import dev.notypie.global.error.exceptions.CommandException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -56,7 +58,10 @@ public class Command {
 
     public void executeCommand(){
         if(this.verifyCommand()) this.context.executeCommand();
-        else throw new RuntimeException("Command Verification failed");
+//        else throw new RuntimeException("Command Verification failed");
+        else {
+            this.context.sendExceptionResponseToClient(new CommandException(CommandErrorCodeImpl.COMMAND_VERIFICATION_FAILED));
+        }
     }
 
     private String generateIdValue(){

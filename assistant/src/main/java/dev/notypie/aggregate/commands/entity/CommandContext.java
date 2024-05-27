@@ -1,7 +1,7 @@
 package dev.notypie.aggregate.commands.entity;
 
+import dev.notypie.global.error.exceptions.CommandException;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -41,4 +41,5 @@ public abstract class CommandContext implements Serializable {
 
     public abstract void executeCommand();
     public abstract void validateCommand();
+    public abstract void sendExceptionResponseToClient(CommandException commandException);
 }
