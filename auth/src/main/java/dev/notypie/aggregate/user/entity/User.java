@@ -27,7 +27,7 @@ public class User extends AggregateRoot<Long> {
 
     private User(@NotBlank String userId, @NotBlank String userName, @NotBlank String password,
                 @Email String email, @NotBlank String phoneNumber){
-//        this.id = 0L;
+        this.id = 0L;
         this.userId = userId;
         this.email = email;
         this.userInformation = MutableUserInformation.builder()
@@ -42,7 +42,7 @@ public class User extends AggregateRoot<Long> {
             @NotNull Long id, @NotBlank String userId, @Email String email,
             @NotNull MutableUserInformation userInformation
                  ){
-//        this.id = id;
+        this.id = id;
         this.userId = userId;
         this.email = email;
         this.userInformation = userInformation;
@@ -50,7 +50,7 @@ public class User extends AggregateRoot<Long> {
     }
 
     private User(UserRegisterDto userRegisterDto){
-//        this.id = 0L;
+        this.id = 0L;
         this.userId = userRegisterDto.getUserId();
         this.email = userRegisterDto.getEmail();
         this.userInformation = MutableUserInformation.builder()
