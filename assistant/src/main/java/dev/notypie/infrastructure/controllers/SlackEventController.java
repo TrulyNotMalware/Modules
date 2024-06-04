@@ -1,7 +1,5 @@
 package dev.notypie.infrastructure.controllers;
 
-
-import dev.notypie.aggregate.commands.entity.Command;
 import dev.notypie.global.constants.Constants;
 import dev.notypie.service.command.CommandService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +29,6 @@ public class SlackEventController {
             @RequestHeader MultiValueMap<String, String> headers,
             @RequestBody Map<String, Object> payload
     ){
-        Command slackCommand = this.service.buildCommand(headers, payload);
-        return this.service.executeCommand(slackCommand);
+        return this.service.executeCommand(headers, payload);
     }
 }

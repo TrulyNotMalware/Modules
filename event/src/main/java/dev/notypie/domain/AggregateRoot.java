@@ -7,12 +7,11 @@ import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.function.Supplier;
 
-@Aggregate
-@NoArgsConstructor
+//@Aggregate
+//@NoArgsConstructor
 @Getter
 public abstract class AggregateRoot<ID> {
 
-    @AggregateIdentifier
     public ID id;
 
 

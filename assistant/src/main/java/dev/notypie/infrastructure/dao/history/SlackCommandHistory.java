@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import dev.notypie.infrastructure.impl.command.slack.commands.SlackCommand;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -46,9 +45,11 @@ class SlackCommandHistory {
     @NotNull
     private String command;
 
-    @Column(name = "data", columnDefinition = "TEXT")
+    //RESERVED_WORDS in Oracle Database
+    @Lob
+    @Column(name = "raw_data")
     @NotNull
-    private String data;
+    private String rawData;
 
     @Column(name = "response_status")
     private int responseStatus;
@@ -62,15 +63,15 @@ class SlackCommandHistory {
     @Builder
     SlackCommandHistory(@NotNull String appId, @NotNull String teamId,
                         @NotNull String eventType, @NotNull String channel,
-                        @NotNull String publisher, SlackCommand slackCommand, @NotNull String data,
+                        @NotNull String publisher, String command, @NotNull String rawData,
                         int responseStatus){
         this.appId = appId;
         this.teamId = teamId;
         this.eventType = eventType;
         this.channel = channel;
         this.publisher = publisher;
-        this.command = slackCommand.toStringCommand();
-        this.data = data;
+        this.command = command;
+        this.rawData = rawData;
         this.responseStatus = responseStatus;
     }
 

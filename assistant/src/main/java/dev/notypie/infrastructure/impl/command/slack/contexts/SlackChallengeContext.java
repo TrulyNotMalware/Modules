@@ -1,18 +1,19 @@
-package dev.notypie.infrastructure.impl.command.slack.dto.contexts;
+package dev.notypie.infrastructure.impl.command.slack.contexts;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import dev.notypie.aggregate.history.entity.History;
 import dev.notypie.infrastructure.impl.command.slack.dto.UrlVerificationDto;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 public class SlackChallengeContext extends SlackContext {
+
+    @Serial
+    private static final long serialVersionUID = 4835732166326255476L;
 
     private final UrlVerificationDto urlVerificationDto;
 

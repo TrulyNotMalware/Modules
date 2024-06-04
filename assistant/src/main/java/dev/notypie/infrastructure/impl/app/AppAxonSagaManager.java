@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Slf4j
 @Saga
 @NoArgsConstructor
-//@RequiredArgsConstructor
 public class AppAxonSagaManager {
 
     //must create by NoArgsConstructor.
