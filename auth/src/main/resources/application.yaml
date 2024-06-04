@@ -1,8 +1,8 @@
 spring:
   profiles:
     group:
-      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster"
-      "dev": "default-base, hikari-default-config, dev-oracle-database, jpaPersistent, core-redis-cluster, axon-kafka-settings"
+      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster, axon-settings"
+      "dev": "default-base, hikari-default-config, dev-oracle-database, jpaPersistent, core-redis-cluster, axon-settings"
       "local": "default-base, hikari-default-config, h2-local-database, core-redis-embedded"
       "jwt": "jwt-configuration"
       "oauth-client": "oauth"
@@ -262,7 +262,7 @@ spring:
             authorization-grant-type: authorization_code
             scope: message.read, message.write
             client-authentication-method: client_secret_basic
-#            client-authentication-method: client_secret_post
+        #            client-authentication-method: client_secret_post
         provider:
           myService:
             authorization-uri: https://auth.notypie.dev/oauth2/authorize
@@ -294,42 +294,21 @@ core:
 spring:
   config:
     activate:
-      on-profile: axon-kafka-settings
+      on-profile: axon-settings
 
   data:
     mongodb:
-      uri: mongodb://${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE_NAME}
+      uri: ${MONGODB_URI}
 
-# https://docs.axoniq.io/reference-guide/extensions/kafka
 axon:
   serializer:
     general: jackson
     events: jackson
     messages: jackson
-  # Disable AxonServer. Use Apache Kafka & MongoDB
+  # MongoDB with AxonServer.
   axonserver:
-    enabled: false
-  kafka:
-    bootstrap-servers: ${KAFKA_BROKER_STRING}
-    client-id: ${AXON_CLIENT_ID}
-    default-topic: "events"
-    properties:
-      security.protocol: PLAINTEXT
-
-    publisher:
-      confirmation-mode: transactional
-    fetcher:
-      poll-timeout: 3000
-    producer:
-      transaction-id-prefix: ${AXON_TRANSACTION_ID_PREFIX}
-      retries: 5
-#      event-processor-mode: tracking
-
-    consumer:
-      event-processor-mode: tracking
-      auto-commit-interval:
-  #      enable-auto-commit: true
-  #      auto-commit-interval: 3000
+    servers: ${AXON_SERVER_URLS}
+    token: ${AXON_ACCESS_TOKEN}
 
   mongo:
     database-name: ${AXON_DATASTORE_NAME}

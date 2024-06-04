@@ -9,4 +9,5 @@ import java.util.Map;
 public interface CommandService {
     Command buildCommand(Map<String, List<String>> headers, Map<String, Object> payload);
     ResponseEntity<?> executeCommand(Command command);
+    ResponseEntity<?> executeCommand(Map<String, List<String>> headers, Map<String, Object> payload);
 }

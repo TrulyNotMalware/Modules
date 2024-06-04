@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -34,11 +35,13 @@ class EventHistory {
     @NotNull
     private String eventType;
 
-    @Column(name = "source")
+    //RESERVED_WORDS in Oracle Database
+    @Column(name = "src")
     @NotNull
-    private String source;
+    private String src;
 
-    @Column(name = "raw_data", columnDefinition = "TEXT")
+    @Lob
+    @Column(name = "raw_data")
     private String rawData;
 
     @CreatedDate
@@ -50,13 +53,13 @@ class EventHistory {
     @Builder
     EventHistory(@NotNull String eventId, @NotNull String requestAppId,
                  @NotNull String publisher, @NotNull String eventType,
-                 @NotNull String source, @NotNull String rawData
+                 @NotNull String src, @NotNull String rawData
     ){
         this.eventId = eventId;
         this.requestAppId = requestAppId;
         this.publisher = publisher;
         this.eventType = eventType;
-        this.source = source;
+        this.src = src;
         this.rawData = rawData;
     }
 }
