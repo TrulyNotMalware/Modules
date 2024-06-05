@@ -37,8 +37,8 @@ If you want to execute the module, it requires additional configurations to run.
 4. [*Resource Server*](https://github.com/TrulyNotMalware/Modules/blob/main/resourceServer/README.md) : OAuth Resource Server application.
 
 
-*Service Application*
-1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : Development helper service. Implement services collaboration such as slack bots, scheduling and build pipeline.
+*EDA & EventSourcing*
+1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : Implements event sourcing & useful eda components.
 
 ### Spring Webflux
 *Basic*
@@ -93,8 +93,8 @@ For more information, see README for each module.
 3. [*OAuth*](https://github.com/TrulyNotMalware/Modules/blob/main/oauthServer/README.md) : JPA를 사용한 OAuth [인가 서버](https://docs.spring.io/spring-authorization-server/docs/current/reference/html/index.html) 어플리케이션
 4. [*Resource Server*](https://github.com/TrulyNotMalware/Modules/blob/main/resourceServer/README.md) : OAuth 리소스 서버 어플리케이션.
 
-*Service Application*
-1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : 개발 도우미 서비스입니다. 슬랙 봇, 스케쥴링 및 빌드툴 등 협업에 관한 서비스를 구현합니다.
+*EDA & EventSourcing*
+1. [*Assistant*](https://github.com/TrulyNotMalware/Modules/blob/main/assistant/README.md) : 이벤트 소싱과 EDA 를 위한 모듈.
 
 ### Spring Webflux
 *Basic*
