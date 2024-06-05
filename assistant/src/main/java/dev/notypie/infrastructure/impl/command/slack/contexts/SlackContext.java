@@ -84,6 +84,10 @@ public abstract class SlackContext extends CommandContext {
         }else throw new RuntimeException("Broadcast type must be chat.postMessage");
     }
 
+//    public ResponseEntity<SlackApiResponse> broadcastBotModalResponseToChannel(){
+//        ChatPostMessageRequest.builder().blocks()
+//    }
+
     public SlackRequestHeaders getSlackHeaders() {
         return new SlackRequestHeaders(super.getHeaders());
     }

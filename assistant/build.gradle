@@ -1,5 +1,5 @@
 ext{
-    slackApiVersion = "1.36.1"
+    slackApiVersion = "1.39.3"
 }
 dependencies{
     implementation project(':core')

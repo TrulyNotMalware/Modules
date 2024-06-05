@@ -40,6 +40,6 @@ public abstract class CommandContext implements Serializable {
     }
 
     public abstract void executeCommand();
-    public abstract void validateCommand();
+    public abstract boolean validateCommand();
     public abstract void sendExceptionResponseToClient(CommandException commandException);
 }

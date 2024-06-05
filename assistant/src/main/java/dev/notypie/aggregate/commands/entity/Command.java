@@ -45,20 +45,19 @@ public class Command {
     }
 
     public boolean verifyCommand(){
-        return this.verifyCommandAuthorization() && this.verifyCommand();
+        return this.verifyCommandAuthorization() && this.verifyCommandValidate();
     }
 
     private boolean verifyCommandAuthorization(){
         return this.appId != null && !this.appId.isBlank() && this.isAvailable;
     }
 
-    private void verifyCommandValidate(){
-        this.context.validateCommand();
+    private boolean verifyCommandValidate(){
+        return this.context.validateCommand();
     }
 
     public void executeCommand(){
         if(this.verifyCommand()) this.context.executeCommand();
-//        else throw new RuntimeException("Command Verification failed");
         else {
             this.context.sendExceptionResponseToClient(new CommandException(CommandErrorCodeImpl.COMMAND_VERIFICATION_FAILED));
         }

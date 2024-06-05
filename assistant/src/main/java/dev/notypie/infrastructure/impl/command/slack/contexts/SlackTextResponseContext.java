@@ -27,8 +27,8 @@ public class SlackTextResponseContext extends SlackContext{
     }
 
     @Override
-    public void validateCommand() {
-
+    public boolean validateCommand() {
+        return true;
     }
 
     @Override
