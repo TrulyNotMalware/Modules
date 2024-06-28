@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
+@Deprecated( forRemoval = true )
 public class Authorization {
     @JsonProperty("enterprise_id")
     private String enterpriseId;

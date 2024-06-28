@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
+@Deprecated( forRemoval = true )
 public enum PayloadKeyNames {
     API_APP_ID(Constants.SLACK_REQUEST_KEY_NAME);
 

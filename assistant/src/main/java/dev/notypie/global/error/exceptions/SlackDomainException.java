@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.io.Serial;
 import java.util.List;
 
-
+@Deprecated( forRemoval = true )
 public class SlackDomainException extends RuntimeException{
     @Serial
     private static final long serialVersionUID = 1753611672196255362L;

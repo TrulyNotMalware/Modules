@@ -2,6 +2,7 @@ package dev.notypie.infrastructure.impl.command.slack.dto;
 
 import java.util.*;
 
+@Deprecated( forRemoval = true )
 public class SlackRequestHeaders {
     /**
      * Reference from Slack-sdk RequestHeaders.

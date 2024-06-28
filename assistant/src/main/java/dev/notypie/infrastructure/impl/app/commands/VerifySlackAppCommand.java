@@ -8,6 +8,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Builder
 @Getter
+@Deprecated( forRemoval = true )
 public class VerifySlackAppCommand {
     @TargetAggregateIdentifier
     private final String appId;

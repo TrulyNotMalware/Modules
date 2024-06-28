@@ -31,6 +31,7 @@ import java.util.*;
 @Service
 @Qualifier(Constants.SLACK_COMMAND_SERVICE)
 @RequiredArgsConstructor
+@Deprecated( forRemoval = true )
 public class SlackCommandServiceImpl implements CommandService {
 
     private final ObjectMapper objectMapper;

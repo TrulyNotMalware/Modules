@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Deprecated( forRemoval = true )
 public class SlackTextResponseContext extends SlackContext{
 
     @Serial

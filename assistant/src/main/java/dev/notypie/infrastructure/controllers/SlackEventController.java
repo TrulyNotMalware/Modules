@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/slack")
 @RequiredArgsConstructor
+@Deprecated( forRemoval = true )
 public class SlackEventController {
 
     @Qualifier(Constants.SLACK_COMMAND_SERVICE)

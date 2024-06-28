@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Deprecated( forRemoval = true )
 public class SlackApiMessage {
     @JsonProperty("bot_id")
     private String botId;

@@ -8,6 +8,7 @@ import java.util.Map;
 
 @Getter
 @SuperBuilder
+@Deprecated( forRemoval = true )
 public abstract class SlackEventContents {
     /**
      * Reference from Slack API Response.

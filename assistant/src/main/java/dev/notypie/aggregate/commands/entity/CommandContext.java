@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
+@Deprecated( forRemoval = true )
 public abstract class CommandContext implements Serializable {
     @Serial
     private static final long serialVersionUID = 7519510162674808055L;

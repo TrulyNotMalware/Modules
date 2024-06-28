@@ -8,6 +8,7 @@ import java.util.Map;
 
 @Getter
 @Builder
+@Deprecated( forRemoval = true )
 public class BotProfile {
 
     @JsonProperty("id")

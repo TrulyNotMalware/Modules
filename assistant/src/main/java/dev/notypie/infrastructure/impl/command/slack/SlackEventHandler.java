@@ -26,6 +26,7 @@ import static dev.notypie.requester.RestClientRequester.defaultContentType;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Deprecated( forRemoval = true )
 public class SlackEventHandler implements EventHandler<SlackEventContents, SlackEventResponse> {
 
     @Value("${core.requester.config.baseUrl:}")

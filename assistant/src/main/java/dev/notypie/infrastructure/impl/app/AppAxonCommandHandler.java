@@ -43,6 +43,7 @@ public class AppAxonCommandHandler {
     }
 
     @CommandHandler
+    @Deprecated( forRemoval = true )
     protected void verifyAppRegistration(VerifySlackAppCommand executeSlackCommand){
         try{
             App app = this.appRepository.findByAppIdWithException(executeSlackCommand.getAppId());

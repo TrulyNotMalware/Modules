@@ -14,6 +14,7 @@ import java.util.Queue;
 import java.util.stream.Collectors;
 
 @Getter
+@Deprecated( forRemoval = true )
 public class SlackNoticeContext extends SlackContext{
 
     @Serial

@@ -13,6 +13,7 @@ import java.util.UUID;
 
 
 @Getter
+@Deprecated( forRemoval = true )
 public class Command {
 
     @NotNull

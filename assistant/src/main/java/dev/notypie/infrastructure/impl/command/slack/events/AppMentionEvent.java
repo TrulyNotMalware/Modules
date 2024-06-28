@@ -23,6 +23,7 @@ import static dev.notypie.global.constants.Constants.ELEMENT_TYPE_TEXT_SECTION;
 
 @Slf4j
 @Getter
+@Deprecated( forRemoval = true )
 public class AppMentionEvent extends SlackEvent<SlackContext>{
 
     private final SlackContext context;

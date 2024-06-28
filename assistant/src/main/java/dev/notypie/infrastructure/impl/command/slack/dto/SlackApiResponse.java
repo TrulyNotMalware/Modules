@@ -6,6 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
+@Deprecated( forRemoval = true )
 public class SlackApiResponse {
 
     @JsonProperty("ok")

@@ -17,6 +17,7 @@ import java.util.Map;
 
 @Slf4j
 @Getter
+@Deprecated( forRemoval = true )
 public class UrlVerificationEvent extends SlackEvent<SlackContext> {
 
     private final SlackRequestHeaders requestHeaders;

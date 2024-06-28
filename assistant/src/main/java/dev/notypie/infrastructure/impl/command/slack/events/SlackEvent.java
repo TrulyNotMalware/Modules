@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Deprecated( forRemoval = true )
 public abstract class SlackEvent<Context extends SlackContext> {
 
     public Map<String, List<String>> headers;

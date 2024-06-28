@@ -6,6 +6,7 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
+@Deprecated( forRemoval = true )
 public class SlackChatEventContents extends SlackEventContents{
 
     private ChatPostMessageRequest request;

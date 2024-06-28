@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
+@Deprecated( forRemoval = true )
 public class Block {
 
     @JsonProperty("type")

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
+@Deprecated( forRemoval = true )
 public class SlackChallengeContext extends SlackContext {
 
     @Serial

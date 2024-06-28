@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated( forRemoval = true )
+
 public interface CommandBuilder {
 
     boolean isSupport(String appType);

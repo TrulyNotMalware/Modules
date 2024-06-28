@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
+@Deprecated( forRemoval = true )
 public class UrlVerificationDto {
     @JsonProperty("type")
     @NotNull

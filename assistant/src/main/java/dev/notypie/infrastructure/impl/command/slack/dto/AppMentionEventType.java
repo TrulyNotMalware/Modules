@@ -8,6 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
+@Deprecated( forRemoval = true )
 public class AppMentionEventType {
 
     /**

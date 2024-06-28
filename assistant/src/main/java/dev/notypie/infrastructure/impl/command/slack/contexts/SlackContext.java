@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Deprecated( forRemoval = true )
 public abstract class SlackContext extends CommandContext {
     @Serial
     private static final long serialVersionUID = 5233110641470512868L;
