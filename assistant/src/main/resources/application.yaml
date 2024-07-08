@@ -2,10 +2,10 @@ spring:
   profiles:
     group:
       "local": "core-redis-embedded, default-base, hikari-default-config, h2-local-database, settings"
-      "dev": "core-redis-cluster, default-base, hikari-default-config, h2-local-database, settings, axon-settings"
-      "slack-service": "slack, slack-bolt"
+      "dev": "core-redis-cluster, default-base, hikari-default-config, dev-oracle-database, settings, axon-settings"
+      #      "prod": "core-redis-cluster, default-base, hikari-default-config, prod-oracle-database, settings, axon-settings"
 
-    active: dev, slack-service
+    active: dev
 ---
 server:
   port: 9898
@@ -45,10 +45,6 @@ info:
   java:
     version: ${java.version}
 
-core:
-  requester:
-    config:
-      baseUrl: "https://slack.com/api/" # Slack Requester BaseURL
 ---
 spring:
   config:
@@ -119,20 +115,7 @@ logging:
       hibernate:
         type:
           descriptor:
-            sql: trace
----
-spring:
-  config:
-    activate:
-      on-profile: "slack"
-
-slack:
-  api:
-    token: ${API_TOKEN_VALUE}
-    channel: ${BOT_CHANNEL_NAME}
-    signingSecret: ${SIGNING_SECRET_VALUE}
-  app:
-    token: ${APP_TOKEN}
+            sql: debug
 ---
 spring:
   config:
@@ -180,7 +163,6 @@ spring:
     mongodb:
       uri: ${MONGODB_URI}
 
-# https://docs.axoniq.io/reference-guide/extensions/kafka
 axon:
   serializer:
     general: jackson
