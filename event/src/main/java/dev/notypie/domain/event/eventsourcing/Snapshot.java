@@ -1,8 +1,5 @@
 package dev.notypie.domain.event.eventsourcing;
 
-import lombok.Getter;
-
-@Getter
 public record Snapshot<S>(String streamId, long version, S state) {
     static <S> Snapshot<S> seed(String streamId, S seed) {
         return new Snapshot<>(streamId, 0, seed);
