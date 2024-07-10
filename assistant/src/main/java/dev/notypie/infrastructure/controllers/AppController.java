@@ -1,8 +1,8 @@
 package dev.notypie.infrastructure.controllers;
 
-import dev.notypie.aggregate.app.dto.AppRegisterDto;
-import dev.notypie.aggregate.app.dto.AppResponseDto;
-import dev.notypie.aggregate.app.dto.EnableAppDto;
+import dev.notypie.domain.app.dto.AppRegisterDto;
+import dev.notypie.domain.app.dto.AppResponseDto;
+import dev.notypie.domain.app.dto.EnableAppDto;
 import dev.notypie.service.app.AppService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

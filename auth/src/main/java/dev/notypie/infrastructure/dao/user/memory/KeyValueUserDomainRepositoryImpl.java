@@ -1,7 +1,7 @@
 package dev.notypie.infrastructure.dao.user.memory;
 
-import dev.notypie.aggregate.user.entity.User;
-import dev.notypie.aggregate.user.repository.UserDomainRepository;
+import dev.notypie.domain.user.entity.User;
+import dev.notypie.domain.user.repository.UserDomainRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

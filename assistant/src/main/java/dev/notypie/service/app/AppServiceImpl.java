@@ -1,11 +1,11 @@
 package dev.notypie.service.app;
 
 
-import dev.notypie.aggregate.app.dto.AppRegisterDto;
-import dev.notypie.aggregate.app.dto.AppResponseDto;
-import dev.notypie.aggregate.app.dto.EnableAppDto;
-import dev.notypie.aggregate.app.entity.App;
-import dev.notypie.aggregate.app.repository.AppRepository;
+import dev.notypie.domain.app.dto.AppRegisterDto;
+import dev.notypie.domain.app.dto.AppResponseDto;
+import dev.notypie.domain.app.dto.EnableAppDto;
+import dev.notypie.domain.app.entity.App;
+import dev.notypie.domain.app.repository.AppRepository;
 import dev.notypie.command.app.AppAuthorizeCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

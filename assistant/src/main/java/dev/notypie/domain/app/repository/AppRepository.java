@@ -1,0 +1,12 @@
+package dev.notypie.domain.app.repository;
+
+import dev.notypie.domain.app.entity.App;
+
+import java.util.Optional;
+
+public interface AppRepository {
+
+    App findByAppIdWithException(String appId);
+    Optional<App> findByAppId(String appId);
+    App save(App app);
+}

@@ -1,8 +1,8 @@
 package dev.notypie.service.app;
 
-import dev.notypie.aggregate.app.dto.AppRegisterDto;
-import dev.notypie.aggregate.app.dto.AppResponseDto;
-import dev.notypie.aggregate.app.dto.EnableAppDto;
+import dev.notypie.domain.app.dto.AppRegisterDto;
+import dev.notypie.domain.app.dto.AppResponseDto;
+import dev.notypie.domain.app.dto.EnableAppDto;
 
 public interface AppService {
 

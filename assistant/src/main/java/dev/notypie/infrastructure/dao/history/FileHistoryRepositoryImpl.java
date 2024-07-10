@@ -1,7 +1,7 @@
 package dev.notypie.infrastructure.dao.history;
 
-import dev.notypie.aggregate.history.entity.History;
-import dev.notypie.aggregate.history.repository.HistoryRepository;
+import dev.notypie.domain.history.entity.History;
+import dev.notypie.domain.history.repository.HistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

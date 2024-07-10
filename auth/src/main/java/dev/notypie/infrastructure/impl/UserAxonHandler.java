@@ -1,7 +1,7 @@
 package dev.notypie.infrastructure.impl;
 
-import dev.notypie.aggregate.user.entity.User;
-import dev.notypie.aggregate.user.repository.UserDomainRepository;
+import dev.notypie.domain.user.entity.User;
+import dev.notypie.domain.user.repository.UserDomainRepository;
 import dev.notypie.command.user.UserRoleCheckCommand;
 import dev.notypie.event.auth.UnknownUserDetectedEvent;
 import dev.notypie.event.auth.UserInsufficientPrivilegesEvent;

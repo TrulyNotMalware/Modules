@@ -1,7 +1,7 @@
 package dev.notypie.infrastructure.dao.app.file;
 
-import dev.notypie.aggregate.app.entity.App;
-import dev.notypie.aggregate.app.repository.AppRepository;
+import dev.notypie.domain.app.entity.App;
+import dev.notypie.domain.app.repository.AppRepository;
 
 import java.util.Optional;
 

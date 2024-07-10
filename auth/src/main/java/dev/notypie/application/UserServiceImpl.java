@@ -1,7 +1,7 @@
 package dev.notypie.application;
 
-import dev.notypie.aggregate.user.entity.User;
-import dev.notypie.aggregate.user.repository.UserDomainRepository;
+import dev.notypie.domain.user.entity.User;
+import dev.notypie.domain.user.repository.UserDomainRepository;
 import dev.notypie.dto.UserRegisterDto;
 import dev.notypie.jwt.dto.UserDto;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,6 @@
 package dev.notypie.infrastructure.impl.app;
 
-import dev.notypie.aggregate.app.entity.App;
-import dev.notypie.aggregate.app.repository.AppRepository;
+import dev.notypie.domain.app.repository.AppRepository;
 import dev.notypie.command.app.AppAuthorizeCommand;
 import dev.notypie.command.app.AppEnableCommand;
 import dev.notypie.event.app.AppAuthorizeEvent;

@@ -1,8 +1,8 @@
 package dev.notypie.infrastructure.dao.user.jpa;
 
 
-import dev.notypie.aggregate.user.entity.MutableUserInformation;
-import dev.notypie.aggregate.user.entity.User;
+import dev.notypie.domain.user.entity.MutableUserInformation;
+import dev.notypie.domain.user.entity.User;
 import dev.notypie.domain.Address;
 import dev.notypie.domain.Converter;
 import dev.notypie.domain.Users;

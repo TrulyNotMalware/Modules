@@ -1,14 +1,9 @@
 package dev.notypie.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.function.Supplier;
 
-//@Aggregate
-//@NoArgsConstructor
 @Getter
 public abstract class AggregateRoot<ID> {
 

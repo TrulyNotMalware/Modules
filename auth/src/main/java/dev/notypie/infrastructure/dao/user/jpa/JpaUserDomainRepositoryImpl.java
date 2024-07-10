@@ -1,7 +1,7 @@
 package dev.notypie.infrastructure.dao.user.jpa;
 
-import dev.notypie.aggregate.user.entity.User;
-import dev.notypie.aggregate.user.repository.UserDomainRepository;
+import dev.notypie.domain.user.entity.User;
+import dev.notypie.domain.user.repository.UserDomainRepository;
 import dev.notypie.dao.UsersRepository;
 import dev.notypie.domain.Converter;
 import dev.notypie.domain.Users;
