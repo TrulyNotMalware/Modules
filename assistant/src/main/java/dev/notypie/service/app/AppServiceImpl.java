@@ -6,10 +6,8 @@ import dev.notypie.domain.app.dto.AppResponseDto;
 import dev.notypie.domain.app.dto.EnableAppDto;
 import dev.notypie.domain.app.entity.App;
 import dev.notypie.domain.app.repository.AppRepository;
-import dev.notypie.command.app.AppAuthorizeCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AppServiceImpl implements AppService{
 
-    private final CommandGateway commandGateway;
     private final AppRepository appRepository;
 
     @Override
@@ -31,9 +28,8 @@ public class AppServiceImpl implements AppService{
     }
 
     @Override
+    @Deprecated
     public void enableApplication(EnableAppDto enableAppDto) {
-        this.commandGateway.send(AppAuthorizeCommand.builder()
-                .appId(enableAppDto.getAppId()).creatorId(enableAppDto.getCreatorId())
-                .build());
+
     }
 }

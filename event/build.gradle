@@ -7,10 +7,6 @@ ext{
 }
 
 dependencies{
-    // Axon frameworks
-    api "org.axonframework:axon-spring-boot-starter:${axonVersion}"
-
-    // EventStorage - MongoDB
-//    implementation "org.springframework.data:spring-data-mongodb"
-//    implementation "org.axonframework.extensions.mongo:axon-mongo-spring-boot-starter:${axonMongoExtensionVersion}"
+    //EventStore - EventStoreDB, Client java
+    implementation 'com.eventstore:db-client-java:5.4.1'
  }

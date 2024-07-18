@@ -2,9 +2,9 @@ package dev.notypie.domain.app.entity;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 public class App {
@@ -50,6 +50,7 @@ public class App {
     }
 
     private String generateNewAppId(){
-        return "app"+RandomStringUtils.randomAlphanumeric(30);
+        return "app"+ UUID.randomUUID();
+//        return "app"+RandomStringUtils.randomAlphanumeric(30);
     }
 }

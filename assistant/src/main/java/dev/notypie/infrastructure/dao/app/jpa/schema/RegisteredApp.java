@@ -13,8 +13,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.axonframework.modelling.command.AggregateIdentifier;
-import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -23,11 +21,9 @@ import java.time.LocalDateTime;
 @Slf4j
 @Entity
 @Getter
-@Aggregate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RegisteredApp { //State Store Aggregate
 
-    @AggregateIdentifier
     @Id
     private String appId;
 
