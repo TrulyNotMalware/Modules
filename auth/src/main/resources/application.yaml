@@ -1,8 +1,8 @@
 spring:
   profiles:
     group:
-      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster, axon-settings"
-      "dev": "default-base, hikari-default-config, dev-oracle-database, jpaPersistent, core-redis-cluster, axon-settings"
+      "prod": "prod-base, hikari-prod-config, prod-oracle-database, jpaPersistent, core-redis-cluster"
+      "dev": "default-base, hikari-default-config, dev-oracle-database, jpaPersistent, core-redis-cluster"
       "local": "default-base, hikari-default-config, h2-local-database, core-redis-embedded"
       "jwt": "jwt-configuration"
       "oauth-client": "oauth"
@@ -290,31 +290,3 @@ core:
   embedded:
     redis:
       port: 6379
----
-spring:
-  config:
-    activate:
-      on-profile: axon-settings
-
-  data:
-    mongodb:
-      uri: ${MONGODB_URI}
-
-axon:
-  serializer:
-    general: jackson
-    events: jackson
-    messages: jackson
-  # MongoDB with AxonServer.
-  axonserver:
-    servers: ${AXON_SERVER_URLS}
-    token: ${AXON_ACCESS_TOKEN}
-
-  mongo:
-    database-name: ${AXON_DATASTORE_NAME}
-    token-store:
-      enabled: true
-    saga-store:
-      enabled: true
-    event-store:
-      enabled: true
